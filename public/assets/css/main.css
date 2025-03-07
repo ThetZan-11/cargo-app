@@ -1,0 +1,330 @@
+/* Common CSS */
+:root {
+    --background-color: #3a506b;
+    --text-color: #343a40;
+    --sec-color: #ccd5ae;
+    --third-color: #d4a373;
+    --green: #ccd5ae;
+    --global-font: "Poppins", sans-serif;
+}
+
+/* Scroll */
+html::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--background-color);
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--text-color);
+    border-radius: 10px;
+}
+
+/* Global CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: var(--global-font);
+    font-size: var(--default-fs);
+    color: var(--text-color);
+    text-decoration: none;
+    list-style-type: none;
+}
+
+body {
+    font-family: var(--global-font);
+    background: var(--background-color);
+    color: var(--text-color);
+    overflow-y: scroll;
+}
+
+ul {
+    list-style: none;
+}
+
+
+/* Content Style */
+.content {
+    margin-top: 68px;
+    margin-left: 0;
+    transition: all 0.3s ease-in-out;
+    padding: 10px 30px;
+    min-height: 93vh;
+}
+
+.content.active {
+    margin-left: 250px;
+}
+
+/* Push the footer to the bottom */
+.sidebar-footer {
+    margin-top: auto;
+    padding: 0 20px;
+    background-color: var(--background-color);
+}
+
+.menu-btn {
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--text-color);
+    padding: 5px;
+}
+
+.menu-btn:hover {
+    color: var(--hover-color);
+}
+
+/* Header Noti Menu */
+.notiMenu {
+    width: 350px;
+    max-height: 300px !important;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.notiMenu::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        left: -250px;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .content.active {
+        margin-left: 0;
+    }
+}
+
+/* login  */
+.login-container{
+    height: 100vh;
+    width: 100%;
+}
+.login-card{
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px 3px #1e1e1e57;
+}
+.login-card h1{
+    font-size: 30px;
+    font-weight: 700;
+}
+.login-input{
+    padding: 5px 0px;
+}
+.btn-cargo{
+    background-color: var(--background-color);
+    color: #fff;
+    font-size: 20px;
+}
+
+/* dropdown */
+.dropdown-menu {
+    background: var(--white-color);
+}
+
+.dropdown-menu a {
+    color: var(--text-color);
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+/* Card */
+.card {
+    color: var(--text-color);
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px #8d8d8d26, 0 3px 6px #0000001a;
+}
+
+/* Datatable CSS */
+mark {
+    background: yellow;
+    padding: 0px;
+}
+
+.paginate_button {
+    padding: 5px 10px;
+    background-color: rgba(128, 128, 128, 0.101);
+    border-radius: 4px;
+    margin: 0 4px;
+    cursor: pointer;
+}
+
+.paginate_button.previous,
+.paginate_button.next {
+    background: none;
+}
+
+.paginate_button {
+    padding: 5px;
+}
+
+#customerTable_info {
+    text-align: center;
+    color: #ccc;
+    margin-bottom: 0.5rem;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+    line-height: 1.08em;
+}
+
+.paginate_button.current {
+    background-color: var(--sec-theme-color);
+    color: #fff;
+    width: 40px;
+}
+
+#datatable_filter input {
+    padding: 5px 10px !important;
+    border-radius: 8px !important;
+    border: 1px solid #e0e0e0 !important;
+    outline: none;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+#datatable_filter input:focus {
+    outline: 2px solid var(--sec-theme-color) !important;
+}
+
+#datatable_filter input:active {
+    outline: 2px solid var(--sec-theme-color) !important;
+}
+
+#datatable_length select {
+    padding: 5px 10px !important;
+    border-radius: 8px !important;
+    border: 1px solid #e0e0e0 !important;
+    outline: none;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* ========================== Dark Mode Styles ========================== */
+body.dark-mode .navbar {
+    background-color: var(--white-color);
+    color: var(--text-color);
+}
+
+body.dark-mode .sidebar {
+    background-color: var(--white-color);
+    color: var(--text-color);
+}
+
+body.dark-mode .sidebar a {
+    color: var(--text-color);
+}
+
+body.dark-mode .card {
+    background: #ffffff1a;
+    color: var(--text-color);
+    backdrop-filter: blur(4px);
+    border: 1px solid #ffffff4d;
+}
+
+body.dark-mode .sidebar-footer {
+    background-color: gray;
+    color: var(--text-color);
+}
+
+.sidebar-footer .dropdown-menu li.active {
+    background: var(--theme-color);
+}
+
+.sidebar-footer .dropdown-menu li.active a {
+    color: #fff;
+}
+
+.sidebar-footer .dropdown-menu li:hover a {
+    background: var(--theme-color);
+    color: var(--white-color);
+}
+
+body.dark-mode .sidebar-footer .dropdown-menu li:hover a {
+    background: var(--theme-color);
+    color: var(--text-color);
+}
+
+body.dark-mode button {
+    color: var(--text-color);
+}
+
+/* Dark mode styles for DataTable */
+body.dark-mode .table {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .table thead {
+    background-color: #333 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .table tbody tr {
+    background-color: #2a2a2a !important;
+}
+
+body.dark-mode .table tbody tr:nth-child(even) {
+    background-color: #252525 !important;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th {
+    border-color: #444 !important;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+body.dark-mode .table tbody tr:hover {
+    background-color: #444 !important;
+}
+
+body.dark-mode .dropdown-menu {
+    border: 1px solid #7a7a7a;
+}
+
+/* Loading */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a0a0a060;
+    flex-direction: column;
+    display: none;
+    overflow: hidden;
+    user-select: none;
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 24px;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
