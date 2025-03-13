@@ -75,37 +75,6 @@ ul {
     color: var(--hover-color);
 }
 
-/* Header Noti Menu */
-.notiMenu {
-    width: 350px;
-    max-height: 300px !important;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.notiMenu::-webkit-scrollbar {
-    display: none;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        left: -250px;
-    }
-
-    .sidebar.active {
-        left: 0;
-    }
-
-    .content {
-        margin-left: 0;
-    }
-
-    .content.active {
-        margin-left: 0;
-    }
-}
-
 /* login  */
 .login-container{
     height: 100vh;
@@ -130,18 +99,6 @@ ul {
     font-size: 20px;
 }
 
-/* dropdown */
-.dropdown-menu {
-    background: var(--white-color);
-}
-
-.dropdown-menu a {
-    color: var(--text-color);
-}
-
-.dropdown-item {
-    cursor: pointer;
-}
 
 /* Card */
 .card {
@@ -219,112 +176,4 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     outline: none;
     background-color: var(--background-color);
     color: var(--text-color);
-}
-
-/* ========================== Dark Mode Styles ========================== */
-body.dark-mode .navbar {
-    background-color: var(--white-color);
-    color: var(--text-color);
-}
-
-body.dark-mode .sidebar {
-    background-color: var(--white-color);
-    color: var(--text-color);
-}
-
-body.dark-mode .sidebar a {
-    color: var(--text-color);
-}
-
-body.dark-mode .card {
-    background: #ffffff1a;
-    color: var(--text-color);
-    backdrop-filter: blur(4px);
-    border: 1px solid #ffffff4d;
-}
-
-body.dark-mode .sidebar-footer {
-    background-color: gray;
-    color: var(--text-color);
-}
-
-.sidebar-footer .dropdown-menu li.active {
-    background: var(--theme-color);
-}
-
-.sidebar-footer .dropdown-menu li.active a {
-    color: #fff;
-}
-
-.sidebar-footer .dropdown-menu li:hover a {
-    background: var(--theme-color);
-    color: var(--white-color);
-}
-
-body.dark-mode .sidebar-footer .dropdown-menu li:hover a {
-    background: var(--theme-color);
-    color: var(--text-color);
-}
-
-body.dark-mode button {
-    color: var(--text-color);
-}
-
-/* Dark mode styles for DataTable */
-body.dark-mode .table {
-    background-color: #1e1e1e !important;
-    color: #e0e0e0 !important;
-}
-
-body.dark-mode .table thead {
-    background-color: #333 !important;
-    color: #ffffff !important;
-}
-
-body.dark-mode .table tbody tr {
-    background-color: #2a2a2a !important;
-}
-
-body.dark-mode .table tbody tr:nth-child(even) {
-    background-color: #252525 !important;
-}
-
-body.dark-mode .table td,
-body.dark-mode .table th {
-    border-color: #444 !important;
-    color: var(--text-color);
-    background-color: var(--background-color);
-}
-
-body.dark-mode .table tbody tr:hover {
-    background-color: #444 !important;
-}
-
-body.dark-mode .dropdown-menu {
-    border: 1px solid #7a7a7a;
-}
-
-/* Loading */
-.loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 100000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #a0a0a060;
-    flex-direction: column;
-    display: none;
-    overflow: hidden;
-    user-select: none;
-}
-
-.loading-text {
-    margin-top: 20px;
-    font-size: 24px;
-    color: var(--text-color);
-    margin-bottom: 10px;
 }

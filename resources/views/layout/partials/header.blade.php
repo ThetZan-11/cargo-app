@@ -19,10 +19,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.dataTables.min.css') }}">
     <!-- Sweet Alert 2 -->
     <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
-    <!-- Ping code -->
-    <link rel="stylesheet" href="{{ asset('assets/css/ping-code.css') }}">
-    <!-- Flag Icon -->
-    <link rel="stylesheet" href="{{ asset('assets/css/flag-icon.min.css') }}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     @yield('styles')
