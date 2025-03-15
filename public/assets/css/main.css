@@ -1,21 +1,24 @@
 /* Common CSS */
 :root {
     --background-color: #3a506b;
+    --background-color: #ccd5ae;
     --text-color: #343a40;
     --sec-color: #ccd5ae;
     --third-color: #d4a373;
     --green: #ccd5ae;
     --global-font: "Poppins", sans-serif;
+    --default-fs: 20px;
+    --transition-speed: 0.3s;
 }
 
 /* Scroll */
 html::-webkit-scrollbar {
     width: 8px;
-    background-color: var(--background-color);
+    background-color: var(--third-color);
 }
 
 html::-webkit-scrollbar-thumb {
-    background: var(--text-color);
+    background: var(--third-color);
     border-radius: 10px;
 }
 
@@ -27,7 +30,7 @@ html::-webkit-scrollbar-thumb {
     scroll-behavior: smooth;
     font-family: var(--global-font);
     font-size: var(--default-fs);
-    color: var(--text-color);
+    color: var(--sec-color);
     text-decoration: none;
     list-style-type: none;
 }
@@ -36,13 +39,88 @@ body {
     font-family: var(--global-font);
     background: var(--background-color);
     color: var(--text-color);
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 ul {
     list-style: none;
 }
 
+nav {
+    width: 100%;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: var(--text-color);
+    position: fixed;
+    top: 30;
+    left: -250px; /* Hidden by default */
+    transition: left var(--transition-speed) ease-in-out;
+    overflow-x: hidden;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.active {
+    left: 0; /* Slide-in effect */
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: var(--sidebar-text);
+}
+
+.sidebar-header h2 {
+    margin: 0;
+}
+
+#toggle-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--sidebar-text);
+    cursor: pointer;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    padding: 15px 20px;
+}
+
+.sidebar-menu li a {
+    color: var(--sidebar-text);
+    text-decoration: none;
+    display: block;
+    transition: var(--transition-speed);
+}
+
+.sidebar-menu li a:hover {
+    background: var(--sidebar-hover);
+    border-radius: 5px;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left var(--transition-speed);
+}
+
+/* When sidebar opens, push content */
+.sidebar.active + .main-content {
+    margin-left: 250px;
+}
 
 /* Content Style */
 .content {
@@ -76,29 +154,28 @@ ul {
 }
 
 /* login  */
-.login-container{
+.login-container {
     height: 100vh;
     width: 100%;
 }
-.login-card{
+.login-card {
     padding: 30px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 2px 2px 3px 3px #1e1e1e57;
 }
-.login-card h1{
+.login-card h1 {
     font-size: 30px;
     font-weight: 700;
 }
-.login-input{
+.login-input {
     padding: 5px 0px;
 }
-.btn-cargo{
+.btn-cargo {
     background-color: var(--background-color);
     color: #fff;
     font-size: 20px;
 }
-
 
 /* Card */
 .card {
@@ -141,8 +218,8 @@ mark {
     margin-bottom: 0.5rem;
 }
 
-table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
-table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
     line-height: 1.08em;
 }
 
@@ -176,4 +253,20 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     outline: none;
     background-color: var(--background-color);
     color: var(--text-color);
+}
+
+/* Responsive: Sidebar collapses on smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 250px;
+        left: -250px;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .sidebar.active + .main-content {
+        margin-left: 0;
+    }
 }

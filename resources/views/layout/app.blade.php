@@ -7,7 +7,7 @@
 @include('layout.partials.nav')
 @include('layout.partials.aside')
 
-<div class="">
+<div class="container-fluid" id="main-content">
     @yield('content')
 </div>
 {{-- @else
