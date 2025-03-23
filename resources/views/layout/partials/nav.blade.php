@@ -1,12 +1,13 @@
 <!-- Navbar-->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark style="width: 100%">
+<nav class="navbar navbar-expand-lg" style="background-color: #dfdf34;">
     <div class="container-fluid justify-content-between align-items-center">
         <!-- Left elements -->
         <div class="d-flex">
             <!-- Brand -->
             <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
-                <h4>JUE Air Cargo</h4>
+                <img src="{{ asset('assets/img/juu.png') }}" alt="JUU Air Cargo"
+                    style="width: 100px; height:100px; border-radius:50%;" />
             </a>
             <button id="toggle-btn">
                 <i class="fa-solid fa-bars"></i>

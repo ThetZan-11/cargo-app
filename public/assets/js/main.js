@@ -41,7 +41,6 @@ $(document).ready(function () {
     });
 
     $("#toggle-btn").click(function () {
-        console.log($("#main-content"));
         $(".sidebar").toggleClass("active");
         $("#main-content").toggleClass("active");
     });

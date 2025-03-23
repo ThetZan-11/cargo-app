@@ -1,7 +1,7 @@
 /* Common CSS */
 :root {
     --background-color: #3a506b;
-    --background-color: #ccd5ae;
+    /* --background-color: #ccd5ae; */
     --text-color: #343a40;
     --sec-color: #ccd5ae;
     --third-color: #d4a373;
@@ -30,15 +30,12 @@ html::-webkit-scrollbar-thumb {
     scroll-behavior: smooth;
     font-family: var(--global-font);
     font-size: var(--default-fs);
-    color: var(--sec-color);
     text-decoration: none;
     list-style-type: none;
 }
 
 body {
     font-family: var(--global-font);
-    background: var(--background-color);
-    color: var(--text-color);
     overflow-y: auto;
 }
 
@@ -48,43 +45,30 @@ ul {
 
 nav {
     width: 100%;
+    color: #fff !important;
 }
 
 /* Sidebar Styles */
 .sidebar {
     width: 250px;
     height: 100vh;
-    background: var(--text-color);
+    background: var(--background-color);
     position: fixed;
     top: 30;
-    left: -250px; /* Hidden by default */
+    left: -250px;
     transition: left var(--transition-speed) ease-in-out;
     overflow-x: hidden;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar.active {
-    left: 0; /* Slide-in effect */
-}
-
-/* Sidebar Header */
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    color: var(--sidebar-text);
-}
-
-.sidebar-header h2 {
-    margin: 0;
+    left: 0;
 }
 
 #toggle-btn {
     background: none;
     border: none;
     font-size: 24px;
-    color: var(--sidebar-text);
     cursor: pointer;
 }
 
@@ -94,21 +78,28 @@ nav {
     padding: 0;
 }
 
-.sidebar-menu li {
-    padding: 15px 20px;
+.sidebar-menu-item{
+    padding: 10px 20px;
+    margin: 10px 0px;
+    border-bottom: 2px solid #fff;
+    cursor: pointer;
+    transition: var(--transition-speed) ease-in-out;
 }
 
-.sidebar-menu li a {
-    color: var(--sidebar-text);
-    text-decoration: none;
-    display: block;
-    transition: var(--transition-speed);
+.sidebar-menu-item:hover {
+    background-color: #dfdf34;
+    /* border-bottom: 2px solid #fff; */
 }
 
-.sidebar-menu li a:hover {
-    background: var(--sidebar-hover);
-    border-radius: 5px;
+.sidebar-menu-item a, #side-icon{
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
 }
+#side-icon{
+    margin-right: 30px;
+}
+
 
 /* Main Content */
 .main-content {

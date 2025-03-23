@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,5 @@ Route::get('/', [AuthController::class, 'index'])->name('login');
 
 // Admin
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
+// Route::get('/customers', [Customer::class, 'create'])->name('customers.create');
