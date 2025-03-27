@@ -58,11 +58,12 @@ nav {
     left: -250px;
     transition: left var(--transition-speed) ease-in-out;
     overflow-x: hidden;
-    box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
 }
 
 .sidebar.active {
     left: 0;
+    box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, 0.3);
 }
 
 #toggle-btn {

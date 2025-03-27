@@ -13,7 +13,6 @@
     <script type="text/javascript" src="{{ asset('assets/js/twitter-bootstrap/bootstrap.min.js') }}"></script>
     <!-- Custom JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/data.js') }}"></script>
 
     @yield('scripts')
     </body>

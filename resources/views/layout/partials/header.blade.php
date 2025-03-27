@@ -21,9 +21,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-    @yield('styles')
+
     <!-- Jquery -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    @yield('styles')
 </head>
 
 <body>
