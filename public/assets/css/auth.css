@@ -1,0 +1,32 @@
+.auth-content {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.auth-content .card {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+}
+
+.auth-content .card-body {
+    padding: 2.5rem;
+}
+
+.auth-content h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.auth-content .form-outline {
+    margin-bottom: 1.5rem;
+}
+
+.auth-content .btn-primary {
+    padding: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}

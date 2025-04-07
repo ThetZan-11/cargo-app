@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +16,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AuthController::class, 'index'])->name('login');
+// Guest Routes (Unauthenticated)
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+});
 
-// Admin
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
-Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
-Route::post('/customer/store', [CustomerController::class, 'store'])->name('customer.store');
+// Authenticated Routes
+Route::middleware(['auth'])->group(function () {
+    // Logout Route
+    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Customer Management
+    Route::prefix('customers')->group(function () {
+        Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
+        Route::post('/data', [CustomerController::class, 'getData'])->name('customer.data');
+        Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
+        Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
+    });
+});

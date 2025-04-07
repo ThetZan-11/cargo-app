@@ -16,13 +16,21 @@
         <!-- Left elements -->
 
         <!-- Right elements -->
-        <ul class="navbar-nav flex-row">
+        <ul class="navbar-nav flex-row align-items-center">
             <li class="nav-item me-3 me-lg-1">
                 <a class="nav-link d-sm-flex align-items-sm-center" href="#">
                     <img src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp" class="rounded-circle" height="22"
                         alt="Black and White Portrait of a Man" loading="lazy" />
-                    <strong class="d-none d-sm-block ms-1">John</strong>
+                    {{-- <strong class="d-none d-sm-block ms-1">{{ Auth::user()->name }}</strong> --}}
                 </a>
+            </li>
+            <li class="nav-item">
+                <form action="{{ route('auth.logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-link nav-link text-dark" data-mdb-ripple-init>
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </form>
             </li>
         </ul>
         <!-- Right elements -->

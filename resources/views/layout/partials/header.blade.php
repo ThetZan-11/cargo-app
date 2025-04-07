@@ -13,14 +13,13 @@
     <!-- MDB -->
     <link href="{{ asset('assets/MDB5/css/mdb.min.css') }}" rel="stylesheet" />
     <!-- Datatable -->
-    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap5.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/buttons.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/responsive.dataTables.min.css') }}">
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" rel="stylesheet">
     <!-- Sweet Alert 2 -->
     <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
 
     <!-- Jquery -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

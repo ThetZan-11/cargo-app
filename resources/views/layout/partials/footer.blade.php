@@ -1,9 +1,9 @@
     <!-- MDB -->
     <script src="{{ asset('assets/MDB5/js/mdb.umd.min.js') }}"></script>
     <!-- Datatable -->
-    <script src="{{ asset('assets/js/datatable.min.js') }}"></script>
-    <script src="{{ asset('assets/js/datatables.mark.js') }}"></script>
-    <script src="{{ asset('assets/js/mark.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <!-- Sweet Alert 2 -->
     <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
     <!-- Ping Code -->
