@@ -18,11 +18,11 @@
         <!-- Right elements -->
         <ul class="navbar-nav flex-row align-items-center">
             <li class="nav-item me-3 me-lg-1">
-                <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+                {{-- <a class="nav-link d-sm-flex align-items-sm-center" href="#">
                     <img src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp" class="rounded-circle" height="22"
-                        alt="Black and White Portrait of a Man" loading="lazy" />
-                    {{-- <strong class="d-none d-sm-block ms-1">{{ Auth::user()->name }}</strong> --}}
-                </a>
+                        alt="Black and White Portrait of a Man" loading="lazy" /> --}}
+                {{-- <strong class="d-none d-sm-block ms-1">{{ Auth::user()->name }}</strong> --}}
+                {{-- </a> --}}
             </li>
             <li class="nav-item">
                 <form action="{{ route('auth.logout') }}" method="POST" class="d-inline">

@@ -24,15 +24,15 @@ class CustomerController extends Controller
             })
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
-                $edit_icon = '<button type="button" class="btn btn-primary btn-sm edit-btn" title="Edit"
+                $edit_icon = '<button type="button" class="btn btn-edit btn-sm edit-btn" title="Edit"
                 data-id="' . $id . '" data-mdb-ripple-init data-mdb-modal-init
                 data-mdb-target="#editModal">
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>';
-                $delete_icon = '<button type="button" class="btn btn-danger btn-sm delete-btn" data-id="' . $id . '" title="Delete">
+                $delete_icon = '<button type="button" class="btn btn-delete btn-sm delete-btn" data-id="' . $id . '" title="Delete">
                     <i class="fa-solid fa-trash"></i>
                 </button>';
-                return '<div class="d-flex gap-2">' . $edit_icon . $delete_icon . '</div>';
+                return '<div class="action-buttons">' . $edit_icon . $delete_icon . '</div>';
             })
             ->rawColumns(['action'])
             ->make(true);

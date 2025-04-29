@@ -13,19 +13,30 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="text-center mb-4">Login</h2>
-                        <form id="login-form">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                {{ $errors->first() }}
+                            </div>
+                        @endif
+
+                        <form action="{{ route('auth.login') }}" method="POST" id="login-form" novalidate>
                             @csrf
                             <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="email" id="email" name="email" class="form-control" required />
+                                <input type="text" id="email" name="email" class="form-control" required />
                                 <label class="form-label" for="email">Email address</label>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
 
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <input type="password" id="password" name="password" class="form-control" required />
                                 <label class="form-label" for="password">Password</label>
+                                <div class="invalid-feedback">Password is required.</div>
                             </div>
 
-                            <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                            <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">
+                                Sign in
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -33,46 +44,174 @@
         </div>
     </div>
 @endsection
-
 @section('scripts')
-<script>
-    $(document).ready(function() {
-        $('#login-form').on('submit', function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('auth.login') }}",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if (response.status) {
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: response.message,
-                            showConfirmButton: false,
-                            timer: 1500,
-                            fadeIn: 1000,
-                        }).then(() => {
-                            window.location.href = response.redirect;
-                        });
+    <script>
+        $(document).ready(function() {
+            const form = document.getElementById('login-form');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+
+            // Email validation function
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            // Form validation function
+            function validateForm() {
+                let isValid = true;
+
+                // Validate email
+                if (!emailInput.value) {
+                    emailInput.classList.add('is-invalid');
+                    emailInput.nextElementSibling.nextElementSibling.textContent = 'Email is required.';
+                    isValid = false;
+                } else if (!isValidEmail(emailInput.value)) {
+                    emailInput.classList.add('is-invalid');
+                    emailInput.nextElementSibling.nextElementSibling.textContent =
+                        'Please enter a valid email address.';
+                    isValid = false;
+                } else {
+                    emailInput.classList.remove('is-invalid');
+                    emailInput.classList.add('is-valid');
+                }
+
+                // Validate password
+                if (!passwordInput.value) {
+                    passwordInput.classList.add('is-invalid');
+                    passwordInput.nextElementSibling.nextElementSibling.textContent = 'Password is required.';
+                    isValid = false;
+                } else if (passwordInput.value.length < 6) {
+                    passwordInput.classList.add('is-invalid');
+                    passwordInput.nextElementSibling.nextElementSibling.textContent =
+                        'Password must be at least 6 characters.';
+                    isValid = false;
+                } else {
+                    passwordInput.classList.remove('is-invalid');
+                    passwordInput.classList.add('is-valid');
+                }
+
+                return isValid;
+            }
+
+            // Real-time validation on input
+            emailInput.addEventListener('input', function() {
+                if (this.value) {
+                    if (isValidEmail(this.value)) {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    } else {
+                        this.classList.remove('is-valid');
+                        this.classList.add('is-invalid');
+                        this.nextElementSibling.nextElementSibling.textContent =
+                            'Please enter a valid email address.';
                     }
-                },
-                error: function(xhr) {
-                    Swal.fire({
-                        position: "center",
-                        icon: "error",
-                        title: xhr.responseJSON.message,
-                        showConfirmButton: false,
-                        timer: 1500,
-                        fadeIn: 1000,
-                    });
+                } else {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                    this.nextElementSibling.nextElementSibling.textContent = 'Email is required.';
                 }
             });
+
+            passwordInput.addEventListener('input', function() {
+                if (this.value) {
+                    if (this.value.length >= 6) {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    } else {
+                        this.classList.remove('is-valid');
+                        this.classList.add('is-invalid');
+                        this.nextElementSibling.nextElementSibling.textContent =
+                            'Password must be at least 6 characters.';
+                    }
+                } else {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                    this.nextElementSibling.nextElementSibling.textContent = 'Password is required.';
+                }
+            });
+
+            // Form submit handler
+            form.addEventListener('submit', function(event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            });
+
+            // Clear validation on focus
+            const inputs = [emailInput, passwordInput];
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.classList.remove('is-invalid', 'is-valid');
+                });
+            });
         });
-    });
-</script>
+    </script>
 @endsection
+
+{{-- @section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#login-form').on('submit', function(e) {
+                e.preventDefault();
+                var form = $(this);
+                var submitBtn = form.find('button[type="submit"]');
+
+                // Reset any previous errors
+                $('.is-invalid').removeClass('is-invalid');
+                $('.invalid-feedback').empty();
+
+                // Disable submit button
+                submitBtn.prop('disabled', true);
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('auth.login') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status) {
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            }).then(() => {
+                                window.location.href = response.redirect;
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        submitBtn.prop('disabled', false);
+
+                        if (xhr.status === 422) {
+                            // Validation errors
+                            var errors = xhr.responseJSON.errors;
+                            $.each(errors, function(field, messages) {
+                                var input = $('#' + field);
+                                input.addClass('is-invalid');
+                                $('#' + field + '-error').text(messages[0]);
+                            });
+                        } else {
+                            // Other errors
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: xhr.responseJSON.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+@endsection --}}

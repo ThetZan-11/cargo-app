@@ -31,7 +31,7 @@
                             </div>
                             <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Save</button>
                         </form>
-                        {!! JsValidator::formRequest('App\Http\Requests\CustomerCreateRequest', '#customer-form') !!}
+                        {{-- {!! JsValidator::formRequest('App\Http\Requests\CustomerCreateRequest', '#customer-form') !!} --}}
                     </div>
                 </div>
             </div>
@@ -61,11 +61,11 @@
                                 timer: 1500,
                                 fadeIn: 1000,
                             });
-                            // window.location.href = "{{ route('customer.index') }}";
+                            window.location.href = "{{ route('customer.index') }}";
                         } else {
                             Swal.fire({
                                 position: "center",
-                                icon: "error",
+                                icon: "success",
                                 title: response.message,
                                 showConfirmButton: false,
                                 timer: 1500,
