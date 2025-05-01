@@ -13,8 +13,12 @@
     <!-- MDB -->
     <link href="{{ asset('assets/MDB5/css/mdb.min.css') }}" rel="stylesheet" />
     <!-- Datatable -->
-    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+    <!-- Responsive CSS -->
+
+    {{-- <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" rel="stylesheet"> --}}
     <!-- Sweet Alert 2 -->
     <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
     <!-- Custom CSS -->
@@ -22,7 +26,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
 
     <!-- Jquery -->
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     @yield('styles')
 </head>
 

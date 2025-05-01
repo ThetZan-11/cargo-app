@@ -62,4 +62,20 @@ class CustomerController extends Controller
             return response()->json(['status' => false, 'error' => $e], 500);
         }
     }
+
+    public function delete($id)
+    {
+        if (request()->ajax()) {
+            try {
+                DB::beginTransaction();
+                $customer = Customer::findOrFail($id);
+                $customer->delete();
+                DB::commit();
+                return response()->json(['status' => true, 'message' => 'Customer deleted successfully']);
+            } catch (\Throwable $e) {
+                DB::rollback();
+                return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+            }
+        }
+    }
 }

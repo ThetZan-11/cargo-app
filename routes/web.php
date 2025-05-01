@@ -36,5 +36,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/data', [CustomerController::class, 'getData'])->name('customer.data');
         Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
         Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
+        Route::post('/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
     });
 });

@@ -31,7 +31,6 @@
                             </div>
                             <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Save</button>
                         </form>
-                        {{-- {!! JsValidator::formRequest('App\Http\Requests\CustomerCreateRequest', '#customer-form') !!} --}}
                     </div>
                 </div>
             </div>
@@ -42,7 +41,6 @@
     <script>
         $(document).ready(function() {
             $('#customer-form').on('submit', function(e) {
-                console.log("submit form");
                 e.preventDefault();
                 var formData = new FormData(this);
                 $.ajax({
