@@ -1,9 +1,9 @@
-<div class="modal fade modal-lg" id="createCustomerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade modal-lg" id="editCustomerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create Customer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
                 <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -16,23 +16,27 @@
                                     <form id="customer-form">
                                         @csrf
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="text" id="name" name="name" class="form-control" />
+                                            <input type="text" id="edit_name" name="edit_name"
+                                                class="form-control" />
                                             <label class="form-label" for="name">Name</label>
                                         </div>
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="email" id="email" name="email" class="form-control" />
+                                            <input type="email" id="edit_email" name="edit_email"
+                                                class="form-control" />
                                             <label class="form-label" for="email">Email address</label>
                                         </div>
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="text" id="phone" name="phone" class="form-control" />
+                                            <input type="text" id="edit_phone" name="edit_phone"
+                                                class="form-control" />
                                             <label class="form-label" for="phone">Phone</label>
                                         </div>
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <input type="text" id="phone2" name="phone2" class="form-control" />
+                                            <input type="text" id="edit_phone2" name="edit_phone2"
+                                                class="form-control" />
                                             <label class="form-label" for="phone2">Phone 2</label>
                                         </div>
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <textarea class="form-control" id="address" name="address" rows="4"></textarea>
+                                            <textarea class="form-control" id="edit_address" name="edit_address" rows="4"></textarea>
                                             <label class="form-label" for="address">Address</label>
                                         </div>
                                 </div>

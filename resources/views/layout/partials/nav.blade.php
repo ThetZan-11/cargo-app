@@ -6,8 +6,7 @@
         <div class="d-flex">
             <!-- Brand -->
             <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
-                <img src="{{ asset('assets/img/juu.png') }}" alt="JUU Air Cargo"
-                    style="width: 100px; height:100px; border-radius:50%;" />
+                <img src="{{ asset('assets/img/juu.png') }}" alt="JUU Air Cargo" style="width: 70px; height:70px;" />
             </a>
             <button id="toggle-btn">
                 <i class="fa-solid fa-bars"></i>

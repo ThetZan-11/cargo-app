@@ -1,21 +1,23 @@
 @extends('layout.app')
 @section('title', 'Customers')
 
-@section('styles')
-    <!-- DataTables CSS -->
-    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" rel="stylesheet">
-@endsection
-
 @section('content')
     <div class="container-fluid px-4">
         <div class="page-title">
             <h1>Customer List</h1>
-            <a href="{{ route('customer.create') }}" class="btn btn-primary" data-mdb-ripple-init>
+            {{-- <a href="{{ route('customer.create') }}" class="btn btn-primary" data-mdb-ripple-init>
                 <i class="fa-solid fa-plus me-2"></i>Add Customer
-            </a>
+            </a> --}}
+            <button type="button" class="btn btn-primary" data-mdb-ripple-init data-mdb-modal-init
+                data-mdb-target="#createCustomerModal">
+                <i class="fa-solid fa-plus me-2"></i>Add Customer
+            </button>
         </div>
-
+        {{-- Customer Modal --}}
+        @include('customer.create')
+        {{-- Edit Customer Modal --}}
+        @include('customer.edit')
+        {{-- Customer List Table --}}
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -41,11 +43,6 @@
 @endsection
 
 @section('scripts')
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -109,6 +106,53 @@
                 order: [
                     [1, 'desc']
                 ]
+            });
+
+
+            // Handle Create Customer Form Submission
+            $('#customer-form').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('customer.store') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status == 200) {
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        var errors = xhr.responseJSON.errors;
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: errors,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            fadeIn: 1000,
+                        });
+                    }
+                });
             });
 
             // Handle Delete Button Click

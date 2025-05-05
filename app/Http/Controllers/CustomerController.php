@@ -26,7 +26,7 @@ class CustomerController extends Controller
                 $id = base64_encode($row->id);
                 $edit_icon = '<button type="button" class="btn btn-edit btn-sm edit-btn" title="Edit"
                 data-id="' . $id . '" data-mdb-ripple-init data-mdb-modal-init
-                data-mdb-target="#editModal">
+                data-mdb-target="#editCustomerModal" data-mdb-toggle="modal">
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>';
                 $delete_icon = '<button type="button" class="btn btn-delete btn-sm delete-btn" data-id="' . $id . '" title="Delete">
