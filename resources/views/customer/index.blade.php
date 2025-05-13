@@ -5,9 +5,6 @@
     <div class="container-fluid px-4">
         <div class="page-title">
             <h1>Customer List</h1>
-            {{-- <a href="{{ route('customer.create') }}" class="btn btn-primary" data-mdb-ripple-init>
-                <i class="fa-solid fa-plus me-2"></i>Add Customer
-            </a> --}}
             <button type="button" class="btn btn-primary" data-mdb-ripple-init data-mdb-modal-init
                 data-mdb-target="#createCustomerModal">
                 <i class="fa-solid fa-plus me-2"></i>Add Customer
@@ -120,7 +117,7 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        if (response.status == 200) {
+                        if (response.status == true) {
                             Swal.fire({
                                 position: "center",
                                 icon: "success",
@@ -139,6 +136,8 @@
                                 fadeIn: 1000,
                             });
                         }
+                        $('#createCustomerModal').modal('hide');
+                        $('#customer-form')[0].reset();
                         table.ajax.reload();
                     },
                     error: function(xhr, status, error) {
@@ -157,7 +156,7 @@
 
             // Handle Delete Button Click
             $(document).on('click', '.delete-btn', function() {
-                let id = atob($(this).data('id'));
+                let id = $(this).data('id');
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -219,7 +218,40 @@
 
             // Handle Edit Button Click
             $(document).on('click', '.edit-btn', function() {
-                var id = atob($(this).data('id'));
+                var id = $(this).data('id');
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('customer.getDataEdit', '') }}/" + id,
+                    success: function(response) {
+                        if (response.status) {
+                            $('#editCustomerModal').modal('show');
+                            $('#edit_name').val(response.data.name);
+                            $('#edit_email').val(response.data.email);
+                            $('#edit_phone').val(response.data.phone);
+                            $('#edit_phone2').val(response.data.phone2);
+                            $('#edit_address').val(response.data.address);
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "Failed to fetch customer data",
+                            showConfirmButton: false,
+                            timer: 1500,
+                            fadeIn: 1000,
+                        });
+                    }
+                });
             });
         });
     </script>

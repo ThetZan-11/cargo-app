@@ -37,5 +37,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
         Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
         Route::post('/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
+        Route::get('/getDataEdit/{id}', [CustomerController::class, 'getDataEdit'])->name('customer.getDataEdit');
     });
 });

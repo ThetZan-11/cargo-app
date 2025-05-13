@@ -59,7 +59,7 @@ class CustomerController extends Controller
             return response()->json(['status' => true, 'message' => 'Customer created successfully']);
         } catch (\Throwable $e) {
             DB::rollback();
-            return response()->json(['status' => false, 'error' => $e], 500);
+            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -68,7 +68,7 @@ class CustomerController extends Controller
         if (request()->ajax()) {
             try {
                 DB::beginTransaction();
-                $customer = Customer::findOrFail($id);
+                $customer = Customer::findOrFail(base64_decode($id));
                 $customer->delete();
                 DB::commit();
                 return response()->json(['status' => true, 'message' => 'Customer deleted successfully']);
@@ -76,6 +76,14 @@ class CustomerController extends Controller
                 DB::rollback();
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
             }
+        }
+    }
+
+    public function getDataEdit($id)
+    {
+        if (request()->ajax()) {
+            $customer = Customer::findOrFail(base64_decode($id));
+            return response()->json(['status' => true, 'data' => $customer]);
         }
     }
 }
