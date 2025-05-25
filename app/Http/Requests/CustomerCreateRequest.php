@@ -23,10 +23,10 @@ class CustomerCreateRequest extends FormRequest
     {
         return [
             'name'      => 'required|string|max:100',
-            'email'     => 'required|email|max:200|unique:customers,email',
+            'email'     => 'nullable|email|max:200',
             'phone'     => 'required|string|max:11',
             'phone2'    => 'string|max:11',
-            'address'   => 'nullable|string|max:200',
+            'address'   => 'required|string|max:200',
         ];
     }
 
@@ -34,8 +34,13 @@ class CustomerCreateRequest extends FormRequest
     {
         return [
             'name.required'     => 'Name is required',
-            'email.required'    => 'Email is required',
+            'name.max'          => 'Name must be less than 100 characters',
             'phone.required'    => 'Phone is required',
+            'phone.max'         => 'Phone must be less than 11 characters',
+            'phone2.max'        => 'Phone 2 must be less than 11 characters',
+            'email.email'       => 'Email must be a valid email address',
+            'email.max'         => 'Email must be less than 200 characters',
+            'email.unique'      => 'Email already exists',
             'address.max'       => 'Address must be less than 200 characters',
         ];
     }

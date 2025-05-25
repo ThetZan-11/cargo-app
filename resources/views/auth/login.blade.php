@@ -1,11 +1,6 @@
 @extends('layout.app')
 @section('title', 'Login')
 
-@section('styles')
-
-@endsection
-
-
 @section('content')
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -149,69 +144,3 @@
         });
     </script>
 @endsection
-
-{{-- @section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#login-form').on('submit', function(e) {
-                e.preventDefault();
-                var form = $(this);
-                var submitBtn = form.find('button[type="submit"]');
-
-                // Reset any previous errors
-                $('.is-invalid').removeClass('is-invalid');
-                $('.invalid-feedback').empty();
-
-                // Disable submit button
-                submitBtn.prop('disabled', true);
-
-                var formData = new FormData(this);
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('auth.login') }}",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response.status) {
-                            Swal.fire({
-                                position: "center",
-                                icon: "success",
-                                title: response.message,
-                                showConfirmButton: false,
-                                timer: 1500,
-                                fadeIn: 1000,
-                            }).then(() => {
-                                window.location.href = response.redirect;
-                            });
-                        }
-                    },
-                    error: function(xhr) {
-                        submitBtn.prop('disabled', false);
-
-                        if (xhr.status === 422) {
-                            // Validation errors
-                            var errors = xhr.responseJSON.errors;
-                            $.each(errors, function(field, messages) {
-                                var input = $('#' + field);
-                                input.addClass('is-invalid');
-                                $('#' + field + '-error').text(messages[0]);
-                            });
-                        } else {
-                            // Other errors
-                            Swal.fire({
-                                position: "center",
-                                icon: "error",
-                                title: xhr.responseJSON.message,
-                                showConfirmButton: false,
-                                timer: 1500,
-                                fadeIn: 1000,
-                            });
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-@endsection --}}

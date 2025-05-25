@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\CustomerEditRequest;
 use App\Http\Requests\CustomerCreateRequest;
 
 class CustomerController extends Controller
@@ -84,6 +85,27 @@ class CustomerController extends Controller
         if (request()->ajax()) {
             $customer = Customer::findOrFail(base64_decode($id));
             return response()->json(['status' => true, 'data' => $customer]);
+        }
+    }
+
+    public function update(CustomerEditRequest $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $customer = Customer::findOrFail(base64_decode($id));
+            $data = [
+                'name'      => $request->edit_name,
+                'email'     => $request->edit_email,
+                'phone'     => $request->edit_phone,
+                'phone2'    => $request->edit_phone2,
+                'address'   => $request->edit_address,
+            ];
+            $customer->update($data);
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'Customer updated successfully']);
+        } catch (\Throwable $e) {
+            DB::rollback();
+            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
         }
     }
 }

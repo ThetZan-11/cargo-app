@@ -13,8 +13,9 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 mx-auto">
                             <div class="card">
                                 <div class="card-body">
-                                    <form id="customer-form">
+                                    <form id="customer-form-edit">
                                         @csrf
+                                        <input type="hidden" id="edit_id" name="edit_id" />
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <input type="text" id="edit_name" name="edit_name"
                                                 class="form-control" />

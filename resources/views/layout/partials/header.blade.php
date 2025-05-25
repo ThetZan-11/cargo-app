@@ -14,20 +14,12 @@
     <link href="{{ asset('assets/MDB5/css/mdb.min.css') }}" rel="stylesheet" />
 
     <!-- DataTables CSS -->
-    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" rel="stylesheet">
-    {{-- <!-- Datatable -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css"> --}}
-    <!-- Responsive CSS -->
-
-    {{-- <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.dataTables.min.css') }}">
     <!-- Sweet Alert 2 -->
     <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
 
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -35,3 +27,8 @@
 </head>
 
 <body>
+    <div id="loader">
+        <dotlottie-player src="https://lottie.host/85e34039-bcb1-480e-8062-f817887c058a/mUcDEXwuot.lottie"
+            background="transparent" speed="1" style="width: 300px; height: 300px; margin: auto;" loop autoplay>
+        </dotlottie-player>
+    </div>

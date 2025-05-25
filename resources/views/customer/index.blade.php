@@ -1,13 +1,13 @@
 @extends('layout.app')
-@section('title', 'Customers')
+@section('title', __('customer.title'))
 
 @section('content')
-    <div class="container-fluid px-4">
-        <div class="page-title">
-            <h1>Customer List</h1>
-            <button type="button" class="btn btn-primary" data-mdb-ripple-init data-mdb-modal-init
+    <div class="container-fluid px-3">
+        <div class="page-title mt-3">
+            <h2>{{ __('customer.title') }}</h2>
+            <button type="button" class="btn btn-primary fs-7 btn-sm" data-mdb-ripple-init data-mdb-modal-init
                 data-mdb-target="#createCustomerModal">
-                <i class="fa-solid fa-plus me-2"></i>Add Customer
+                <i class="fa-solid fa-plus me-2"></i>{{ __('customer.create') }}
             </button>
         </div>
         {{-- Customer Modal --}}
@@ -19,19 +19,22 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-hover w-100" id="datatable">
-                            <thead>
-                                <tr>
-                                    <th class="no-sort no-search"></th>
-                                    <th class="text-center">Name</th>
-                                    <th class="text-center">Email</th>
-                                    <th class="text-center">Address</th>
-                                    <th class="text-center">Phone</th>
-                                    <th class="text-center">Phone 2</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-hover w-100" id="datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="no-sort no-search"></th>
+                                        <th class="text-center">{{ __('customer.name') }}</th>
+                                        <th class="text-center">{{ __('customer.email') }}</th>
+                                        <th class="text-center">{{ __('customer.address') }}</th>
+                                        <th class="text-center">{{ __('customer.phone') }}</th>
+                                        <th class="text-center">{{ __('customer.phone2') }}</th>
+                                        <th class="hidden"></th>
+                                        <th class="text-center">{{ __('customer.action') }}</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,19 +43,24 @@
 @endsection
 
 @section('scripts')
-
     <script>
         $(document).ready(function() {
             let table = $('#datatable').DataTable({
-                processing: true,
                 serverSide: true,
                 responsive: true,
+                dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rtip',
+                beforeSend: function() {
+                    $('#loader').css('display', 'flex');
+                },
                 ajax: {
                     url: "{{ route('customer.data') }}",
                     type: "POST",
                     data: {
                         "_token": "{{ csrf_token() }}"
                     }
+                },
+                complete: function() {
+                    $('#loader').css('display', 'none');
                 },
                 columns: [{
                         data: 'plus-icon',
@@ -92,6 +100,11 @@
                         responsivePriority: 4
                     },
                     {
+                        data: 'updated_at',
+                        name: 'updated_at',
+                        responsivePriority: 5
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         className: 'text-center',
@@ -101,71 +114,71 @@
                     }
                 ],
                 order: [
-                    [1, 'desc']
-                ]
+                    [6, 'desc']
+                ],
+                language: {
+                    search: "",
+                    searchPlaceholder: "{{ __('customer.search') }}"
+                }
             });
 
-
-            // Handle Create Customer Form Submission
+            //Create Customer Form Submission
             $('#customer-form').on('submit', function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('customer.store') }}",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response.status == true) {
+                $('#loader').css('display', 'flex');
+                setTimeout(() => {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('customer.store') }}",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.status == true) {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    fadeIn: 1000,
+                                });
+                            }
+                            $('#loader').css('display', 'none');
+                            $('#createCustomerModal').modal('hide');
+                            $('#customer-form')[0].reset();
+                            table.ajax.reload();
+                        },
+                        error: function(xhr, status, error, response) {
+                            $('#loader').css('display', 'none');
+                            var errors = xhr.responseJSON.message;
+                            console.error(errors);
                             Swal.fire({
                                 position: "center",
-                                icon: "success",
-                                title: response.message,
-                                showConfirmButton: false,
-                                timer: 1500,
-                                fadeIn: 1000,
-                            });
-                        } else {
-                            Swal.fire({
-                                position: "center",
-                                icon: "success",
-                                title: response.message,
+                                icon: "error",
+                                title: errors,
                                 showConfirmButton: false,
                                 timer: 1500,
                                 fadeIn: 1000,
                             });
                         }
-                        $('#createCustomerModal').modal('hide');
-                        $('#customer-form')[0].reset();
-                        table.ajax.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        var errors = xhr.responseJSON.errors;
-                        Swal.fire({
-                            position: "center",
-                            icon: "error",
-                            title: errors,
-                            showConfirmButton: false,
-                            timer: 1500,
-                            fadeIn: 1000,
-                        });
-                    }
-                });
+                    });
+                }, 1000);
             });
 
-            // Handle Delete Button Click
+            //Delete Button Click
             $(document).on('click', '.delete-btn', function() {
                 let id = $(this).data('id');
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: "{{ __('customer.confirm_delete') }}",
+                    text: "{{ __('customer.confirm_delete_text') }}",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'Cancel',
+                    confirmButtonText: "{{ __('customer.yes_delete') }}",
+                    cancelButtonText: "{{ __('customer.cancel') }}",
                     customClass: {
                         confirmButton: 'btn btn-danger me-2',
                         cancelButton: 'btn btn-secondary'
@@ -173,58 +186,66 @@
                     buttonsStyling: false
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ route('customer.delete', '') }}/" + id,
-                            data: {
-                                "_token": "{{ csrf_token() }}"
-                            },
-                            success: function(response) {
-                                if (response.status) {
-                                    Swal.fire({
-                                        position: "center",
-                                        icon: "success",
-                                        title: response.message,
-                                        showConfirmButton: false,
-                                        timer: 1500,
-                                        fadeIn: 1000,
-                                    });
-                                    table.ajax.reload();
-                                } else {
+                        $('#loader').css('display', 'flex');
+                        setTimeout(() => {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('customer.delete', '') }}/" + id,
+                                data: {
+                                    "_token": "{{ csrf_token() }}"
+                                },
+                                success: function(response) {
+                                    if (response.status) {
+                                        $('#loader').css('display', 'none');
+                                        Swal.fire({
+                                            position: "center",
+                                            icon: "success",
+                                            title: response.message,
+                                            showConfirmButton: false,
+                                            timer: 1500,
+                                            fadeIn: 1000,
+                                        });
+                                        table.ajax.reload();
+                                    } else {
+                                        $('#loader').css('display', 'none');
+                                        Swal.fire({
+                                            position: "center",
+                                            icon: "error",
+                                            title: response.message,
+                                            showConfirmButton: false,
+                                            timer: 1500,
+                                            fadeIn: 1000,
+                                        });
+                                    }
+                                },
+                                error: function(xhr) {
+                                    $('#loader').css('display', 'none');
                                     Swal.fire({
                                         position: "center",
                                         icon: "error",
-                                        title: response.message,
+                                        title: "{{ __('customer.failed_to_delete') }}",
                                         showConfirmButton: false,
                                         timer: 1500,
                                         fadeIn: 1000,
                                     });
                                 }
-                            },
-                            error: function(xhr) {
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "error",
-                                    title: "Failed to delete customer",
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    fadeIn: 1000,
-                                });
-                            }
-                        });
+                            });
+                        }, 1000);
                     }
                 });
             });
 
-            // Handle Edit Button Click
+            //Edit Button Click for get data
             $(document).on('click', '.edit-btn', function() {
                 var id = $(this).data('id');
+                $('#edit_id').val(id);
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('customer.getDataEdit', '') }}/" + id,
                     success: function(response) {
                         if (response.status) {
                             $('#editCustomerModal').modal('show');
+                            $('#edit_id').val(response.data.id);
                             $('#edit_name').val(response.data.name);
                             $('#edit_email').val(response.data.email);
                             $('#edit_phone').val(response.data.phone);
@@ -245,13 +266,58 @@
                         Swal.fire({
                             position: "center",
                             icon: "error",
-                            title: "Failed to fetch customer data",
+                            title: "{{ __('customer.failed_to_fetch') }}",
                             showConfirmButton: false,
                             timer: 1500,
                             fadeIn: 1000,
                         });
                     }
                 });
+            });
+
+            //Edit Customer Form Submission
+            $('#customer-form-edit').on('submit', function(e) {
+                e.preventDefault();
+                edit_id = $('#edit_id').val();
+                var formData = new FormData(this);
+                $('#loader').css('display', 'flex');
+                setTimeout(() => {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('customer.update', '') }}/" + edit_id,
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.status == true) {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    fadeIn: 1000,
+                                });
+                            }
+                            $('#loader').css('display', 'none');
+                            $('#editCustomerModal').modal('hide');
+                            $('#customer-form-edit')[0].reset();
+                            table.ajax.reload();
+                        },
+                        error: function(xhr, status, error, response) {
+                            $('#loader').css('display', 'none');
+                            var errors = xhr.responseJSON.message;
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: errors,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                    });
+                }, 1000);
             });
         });
     </script>

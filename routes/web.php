@@ -38,5 +38,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
         Route::post('/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
         Route::get('/getDataEdit/{id}', [CustomerController::class, 'getDataEdit'])->name('customer.getDataEdit');
+        Route::post('/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
     });
+
+    // Language Switcher Route
+    Route::get('language/{locale}', [App\Http\Controllers\LanguageController::class, 'switchLang'])->name('language.switch');
 });
