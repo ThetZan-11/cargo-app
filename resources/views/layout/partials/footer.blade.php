@@ -17,12 +17,5 @@
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     @yield('scripts')
     </body>
-    @section('scripts')
-        <script>
-            $(document).ready(function() {
-
-            });
-        </script>
-    @endsection
 
     </html>

@@ -29,8 +29,8 @@ $(document).ready(function () {
             },
         ],
         lengthMenu: [
-            [10, 25, 50, 100, 2000, -1],
-            ["10 rows", "25 rows", "50 rows", "100 rows", "2000 rows", "All"],
+            [5, 10, 25, 50, 100, 2000, -1],
+            ["5 rows", "10 rows", "25 rows", "50 rows", "100 rows", "2000 rows", "All"],
         ],
         language: {
             paginate: {

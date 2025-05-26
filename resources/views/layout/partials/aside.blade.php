@@ -8,20 +8,26 @@
         </li>
         <li class="sidebar-menu-item">
             <a href="{{ route('customer.index') }}">
-                <i class="fa-solid fa-user" id="side-icon"></i>
+                <i class="fa-solid fa-people-group" id="side-icon"></i>
                 Customers
+            </a>
+        </li>
+        <li class="sidebar-menu-item">
+            <a href="{{ route('country.index') }}">
+                <i class="fa-solid fa-earth-americas" id="side-icon"></i>
+                Countries
             </a>
         </li>
         <li class="sidebar-menu-item">
             <div class="language-switcher-sidebar">
                 <a href="{{ route('language.switch', 'en') }}"
                     class="language-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}">
-                    <i class="fa-solid fa-globe" id="side-icon"></i>
+                    <img src="{{ asset('assets/img/usa.png') }}" alt="USA Flag" class="img-fluid w-25 me-3">
                     English
                 </a>
                 <a href="{{ route('language.switch', 'my') }}"
                     class="language-btn {{ app()->getLocale() == 'my' ? 'active' : '' }}">
-                    <i class="fa-solid fa-globe" id="side-icon"></i>
+                    <img src="{{ asset('assets/img/myanmar.png') }}" alt="Myanmar Flag" class="img-fluid w-25 me-3">
                     မြန်မာ
                 </a>
             </div>

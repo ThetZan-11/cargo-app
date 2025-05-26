@@ -14,12 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create admin user
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('password'),
-            'role'      => 1,
+        $this->call([
+            CountrySeeder::class,
+            UserSeeder::class,
+            CustomerSeeder::class,
+            PriceSeeder::class,
         ]);
     }
 }

@@ -31,4 +31,4 @@ return [
         'address_required' => 'Please enter address',
         'address_min' => 'Address must be at least 5 characters long'
     ]
-]; 
+];

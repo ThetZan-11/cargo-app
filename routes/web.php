@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
     });
 
+    Route::prefix('countries')->group(function () {
+        Route::get('/', [CountryController::class, 'index'])->name('country.index');
+        Route::post('/data', [CountryController::class, 'getData'])->name('country.data');
+    });
+
     // Language Switcher Route
-    Route::get('language/{locale}', [App\Http\Controllers\LanguageController::class, 'switchLang'])->name('language.switch');
+    Route::get('language/{locale}', [LanguageController::class, 'switchLang'])->name('language.switch');
 });
