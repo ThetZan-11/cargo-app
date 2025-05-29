@@ -19,6 +19,12 @@
             </a>
         </li>
         <li class="sidebar-menu-item">
+            <a href="{{ route('price.index') }}">
+                <i class="fa-solid fa-coins" id="side-icon"></i>
+                Price
+            </a>
+        </li>
+        <li class="sidebar-menu-item">
             <div class="language-switcher-sidebar">
                 <a href="{{ route('language.switch', 'en') }}"
                     class="language-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}">

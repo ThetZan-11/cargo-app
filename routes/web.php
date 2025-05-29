@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PriceController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LanguageController;
@@ -43,9 +44,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
     });
 
+    // Country Management
     Route::prefix('countries')->group(function () {
         Route::get('/', [CountryController::class, 'index'])->name('country.index');
         Route::post('/data', [CountryController::class, 'getData'])->name('country.data');
+    });
+
+    // Price Management
+    Route::prefix('prices')->group(function () {
+        Route::get('/', [PriceController::class, 'index'])->name('price.index');
+        Route::post('/data', [PriceController::class, 'getData'])->name('price.data');
     });
 
     // Language Switcher Route

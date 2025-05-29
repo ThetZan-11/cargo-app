@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('country_id');
+            $table->unsignedBigInteger('country_id');
+            $table->foreign('country_id')
+                ->references('id')
+                ->on('countries')
+                ->onDelete('cascade');
+
             $table->decimal('min_kg');
             $table->decimal('max_kg');
             $table->decimal('price_per_kg');

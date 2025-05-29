@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('country_prices', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
+            $table->foreignId('price_id')->constrained('prices')->onDelete('cascade');
             $table->timestamps();
         });
     }

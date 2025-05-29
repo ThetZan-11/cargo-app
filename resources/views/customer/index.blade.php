@@ -1,13 +1,13 @@
 @extends('layout.app')
-@section('title', __('customer.title'))
+@section('title', __('word.customer_title'))
 
 @section('content')
     <div class="container-fluid px-3">
         <div class="page-title mt-3">
-            <h2>{{ __('customer.title') }}</h2>
+            <h2>{{ __('word.customer_title') }}</h2>
             <button type="button" class="btn btn-primary fs-7 btn-sm" data-mdb-ripple-init data-mdb-modal-init
                 data-mdb-target="#createCustomerModal">
-                <i class="fa-solid fa-plus me-2"></i>{{ __('customer.create') }}
+                <i class="fa-solid fa-plus me-2"></i>{{ __('word.create') }}
             </button>
         </div>
         {{-- Customer Modal --}}
@@ -24,13 +24,13 @@
                                 <thead>
                                     <tr>
                                         <th class="no-sort no-search"></th>
-                                        <th class="text-center">{{ __('customer.name') }}</th>
-                                        <th class="text-center">{{ __('customer.email') }}</th>
-                                        <th class="text-center">{{ __('customer.address') }}</th>
-                                        <th class="text-center">{{ __('customer.phone') }}</th>
-                                        <th class="text-center">{{ __('customer.phone2') }}</th>
+                                        <th class="text-center">{{ __('word.customer_name') }}</th>
+                                        <th class="text-center">{{ __('word.customer_email') }}</th>
+                                        <th class="text-center">{{ __('word.customer_address') }}</th>
+                                        <th class="text-center">{{ __('word.customer_phone') }}</th>
+                                        <th class="text-center">{{ __('word.customer_phone2') }}</th>
                                         <th class="hidden"></th>
-                                        <th class="text-center">{{ __('customer.action') }}</th>
+                                        <th class="text-center">{{ __('word.action') }}</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -118,7 +118,7 @@
                 ],
                 language: {
                     search: "",
-                    searchPlaceholder: "{{ __('customer.search') }}"
+                    searchPlaceholder: "{{ __('word.customer_search') }}"
                 }
             });
 
@@ -139,7 +139,7 @@
                                 Swal.fire({
                                     position: "center",
                                     icon: "success",
-                                    title: response.message,
+                                    title: '{{ __('word.create_success') }}',
                                     showConfirmButton: false,
                                     timer: 1500,
                                     fadeIn: 1000,
@@ -171,14 +171,14 @@
             $(document).on('click', '.delete-btn', function() {
                 let id = $(this).data('id');
                 Swal.fire({
-                    title: "{{ __('customer.confirm_delete') }}",
-                    text: "{{ __('customer.confirm_delete_text') }}",
+                    title: "{{ __('word.confirm_delete') }}",
+                    text: "{{ __('word.confirm_delete_text') }}",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: "{{ __('customer.yes_delete') }}",
-                    cancelButtonText: "{{ __('customer.cancel') }}",
+                    confirmButtonText: "{{ __('word.yes_delete') }}",
+                    cancelButtonText: "{{ __('word.cancel') }}",
                     customClass: {
                         confirmButton: 'btn btn-danger me-2',
                         cancelButton: 'btn btn-secondary'
@@ -200,7 +200,7 @@
                                         Swal.fire({
                                             position: "center",
                                             icon: "success",
-                                            title: response.message,
+                                            title: "{{ __('word.success') }}",
                                             showConfirmButton: false,
                                             timer: 1500,
                                             fadeIn: 1000,
@@ -211,7 +211,7 @@
                                         Swal.fire({
                                             position: "center",
                                             icon: "error",
-                                            title: response.message,
+                                            title: "{{ __('word.failed_to_delete') }}",
                                             showConfirmButton: false,
                                             timer: 1500,
                                             fadeIn: 1000,
@@ -223,7 +223,7 @@
                                     Swal.fire({
                                         position: "center",
                                         icon: "error",
-                                        title: "{{ __('customer.failed_to_delete') }}",
+                                        title: "{{ __('word.failed_to_delete') }}",
                                         showConfirmButton: false,
                                         timer: 1500,
                                         fadeIn: 1000,
@@ -238,14 +238,13 @@
             //Edit Button Click for get data
             $(document).on('click', '.edit-btn', function() {
                 var id = $(this).data('id');
-                $('#edit_id').val(id);
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('customer.getDataEdit', '') }}/" + id,
                     success: function(response) {
                         if (response.status) {
                             $('#editCustomerModal').modal('show');
-                            $('#edit_id').val(response.data.id);
+                            $('#edit_id').val(btoa(response.data.id));
                             $('#edit_name').val(response.data.name);
                             $('#edit_email').val(response.data.email);
                             $('#edit_phone').val(response.data.phone);
@@ -278,7 +277,7 @@
             //Edit Customer Form Submission
             $('#customer-form-edit').on('submit', function(e) {
                 e.preventDefault();
-                edit_id = $('#edit_id').val();
+                edit_id = $('#edit_id').val()
                 var formData = new FormData(this);
                 $('#loader').css('display', 'flex');
                 setTimeout(() => {
@@ -293,7 +292,7 @@
                                 Swal.fire({
                                     position: "center",
                                     icon: "success",
-                                    title: response.message,
+                                    title: '{{ __('word.update_success') }}',
                                     showConfirmButton: false,
                                     timer: 1500,
                                     fadeIn: 1000,

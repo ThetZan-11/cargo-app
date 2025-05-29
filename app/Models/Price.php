@@ -16,6 +16,6 @@ class Price extends Model
 
     public function countries()
     {
-        return $this->belongsToMany(Country::class, 'country_price');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 }
