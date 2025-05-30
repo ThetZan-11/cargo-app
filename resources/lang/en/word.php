@@ -38,4 +38,13 @@ return [
     'country_code' => 'Country Code',
     'country_search' => 'Search Country',
     'flag' => 'Flag',
+
+    //Price related words
+    'price' => 'Price',
+    'price_title' => 'Price List',
+    'min_kg' => 'Min Kg',
+    'max_kg' => 'Max Kg',
+    'price_search' => 'Search Price',
+    "price_create" => "Create Price",
+    "price_edit" => "Edit Price",
 ];

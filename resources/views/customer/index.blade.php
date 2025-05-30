@@ -68,7 +68,7 @@
                         className: 'text-center',
                         orderable: false,
                         searchable: false,
-                        responsivePriority: 7
+                        responsivePriority: 7,
                     }, {
                         data: 'name',
                         name: 'name',

@@ -38,4 +38,12 @@ return [
     'country_search' => 'နိုင်ငံရှာဖွေရန်',
     'flag' => 'အလံ',
 
+    //Price related words
+    'price' => 'ဈေးနှုန်း',
+    'price_title' => 'ဈေးနှုန်းစာရင်း',
+    'min_kg' => 'အနည်းဆုံး Kg',
+    'max_kg' => 'အများဆုံး Kg',
+    'price_search' => 'ဈေးနှုန်းရှာဖွေရန်',
+    "price_create" => "ဈေးနှုန်းဖန်တီးရန်",
+    "price_edit" => "ဈေးနှုန်းပြင်ဆင်ရန်",
 ];
