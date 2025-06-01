@@ -14,10 +14,11 @@
                                 <div class="card-body">
                                     <form id="price-form">
                                         @csrf
-
-                                        <div data-mdb-input-init class="form-group">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
+                                        <div class="form-group">
+                                            <label class="form-label" for="country">{{ __('word.country') }}</label>
+                                            <select class="form-select" id="country" name="country"
+                                                aria-label="Default select example">
+                                                <option selected>{{ __('word.select_country') }}</option>
                                                 @foreach ($countries as $country)
                                                     <option value="{{ $country->id }}">
                                                         {{ $country->country_name }}
@@ -25,10 +26,20 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div data-mdb-input-init class="form-group  mt-3">
-                                            <label class="form-label" for="price_name">{{ __('word.price') }}</label>
-                                            <input type="text" id="price_name" name="price_name"
-                                                class="form-control" />
+                                        <div data-mdb-input-init class="form-group mt-3">
+                                            <label class="form-label" for="min_kg">{{ __('word.min_kg') }}</label>
+                                            <input type="text" id="min_kg" name="min_kg" class="form-control"
+                                                placeholder="{{ __('word.min_kg_enter') }}" />
+                                        </div>
+                                        <div data-mdb-input-init class="form-group mt-3">
+                                            <label class="form-label" for="max_kg">{{ __('word.max_kg') }}</label>
+                                            <input type="text" id="max_kg" name="max_kg" class="form-control"
+                                                placeholder="{{ __('word.max_kg_enter') }}" />
+                                        </div>
+                                        <div data-mdb-input-init class="form-group mt-3">
+                                            <label class="form-label" for="price">{{ __('word.price') }}</label>
+                                            <input type="text" id="price" name="price" class="form-control"
+                                                placeholder="{{ __('word.price_enter') }}" />
                                         </div>
                                 </div>
                             </div>
@@ -41,7 +52,7 @@
                     data-mdb-dismiss="modal">{{ __('word.cancel') }}</button>
                 <button type="submit" class="btn btn-primary" data-mdb-ripple-init>{{ __('word.save') }}</button>
                 </form>
-                {!! JsValidator::formRequest('App\Http\Requests\CustomerCreateRequest', '#customer-form') !!}
+                {!! JsValidator::formRequest('App\Http\Requests\PriceCreateRequest', '#price-form') !!}
             </div>
         </div>
     </div>

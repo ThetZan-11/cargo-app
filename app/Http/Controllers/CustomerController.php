@@ -40,11 +40,6 @@ class CustomerController extends Controller
             ->make(true);
     }
 
-    public function create()
-    {
-        return view('customer.create');
-    }
-
     public function store(CustomerCreateRequest $request)
     {
         try {

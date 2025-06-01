@@ -37,6 +37,7 @@ return [
     'country_name' => 'Country Name',
     'country_code' => 'Country Code',
     'country_search' => 'Search Country',
+    'select_country' => 'Select Country',
     'flag' => 'Flag',
 
     //Price related words
@@ -47,4 +48,7 @@ return [
     'price_search' => 'Search Price',
     "price_create" => "Create Price",
     "price_edit" => "Edit Price",
+    'price_enter' => 'Enter Price',
+    'min_kg_enter' => 'Enter Min Kg',
+    'max_kg_enter' => 'Enter Max Kg',
 ];

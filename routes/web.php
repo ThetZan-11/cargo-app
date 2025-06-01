@@ -37,7 +37,6 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('customers')->group(function () {
         Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
         Route::post('/data', [CustomerController::class, 'getData'])->name('customer.data');
-        Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
         Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
         Route::post('/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
         Route::get('/getDataEdit/{id}', [CustomerController::class, 'getDataEdit'])->name('customer.getDataEdit');
@@ -54,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('prices')->group(function () {
         Route::get('/', [PriceController::class, 'index'])->name('price.index');
         Route::post('/data', [PriceController::class, 'getData'])->name('price.data');
+        Route::post('/store', [PriceController::class, 'store'])->name('price.store');
+        Route::post('/delete/{id}', [PriceController::class, 'delete'])->name('price.delete');
+        Route::get('/getDataEdit/{id}', [PriceController::class, 'getDataEdit'])->name('price.getDataEdit');
+        Route::post('/update/{id}', [PriceController::class, 'update'])->name('price.update');
     });
 
     // Language Switcher Route

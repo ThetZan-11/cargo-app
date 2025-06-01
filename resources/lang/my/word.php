@@ -36,6 +36,7 @@ return [
     'country_name' => 'နိုင်ငံအမည်',
     'country_code' => 'နိုင်ငံကုဒ်',
     'country_search' => 'နိုင်ငံရှာဖွေရန်',
+    'select_country' => 'နိုင်ငံရွေးချယ်ရန်',
     'flag' => 'အလံ',
 
     //Price related words
@@ -46,4 +47,7 @@ return [
     'price_search' => 'ဈေးနှုန်းရှာဖွေရန်',
     "price_create" => "ဈေးနှုန်းဖန်တီးရန်",
     "price_edit" => "ဈေးနှုန်းပြင်ဆင်ရန်",
+    'price_enter' => 'ဈေးနှုန်းထည့်ပါ',
+    'min_kg_enter' => 'အနည်းဆုံး Kg ထည့်ပါ',
+    'max_kg_enter' => 'အများဆုံး Kg ထည့်ပါ',
 ];
