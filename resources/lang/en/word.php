@@ -11,6 +11,7 @@ return [
     'action' => 'Action',
     'save' => 'Save',
     'update' => 'Update',
+    'dashboard' => 'Dashboard',
 
     //messages
     'confirm_delete' => 'Are you sure?',
@@ -51,4 +52,17 @@ return [
     'price_enter' => 'Enter Price',
     'min_kg_enter' => 'Enter Min Kg',
     'max_kg_enter' => 'Enter Max Kg',
+
+    //Order related words
+    'order' => 'Order',
+    'order_title' => 'Order List',
+    'order_search' => 'Search Order',
+    'order_create' => 'Create Order',
+    'order_edit' => 'Edit Order',
+    'total_kg' => 'Total Kg',
+    'total_amount' => 'Total Amount',
+    'order_status' => 'Order Status',
+    'description' => 'Description',
+    'arp_no' => 'ARP No',
+    'order_date' => 'Order Date',
 ];

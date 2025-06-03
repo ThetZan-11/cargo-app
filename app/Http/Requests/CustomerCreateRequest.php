@@ -33,15 +33,16 @@ class CustomerCreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'     => 'Name is required',
-            'name.max'          => 'Name must be less than 100 characters',
-            'phone.required'    => 'Phone is required',
-            'phone.max'         => 'Phone must be less than 11 characters',
-            'phone2.max'        => 'Phone 2 must be less than 11 characters',
-            'email.email'       => 'Email must be a valid email address',
-            'email.max'         => 'Email must be less than 200 characters',
-            'email.unique'      => 'Email already exists',
-            'address.max'       => 'Address must be less than 200 characters',
+            'name.required'     =>  __('validation.required', ['attribute' => __('word.customer_name')]),
+            'name.max'          =>  __('validation.max', ['attribute' => __('word.customer_name'), 'max' => 100]),
+            'phone.required'    =>  __('validation.required', ['attribute' => __('word.customer_phone')]),
+            'phone.max'         =>  __('validation.max', ['attribute' => __('word.customer_phone'), 'max' => 11]),
+            'phone2.max'        =>  __('validation.max', ['attribute' => __('word.customer_phone2'), 'max' => 11]),
+            'email.email'       =>  __('validation.email', ['attribute' => __('word.customer_email')]),
+            'email.max'         =>  __('validation.max', ['attribute' => __('word.customer_email'), 'max' => 200]),
+            'email.unique'      =>  __('validation.unique', ['attribute' => __('word.customer_email')]),
+            'address.max'       =>  __('validation.max', ['attribute' => __('word.customer_address'), 'max' => 200]),
+            'address.required'  =>  __('validation.required', ['attribute' => __('word.customer_address')]),
         ];
     }
 }

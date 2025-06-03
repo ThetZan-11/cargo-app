@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CustomerController;
@@ -57,6 +58,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/delete/{id}', [PriceController::class, 'delete'])->name('price.delete');
         Route::get('/getDataEdit/{id}', [PriceController::class, 'getDataEdit'])->name('price.getDataEdit');
         Route::post('/update/{id}', [PriceController::class, 'update'])->name('price.update');
+    });
+
+    // Order Management
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('order.index');
+        // Route::post('/data', [OrderController::class, 'getData'])->name('order.data');
     });
 
     // Language Switcher Route

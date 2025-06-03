@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id');
-            $table->decimal('weight_kg', 8, 2);
-            $table->foreignId('price_id');
-            $table->decimal('total_price', 10, 2);
+            //Verbose Syntax
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            //Short-hand Syntax
+            $table->foreignId('price_id')->constrained('prices')->onDelete('cascade');
+            $table->decimal('total_kg', 8, 2);
+            $table->decimal('total_amount', 10, 2);
             $table->integer('status');
+            $table->string('arp_no')->nullable();
+            $table->date('order_date')->nullable();
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class CountrySeeder extends Seeder
     public function run(): void
     {
         $countries = [
-            ['country_name' => 'Thailand', 'country_code' => 'TH'],
+            ['country_name' => 'Singapore', 'country_code' => 'SG'],
             ['country_name' => 'Malaysia', 'country_code' => 'MY'],
             ['country_name' => 'Japan', 'country_code' => 'JP'],
             ['country_name' => 'South Korea', 'country_code' => 'KR'],

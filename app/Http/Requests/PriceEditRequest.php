@@ -32,17 +32,17 @@ class PriceEditRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'edit_country.required' => __('validation.required', ['attribute' => 'Country']),
-            'edit_min_kg.required'  => __('validation.required', ['attribute' => 'Min Kg']),
-            'edit_max_kg.required'  => __('validation.required', ['attribute' => 'Max Kg']),
-            'edit_price.required'   => __('validation.required', ['attribute' => 'Price']),
-            'edit_min_kg.numeric'   => __('validation.numeric', ['attribute' => 'Min Kg']),
-            'edit_max_kg.numeric'   => __('validation.numeric', ['attribute' => 'Max Kg']),
-            'edit_price.numeric'    => __('validation.numeric', ['attribute' => 'Price']),
-            'edit_min_kg.min'       => __('validation.min', ['attribute' => 'Min Kg', 'min' => 0]),
-            'edit_max_kg.min'       => __('validation.min', ['attribute' => 'Max Kg', 'min' => 0]),
-            'edit_max_kg.gt'        => __('validation.gt', ['attribute' => 'Max Kg', 'other' => 'Min Kg']),
-            'edit_country.exists'   => __('validation.exists', ['attribute' => 'Selected country']),
+            'edit_country.required' => __('validation.required', ['attribute' => __('word.country')]),
+            'edit_min_kg.required'  => __('validation.required', ['attribute' => __('word.min_kg')]),
+            'edit_max_kg.required'  => __('validation.required', ['attribute' => __('word.max_kg')]),
+            'edit_price.required'   => __('validation.required', ['attribute' => __('word.price')]),
+            'edit_min_kg.numeric'   => __('validation.numeric', ['attribute' => __('word.min_kg')]),
+            'edit_max_kg.numeric'   => __('validation.numeric', ['attribute' => __('word.max_kg')]),
+            'edit_price.numeric'    => __('validation.numeric', ['attribute' => __('word.price')]),
+            'edit_min_kg.min'       => __('validation.min', ['attribute' => __('word.min_kg'), 'min' => 0]),
+            'edit_max_kg.min'       => __('validation.min', ['attribute' => __('word.max_kg'), 'min' => 0]),
+            'edit_max_kg.gt'        => __('validation.gt', ['attribute' => __('word.max_kg'), 'other' => __('word.min_kg')]),
+            'edit_country.exists'   => __('validation.exists', ['attribute' => __('word.selected_country')]),
         ];
     }
 }

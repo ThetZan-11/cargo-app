@@ -3,25 +3,31 @@
         <li class="sidebar-menu-item">
             <a href=" {{ route('dashboard') }} ">
                 <i class="fa-solid fa-house" id="side-icon"></i>
-                Home
+                {{ __('word.dashboard') }}
             </a>
         </li>
         <li class="sidebar-menu-item">
             <a href="{{ route('customer.index') }}">
                 <i class="fa-solid fa-people-group" id="side-icon"></i>
-                Customers
+                {{ __('word.customer') }}
             </a>
         </li>
         <li class="sidebar-menu-item">
             <a href="{{ route('country.index') }}">
                 <i class="fa-solid fa-earth-americas" id="side-icon"></i>
-                Countries
+                {{ __('word.country') }}
             </a>
         </li>
         <li class="sidebar-menu-item">
             <a href="{{ route('price.index') }}">
                 <i class="fa-solid fa-coins" id="side-icon"></i>
-                Price
+                {{ __('word.price') }}
+            </a>
+        </li>
+        <li class="sidebar-menu-item">
+            <a href="{{ route('order.index') }}">
+                <i class="fa-solid fa-boxes-packing" id="side-icon"></i>
+                {{ __('word.order') }}
             </a>
         </li>
         <li class="sidebar-menu-item">

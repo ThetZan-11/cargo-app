@@ -1,11 +1,11 @@
 <!-- Navbar-->
 
-<nav class="navbar navbar-expand-lg" style="background-color: #dfdf34;">
-    <div class="container-fluid px-5">
+<nav class="navbar navbar-expand-lg position-sticky top-0" style="background-color: #dfdf34; z-index: 1000;">
+    <div class="container-fluid px-5" id="navbar-content">
         <!-- Left elements -->
         <div class="d-flex">
             <!-- Brand -->
-            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+            <a class="navbar-brand me-2 d-flex align-items-center" href="#">
                 <img src="{{ asset('assets/img/juu.png') }}" alt="JUU Air Cargo" style="width: 70px; height:70px;" />
             </a>
             <button id="toggle-btn">

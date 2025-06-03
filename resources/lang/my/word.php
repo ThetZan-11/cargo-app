@@ -10,6 +10,7 @@ return [
     'action' => 'လုပ်ဆောင်ချက်',
     'save' => 'သိမ်းဆည်းသည်',
     'update' => 'အပ်ဒိတ်လုပ်သည်',
+    'dashboard' => 'မူလစာမျက်နှာ',
 
     //messages
     'confirm_delete' => 'သေချာပါသလား?',
@@ -50,4 +51,17 @@ return [
     'price_enter' => 'ဈေးနှုန်းထည့်ပါ',
     'min_kg_enter' => 'အနည်းဆုံး Kg ထည့်ပါ',
     'max_kg_enter' => 'အများဆုံး Kg ထည့်ပါ',
+
+    //Order related words
+    'order' => 'အော်ဒါ',
+    'order_title' => 'အော်ဒါစာရင်း',
+    'order_search' => 'အော်ဒါရှာဖွေရန်',
+    'order_create' => 'အော်ဒါဖန်တီးရန်',
+    'order_edit' => 'အော်ဒါပြင်ဆင်ရန်',
+    'total_kg' => 'စုစုပေါင်း Kg',
+    'total_amount' => 'စုစုပေါင်း ငွေပမာဏ',
+    'order_status' => 'အော်ဒါအခြေအနေ',
+    'description' => 'ဖော်ပြချက်',
+    'arp_no' => 'ARP No',
+    'order_date' => 'အော်ဒါရက်စွဲ',
 ];

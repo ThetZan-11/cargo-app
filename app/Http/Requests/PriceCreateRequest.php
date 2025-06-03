@@ -32,19 +32,19 @@ class PriceCreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'country.required'    => __('validation.required', ['attribute' => 'Country']),
-            'min_kg.required'     => __('validation.required', ['attribute' => 'Min Kg']),
-            'max_kg.required'     => __('validation.required', ['attribute' => 'Max Kg']),
-            'price.required'      => __('validation.required', ['attribute' => 'Price']),
-            'min_kg.numeric'      => __('validation.numeric', ['attribute' => 'Min Kg']),
-            'max_kg.numeric'      => __('validation.numeric', ['attribute' => 'Max Kg']),
-            'price.numeric'       => __('validation.numeric', ['attribute' => 'Price']),
-            'min_kg.min'          => __('validation.min', ['attribute' => 'Min Kg', 'min' => 0]),
-            'max_kg.min'          => __('validation.min', ['attribute' => 'Max Kg', 'min' => 0]),
-            'max_kg.gt'           => __('validation.gt', ['attribute' => 'Max Kg', 'other' => 'Min Kg']),
-            'country.exists'      => __('validation.exists', ['attribute' => 'Selected country']),
-            'min_kg.max'          => __('validation.max', ['attribute' => 'Min Kg', 'max' => 1000000]),
-            'max_kg.max'          => __('validation.max', ['attribute' => 'Max Kg', 'max' => 1000000]),
+            'country.required'    => __('validation.required', ['attribute' => __('word.country')]),
+            'min_kg.required'     => __('validation.required', ['attribute' => __('word.min_kg')]),
+            'max_kg.required'     => __('validation.required', ['attribute' => __('word.max_kg')]),
+            'price.required'      => __('validation.required', ['attribute' => __('word.price')]),
+            'min_kg.numeric'      => __('validation.numeric', ['attribute' => __('word.min_kg')]),
+            'max_kg.numeric'      => __('validation.numeric', ['attribute' => __('word.max_kg')]),
+            'price.numeric'       => __('validation.numeric', ['attribute' => __('word.price')]),
+            'min_kg.min'          => __('validation.min', ['attribute' => __('word.min_kg'), 'min' => 0]),
+            'max_kg.min'          => __('validation.min', ['attribute' => __('word.max_kg'), 'min' => 0]),
+            'max_kg.gt'           => __('validation.gt', ['attribute' => __('word.max_kg'), 'other' => __('word.min_kg')]),
+            'country.exists'      => __('validation.exists', ['attribute' => __('word.country')]),
+            'min_kg.max'          => __('validation.max', ['attribute' => __('word.min_kg'), 'max' => 1000000]),
+            'max_kg.max'          => __('validation.max', ['attribute' => __('word.max_kg'), 'max' => 1000000]),
         ];
     }
 }
