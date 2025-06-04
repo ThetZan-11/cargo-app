@@ -63,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
     // Order Management
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('order.index');
-        // Route::post('/data', [OrderController::class, 'getData'])->name('order.data');
+        Route::post('/customerSearch', [OrderController::class, 'customerSearch'])->name('customer.search');
     });
 
     // Language Switcher Route

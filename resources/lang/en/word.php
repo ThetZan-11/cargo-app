@@ -19,6 +19,8 @@ return [
     'yes_delete' => 'Yes, delete it!',
     'create_success' => 'Created successfully',
     'update_success' => 'Updated successfully',
+    'delete_success' => 'Deleted successfully',
+    "no_data_found" => "No data found",
 
     //Customer related words
     'customer' => 'Customer',
@@ -52,6 +54,7 @@ return [
     'price_enter' => 'Enter Price',
     'min_kg_enter' => 'Enter Min Kg',
     'max_kg_enter' => 'Enter Max Kg',
+    'price_select' => 'Select Price',
 
     //Order related words
     'order' => 'Order',

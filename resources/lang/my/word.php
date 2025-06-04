@@ -18,6 +18,8 @@ return [
     'yes_delete' => 'ဟုတ်ကဲ့၊ ဖျက်ပါမည်',
     'create_success' => 'ဖန်တီးမှုအောင်မြင်သည်',
     'update_success' => 'အပ်ဒိတ်လုပ်မှုအောင်မြင်သည်',
+    'delete_success' => 'ဖျက်မှုအောင်မြင်သည်',
+    'no_data_found' => 'ဒေတာမတွေ့ပါ',
 
     //Customer related words
     'customer' => 'ဖောက်သည်',
@@ -51,6 +53,7 @@ return [
     'price_enter' => 'ဈေးနှုန်းထည့်ပါ',
     'min_kg_enter' => 'အနည်းဆုံး Kg ထည့်ပါ',
     'max_kg_enter' => 'အများဆုံး Kg ထည့်ပါ',
+    'price_select' => 'ဈေးနှုန်းရွေးချယ်ရန်',
 
     //Order related words
     'order' => 'အော်ဒါ',
