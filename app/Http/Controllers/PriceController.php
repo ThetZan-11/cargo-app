@@ -31,7 +31,9 @@ class PriceController extends Controller
                 return $row->max_kg . ' Kg';
             })
             ->editColumn('price_per_kg', function ($row) {
-                return number_format($row->price_per_kg, 2) . ' MMK';
+                // var_dump($row->countries->country_code);
+                $row->countries->country_code == 'SG' ? $unit = " $" : $unit = " MMK";
+                return number_format($row->price_per_kg, 2) . $unit;
             })
             ->addColumn('country_flag', function ($row) {
                 return $row->countries->country_flag;

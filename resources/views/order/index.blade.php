@@ -46,6 +46,15 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            let modalRefresh = localStorage.getItem('open_modal') ? localStorage.getItem('open_modal') : '';
+            modalRefresh == '#createOrderModal' ? $(modalRefresh).modal('show') : null;
+            $('#createOrderModal').on("show.bs.modal", () => {
+                localStorage.setItem('open_modal', '#createOrderModal');
+            })
+
+            $('#createOrderModal').on("hide.bs.modal", () => {
+                localStorage.removeItem('open_modal');
+            })
             // let table = $('#datatable').DataTable({
             //     serverSide: true,
             //     responsive: true,
@@ -123,6 +132,8 @@
             //     }
             // });
 
+
+
             $('#customer_name').on('input', function() {
                 var value = $(this).val();
                 if (value.length == 0) {
@@ -186,7 +197,13 @@
 
             });
 
+            let totalKg = $('#total_kg')
+            let priceEvl = $('#priceEvl').data('price')
 
+            totalKg.on("input", () => {
+                let totalAmount = totalKg.val() * priceEvl
+                $('#total_amount').val(totalAmount)
+            })
         });
     </script>
 @endsection
