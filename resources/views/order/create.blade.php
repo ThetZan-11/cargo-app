@@ -52,17 +52,16 @@
                                                 </div>
                                                 <div class="select-options">
                                                     @foreach ($prices as $price)
-                                                        <div class="option" data-price="{{ $price->price_per_kg }}""
+                                                        <div class="option" data-price="{{ $price->price_per_kg }}"
                                                             data-value="{{ $price->id }}">
                                                             <img src="{{ $price->countries->country_flag }}"
                                                                 class="option-image">
                                                             <span class="option-text">
                                                                 <span>{{ __('word.min_kg') }} -
-                                                                    {{ $price->min_kg }}</span>
+                                                                    {{ $price->min_kg }} Kg</span>
                                                                 <span>{{ __('word.max_kg') }} -
-                                                                    {{ $price->max_kg }}</span>
-                                                                <span id="priceEvl"
-                                                                    data-price="{{ $price->price_per_kg }}">{{ __('word.price') }}
+                                                                    {{ $price->max_kg }} Kg</span>
+                                                                <span id="priceEvl">{{ __('word.price') }}
                                                                     -
                                                                     {{ $price->price_per_kg }}
                                                                     {{ $price->countries->country_code == 'SG' ? " $" : ' MMK' }}</span>
@@ -79,8 +78,19 @@
                                             <label class="form-label"
                                                 for="min_kg">{{ __('word.total_amount') }}</label>
                                             <input type="text" id="total_amount" name="total_amount"
-                                                class="form-control bg-secondary" disabled value="1"
+                                                class="form-control bg-secondary" disabled value="0"
                                                 style="cursor: not-allowed; color:#fff; font-weight: 700;" />
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label class="form-label" for="arp_no">ARP NO</label>
+                                            <input type="text" id="arp_no" name="arp_no" class="form-control"
+                                                placeholder="{{ __('word.arp_no_enter') }}" />
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label class="form-label"
+                                                for="order_date">{{ __('word.order_date') }}</label>
+                                            <input type="date" id="order_date" name="order_date" class="form-control"
+                                                placeholder="{{ __('word.date_enter') }}" />
                                         </div>
                                 </div>
                             </div>
@@ -93,7 +103,7 @@
                     data-mdb-dismiss="modal">{{ __('word.cancel') }}</button>
                 <button type="submit" class="btn btn-primary" data-mdb-ripple-init>{{ __('word.save') }}</button>
                 </form>
-                {!! JsValidator::formRequest('App\Http\Requests\PriceCreateRequest', '#price-form') !!}
+                {!! JsValidator::formRequest('App\Http\Requests\OrderCreateRequest', '#order-form') !!}
             </div>
         </div>
     </div>
@@ -137,10 +147,10 @@
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             margin-top: 5px;
-            max-height: 70vh;
+            max-height: 30vh;
             overflow-y: auto;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px #0000001a;
             width: 100%;
         }
 
@@ -151,11 +161,13 @@
             align-items: center;
             transition: all 0.2s ease;
             min-height: 44px;
+            border-bottom: 2px solid #0000001a;
         }
 
         .option-text,
         .option-text span {
             font-size: 16px;
+            color: #2d2b2bc3;
         }
 
         .option-text span {
@@ -193,6 +205,7 @@
         }
 
         #select-arrow {
+            color: #6d6e18;
             transition: transform 0.3s ease;
             margin-left: 10px;
             flex-shrink: 0;
@@ -311,8 +324,18 @@
 
             // Option selection
             $options.on('click', function() {
+                if ($('#total_kg').val() === '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '{{ __('word.error') }}',
+                        text: '{{ __('word.total_kg_fill_first') }}',
+                        confirmButtonText: '{{ __('word.ok') }}'
+                    });
+                    return;
+                }
                 const $this = $(this);
                 const value = $this.data('value')
+                $('#selected_price_id').val(value)
                 let totalKg = parseInt($('#total_kg').val());
                 $selectedOption.html($this.find('.option-image, .option-text').clone());
                 $selectedIdInput.val(value).trigger('change');
@@ -320,7 +343,11 @@
                 $this.addClass('selected');
                 $select.removeClass('active');
                 let totalAmount = totalKg * $this.data('price');
-                $('#total_amount').val(totalAmount);
+                if (isNaN(totalAmount) || totalAmount < 0) {
+                    totalAmount = 0;
+                } else {
+                    $('#total_amount').val(totalAmount.toLocaleString());
+                }
             });
 
             $(document).on('click', function() {

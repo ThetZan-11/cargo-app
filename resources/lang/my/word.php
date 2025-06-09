@@ -11,6 +11,7 @@ return [
     'save' => 'သိမ်းဆည်းသည်',
     'update' => 'အပ်ဒိတ်လုပ်သည်',
     'dashboard' => 'မူလစာမျက်နှာ',
+    'ok' => 'OK',
 
     //messages
     'confirm_delete' => 'သေချာပါသလား?',
@@ -20,6 +21,7 @@ return [
     'update_success' => 'အပ်ဒိတ်လုပ်မှုအောင်မြင်သည်',
     'delete_success' => 'ဖျက်မှုအောင်မြင်သည်',
     'no_data_found' => 'ဒေတာမတွေ့ပါ',
+    'total_kg_fill_first' => 'စုစုပေါင်း Kg ကို ပထမဦးစွာ ဖြည့်ပါ။',
 
     //Customer related words
     'customer' => 'ဖောက်သည်',
@@ -66,5 +68,8 @@ return [
     'order_status' => 'အော်ဒါအခြေအနေ',
     'description' => 'ဖော်ပြချက်',
     'arp_no' => 'ARP No',
-    'order_date' => 'အော်ဒါရက်စွဲ',
+    'order_date' => 'ရက်စွဲ',
+    'total_kg_enter' => 'စုစုပေါင်း Kg ထည့်ရန်',
+    'arp_no_enter' => 'ARP number ကို ဖြည့်ရန်',
+    'date_enter' => 'ရက်စွဲ ကို ဖြည့်ရန်',
 ];

@@ -64,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('order.index');
         Route::post('/customerSearch', [OrderController::class, 'customerSearch'])->name('customer.search');
+        Route::post('/store', [OrderController::class, 'store'])->name('order.store');
     });
 
     // Language Switcher Route

@@ -12,6 +12,7 @@ return [
     'save' => 'Save',
     'update' => 'Update',
     'dashboard' => 'Dashboard',
+    'ok' => 'OK',
 
     //messages
     'confirm_delete' => 'Are you sure?',
@@ -21,6 +22,7 @@ return [
     'update_success' => 'Updated successfully',
     'delete_success' => 'Deleted successfully',
     "no_data_found" => "No data found",
+    'total_kg_fill_first' => 'Fill Total Kg first.',
 
     //Customer related words
     'customer' => 'Customer',
@@ -68,4 +70,7 @@ return [
     'description' => 'Description',
     'arp_no' => 'ARP No',
     'order_date' => 'Order Date',
+    'total_kg_enter' => 'Enter Total Kg',
+    'arp_no_enter' => 'Enter ARP number',
+    'date_enter' => 'Enter date',
 ];

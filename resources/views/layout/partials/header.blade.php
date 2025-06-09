@@ -21,7 +21,8 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> --}}
+    <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
     @yield('styles')
 </head>
 

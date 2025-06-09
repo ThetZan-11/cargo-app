@@ -194,16 +194,73 @@
                         }
                     });
                 }, 300);
-
             });
 
+            //Price Calculate
             let totalKg = $('#total_kg')
-            let priceEvl = $('#priceEvl').data('price')
-
+            let priceEvl = $('.option');
             totalKg.on("input", () => {
-                let totalAmount = totalKg.val() * priceEvl
-                $('#total_amount').val(totalAmount)
+                if (priceEvl.hasClass('selected')) {
+                    let totalAmount = totalKg.val() * $('.selected')[0].dataset.price
+                    if (isNaN(totalAmount)) {
+                        totalAmount = 0;
+                    } else {
+                        $('#total_amount').val(totalAmount.toLocaleString())
+                    }
+                } else {
+                    return
+                }
+
             })
+
+            $('#order-form').on('submit', (e) => {
+                e.preventDefault();
+                let totalAmount = $('#total_amount').val()
+                var formData = new FormData($('#order-form')[0])
+                $('#loader').css('display', 'flex');
+                setTimeout(() => {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('order.store') }}",
+                        data: {
+                            formData,
+                            totalAmount
+                        },
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.status == true) {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: '{{ __('word.create_success') }}',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    fadeIn: 1000,
+                                });
+                            }
+                            $('#loader').css('display', 'none');
+                            $('#createPriceModal').modal('hide');
+                            $('#price-form')[0].reset();
+                            table.ajax.reload();
+                        },
+                        error: function(xhr, status, error, response) {
+                            $('#loader').css('display', 'none');
+                            var errors = xhr.responseJSON.message;
+                            console.error(errors);
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: errors,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                    });
+                }, 1000);
+            })
+
         });
     </script>
 @endsection
