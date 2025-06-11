@@ -55,83 +55,83 @@
             $('#createOrderModal').on("hide.bs.modal", () => {
                 localStorage.removeItem('open_modal');
             })
-            // let table = $('#datatable').DataTable({
-            //     serverSide: true,
-            //     responsive: true,
-            //     dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rtip',
-            //     beforeSend: function() {
-            //         $('#loader').css('display', 'flex');
-            //     },
-            //     ajax: {
-            //         url: "{{ route('customer.data') }}",
-            //         type: "POST",
-            //         data: {
-            //             "_token": "{{ csrf_token() }}"
-            //         }
-            //     },
-            //     complete: function() {
-            //         $('#loader').css('display', 'none');
-            //     },
-            //     columns: [{
-            //             data: 'plus-icon',
-            //             name: 'plus-icon',
-            //             className: 'text-center',
-            //             orderable: false,
-            //             searchable: false,
-            //             responsivePriority: 7,
-            //         }, {
-            //             data: 'name',
-            //             name: 'name',
-            //             className: 'text-center',
-            //             responsivePriority: 1
-            //         },
-            //         {
-            //             data: 'email',
-            //             name: 'email',
-            //             className: 'text-center',
-            //             responsivePriority: 2
-            //         },
-            //         {
-            //             data: 'address',
-            //             name: 'address',
-            //             className: 'text-center',
-            //             responsivePriority: 5
-            //         },
-            //         {
-            //             data: 'phone',
-            //             name: 'phone',
-            //             className: 'text-center',
-            //             responsivePriority: 3
-            //         },
-            //         {
-            //             data: 'phone2',
-            //             name: 'phone2',
-            //             className: 'text-center',
-            //             responsivePriority: 4
-            //         },
-            //         {
-            //             data: 'updated_at',
-            //             name: 'updated_at',
-            //             responsivePriority: 5
-            //         },
-            //         {
-            //             data: 'action',
-            //             name: 'action',
-            //             className: 'text-center',
-            //             orderable: false,
-            //             searchable: false,
-            //             responsivePriority: 6
-            //         }
-            //     ],
-            //     order: [
-            //         [6, 'desc']
-            //     ],
-            //     language: {
-            //         search: "",
-            //         searchPlaceholder: "{{ __('word.customer_search') }}"
-            //     }
-            // });
+            let table = $('#datatable').DataTable({
+                serverSide: true,
+                responsive: true,
+                dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rtip',
+                ajax: {
+                    url: "{{ route('order.data') }}",
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    }
+                },
+                columns: [{
+                        data: 'plus-icon',
+                        name: 'plus-icon',
+                        className: 'text-center',
+                        orderable: false,
+                        searchable: false,
+                        responsivePriority: 7,
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                        className: 'text-center',
+                        responsivePriority: 1
+                    },
+                    {
+                        data: 'address',
+                        name: 'address',
+                        className: 'text-center',
+                        responsivePriority: 2
+                    },
+                    {
+                        data: 'total_kg',
+                        name: 'total_kg',
+                        className: 'text-center',
+                        responsivePriority: 4
+                    },
+                    {
+                        data: 'total_amount',
+                        name: 'total_amount',
+                        className: 'text-center',
+                        responsivePriority: 5
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        className: 'text-center',
+                        responsivePriority: 6
+                    },
+                    {
+                        data: 'arp_no',
+                        name: 'arp_no',
+                        className: 'text-center',
+                        responsivePriority: 7
+                    },
+                    {
+                        data: 'order_date',
+                        name: 'order_date',
+                        className: 'text-center',
+                        responsivePriority: 8
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        className: 'text-center',
+                        responsivePriority: 9
+                    },
 
+                ],
+                order: [
+                    [8, 'desc']
+                ],
+                language: {
+                    search: "",
+                    searchPlaceholder: "{{ __('word.customer_search') }}"
+                }
+            });
 
 
             $('#customer_name').on('input', function() {
@@ -201,7 +201,7 @@
             let priceEvl = $('.option');
             totalKg.on("input", () => {
                 if (priceEvl.hasClass('selected')) {
-                    let totalAmount = totalKg.val() * $('.selected')[0].dataset.price
+                    let totalAmount = Math.round(totalKg.val() * $('.selected')[0].dataset.price)
                     if (isNaN(totalAmount)) {
                         totalAmount = 0;
                     } else {
@@ -213,6 +213,8 @@
 
             })
 
+
+            //Create Order Form Submit
             $('#order-form').on('submit', (e) => {
                 e.preventDefault();
                 let totalAmount = $('#total_amount').val()
@@ -222,10 +224,7 @@
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('order.store') }}",
-                        data: {
-                            formData,
-                            totalAmount
-                        },
+                        data: formData,
                         contentType: false,
                         processData: false,
                         success: function(response) {
@@ -240,8 +239,8 @@
                                 });
                             }
                             $('#loader').css('display', 'none');
-                            $('#createPriceModal').modal('hide');
-                            $('#price-form')[0].reset();
+                            $('#createOrderModal').modal('hide');
+                            $('#order-form')[0].reset();
                             table.ajax.reload();
                         },
                         error: function(xhr, status, error, response) {

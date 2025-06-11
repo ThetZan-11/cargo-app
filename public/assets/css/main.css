@@ -294,12 +294,19 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 }
 
 .btn-edit,
-.btn-delete {
+.btn-delete,
+.btn-detail {
     padding: 0.2rem 0.5rem;
     border-radius: 6px;
     transition: all 0.3s ease;
 }
 
+.btn-detail{
+    background-color: #379cd2;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
 .btn-edit {
     background-color: #4CAF50;
     border: none;

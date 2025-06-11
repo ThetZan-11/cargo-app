@@ -21,7 +21,7 @@
                                             <input type="text" id="customer_name" name="customer_name"
                                                 class="form-control" placeholder="{{ __('word.customer_search') }}" />
                                         </div>
-                                        <div style="overflow-y: scroll; height: 250px; width: auto; display: none; border-radius:10px; box-shadow: 3px 3px 3px #b9b8b876;"
+                                        <div style="overflow-y: scroll; height: 300px; width: auto; display: none; border-radius:10px; box-shadow: 3px 3px 3px #b9b8b876;"
                                             id="customer-table">
                                             <table class="table table-bordered mt-1" style=" width: 100%;">
                                                 <thead>
@@ -63,7 +63,7 @@
                                                                     {{ $price->max_kg }} Kg</span>
                                                                 <span id="priceEvl">{{ __('word.price') }}
                                                                     -
-                                                                    {{ $price->price_per_kg }}
+                                                                    {{ $price->countries->country_code == 'SG' ? $price->price_per_kg : number_format($price->price_per_kg) }}
                                                                     {{ $price->countries->country_code == 'SG' ? " $" : ' MMK' }}</span>
                                                                 ({{ $price->countries->country_name }})
                                                             </span>
@@ -78,14 +78,19 @@
                                             <label class="form-label"
                                                 for="min_kg">{{ __('word.total_amount') }}</label>
                                             <input type="text" id="total_amount" name="total_amount"
-                                                class="form-control bg-secondary" disabled value="0"
-                                                style="cursor: not-allowed; color:#fff; font-weight: 700;" />
+                                                class="form-control" value="0" />
                                         </div>
                                         <div class="form-group mt-3">
                                             <label class="form-label" for="arp_no">ARP NO</label>
                                             <input type="text" id="arp_no" name="arp_no" class="form-control"
                                                 placeholder="{{ __('word.arp_no_enter') }}" />
                                         </div>
+                                        {{-- <div class="form-group mt-3">
+                                            <label class="form-label" for="order_date">{{ __('word.staus') }}</label>
+                                            <select name="" id="">
+                                                <option value="">Pending</option>
+                                            </select>
+                                        </div> --}}
                                         <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="order_date">{{ __('word.order_date') }}</label>
@@ -342,7 +347,7 @@
                 $options.removeClass('selected');
                 $this.addClass('selected');
                 $select.removeClass('active');
-                let totalAmount = totalKg * $this.data('price');
+                let totalAmount = Math.round(totalKg * $this.data('price'));
                 if (isNaN(totalAmount) || totalAmount < 0) {
                     totalAmount = 0;
                 } else {
