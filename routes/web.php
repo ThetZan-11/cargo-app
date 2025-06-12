@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/data', [OrderController::class, 'getData'])->name('order.data');
         Route::post('/customerSearch', [OrderController::class, 'customerSearch'])->name('customer.search');
         Route::post('/store', [OrderController::class, 'store'])->name('order.store');
+        Route::get('/getDataEdit/{id}', [OrderController::class, 'getDataEdit'])->name('order.getDataEdit');
     });
 
     // Language Switcher Route

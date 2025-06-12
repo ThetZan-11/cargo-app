@@ -10,8 +10,10 @@
                 <i class="fa-solid fa-plus me-2"></i>{{ __('word.create') }}
             </button>
         </div>
-        {{-- Order Modal --}}
+        {{-- Order Create Modal --}}
         @include('order.create')
+        {{-- Order Detail Modal --}}
+        @include('order.detail')
         {{-- Edit Order Modal --}}
         {{-- @include('order.edit') --}}
         {{-- Order List Table --}}
@@ -133,7 +135,7 @@
                 }
             });
 
-
+            //Customer Search
             $('#customer_name').on('input', function() {
                 var value = $(this).val();
                 if (value.length == 0) {
@@ -213,7 +215,6 @@
 
             })
 
-
             //Create Order Form Submit
             $('#order-form').on('submit', (e) => {
                 e.preventDefault();
@@ -260,6 +261,108 @@
                 }, 1000);
             })
 
+            //Order Detail
+            $(document).on('click', '.detail-btn', function() {
+                let id = $(this).data('id');
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('order.getDataEdit', '') }}/" + id,
+                    success: function(response) {
+                        if (response.status) {
+                            console.log(response)
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "{{ __('word.failed_to_fetch') }}",
+                            showConfirmButton: false,
+                            timer: 1500,
+                            fadeIn: 1000,
+                        });
+                    }
+                });
+            })
+
+            //Print Function 
+            $('#printAddressLabels').click(function() {
+                // Get the original address container
+                const originalAddress = $('.col-12.col-md-12.col-sm-12').eq(1).find('div').clone();
+
+                // Create print page HTML
+                const printHtml = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Address Labels</title>
+                <style>
+                    body { 
+                        margin: 0; 
+                        padding: 0; 
+                        font-family: Arial, sans-serif;
+                        background: white;
+                    }
+                    .label-page {
+                        width: 8.5in;
+                        height: 11in;
+                        padding: 0.5in;
+                        box-sizing: border-box;
+                    }
+                    .label-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        grid-gap: 0.5in;
+                        height: 100%;
+                    }
+                    .label-container {
+                        border-left: 4px solid #b4c640;
+                        border-radius: 8px;
+                        padding: 15px;
+                        box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+                        height: 1.8in;
+                        box-sizing: border-box;
+                        page-break-inside: avoid;
+                    }
+                    @media print {
+                        body { -webkit-print-color-adjust: exact; }
+                        .label-page { padding: 0; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="label-page">
+                    <div class="label-grid">
+                        ${Array(10).fill(originalAddress.prop('outerHTML')).join('')}
+                    </div>
+                </div>
+                <script>
+                    window.onload = function() {
+                        setTimeout(function() {
+                            window.print();
+                            window.close();
+                        }, 300);
+                    };
+                <\/script>
+            </body>
+            </html>
+        `;
+
+                // Open print window
+                const printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write(printHtml);
+                printWindow.document.close();
+            });
         });
     </script>
 @endsection

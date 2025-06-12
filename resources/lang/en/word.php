@@ -73,4 +73,5 @@ return [
     'total_kg_enter' => 'Enter Total Kg',
     'arp_no_enter' => 'Enter ARP number',
     'date_enter' => 'Enter date',
+    'order_detail' => "Order Detail",
 ];

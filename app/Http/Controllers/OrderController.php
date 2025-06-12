@@ -61,7 +61,6 @@ class OrderController extends Controller
     public function getData()
     {
         $orders = Order::with('customers', 'prices');
-        // dd($orders);
         return DataTables::of($orders)
             ->addColumn('plus-icon', function ($row) {
                 return null;
@@ -83,19 +82,31 @@ class OrderController extends Controller
                 $detail_icon = '<button type="button" class="btn btn-detail btn-sm detail-btn" title="detail"
                 data-id="' . $id . '" data-mdb-ripple-init data-mdb-modal-init
                 data-mdb-target="#detailOrderModal" data-mdb-toggle="modal">
-              <i class="fa-solid fa-eye"></i>
-              </button>';
+                <i class="fa-solid fa-eye"></i>
+                </button>';
                 $edit_icon = '<button type="button" class="btn btn-edit btn-sm edit-btn" title="Edit"
                 data-id="' . $id . '" data-mdb-ripple-init data-mdb-modal-init
                 data-mdb-target="#editOrderrModal" data-mdb-toggle="modal">
                 <i class="fa-solid fa-pen-to-square"></i>
-              </button>';
+                </button>';
                 $delete_icon = '<button type="button" class="btn btn-delete btn-sm delete-btn" data-id="' . $id . '" title="Delete">
-                    <i class="fa-solid fa-trash"></i>
+                <i class="fa-solid fa-trash"></i>
                 </button>';
                 return '<div class="action-buttons">' . $detail_icon . $edit_icon . $delete_icon . '</div>';
             })
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function getDataEdit($id)
+    {
+        if (request()->ajax()) {
+            try {
+                $orders = Order::with('customers', 'prices')->findOrFail(base64_decode($id));
+                return response()->json(['status' => true, 'data' => $orders]);
+            } catch (\Throwable $e) {
+                return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+            }
+        }
     }
 }

@@ -72,4 +72,5 @@ return [
     'total_kg_enter' => 'စုစုပေါင်း Kg ထည့်ရန်',
     'arp_no_enter' => 'ARP number ကို ဖြည့်ရန်',
     'date_enter' => 'ရက်စွဲ ကို ဖြည့်ရန်',
+    'order_detail' => "အော်ဒါ အသေးစိတ်",
 ];
