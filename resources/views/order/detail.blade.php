@@ -15,7 +15,6 @@
                         <div
                             style="height: 3px; background: linear-gradient(to right, #60db34, #cee13b); width: 200px; margin: 10px auto;">
                         </div>
-                        <p style="color: #6c757d;">Thank you for your order!</p>
                     </div>
 
                     <!-- Order Info -->
@@ -24,11 +23,19 @@
                             <div
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
                                 <p style="margin-bottom: 5px;"><strong>Status:</strong> <span class="badge"
-                                        style="background-color: #fff3cd; color: #856404; font-weight: 500;">Pending</span>
+                                        style="background-color: #fff3cd; color: #856404; font-weight: 500;"
+                                        id="status_detail"></span>
                                 </p>
-                                <p style="margin-bottom: 5px;"><strong>Total Weight:</strong> 20.00 kg</p>
-                                <p style="margin-bottom: 0;"><strong>Total Amount:</strong> $561.00</p>
-                                <p style="margin-bottom: 5px;"><strong>Date:</strong> June 12, 2025</p>
+                                <p style="margin-bottom: 5px;"><strong>Total Weight:</strong> <span
+                                        id="total_kg_detail"></span>
+                                </p>
+                                <p style="margin-bottom: 0;"><strong>Total Amount:</strong>
+                                    <span id="total_amount_detail"></span>
+                                </p>
+                                <p style="margin-bottom: 5px;"><strong>Date:</strong> <span
+                                        id="order_date_detail"></span> </p>
+                                <p style="margin-bottom: 5px;"><strong>ARP NO:</strong> <span
+                                id="arp_no_detail"></span> </p>
                             </div>
                         </div>
                     </div>
@@ -42,22 +49,19 @@
                                     style="color: #2c3e50; font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
                                     <i class="bi bi-person-circle me-2"></i>Customer Information
                                 </h5>
-                                <p style="margin-bottom: 8px;"><strong>Name:</strong> Aniyah Pollich</p>
-                                <p style="margin-bottom: 0;"><strong>Phone:</strong> +1-270-847-6633</p>
+                                <p style="margin-bottom: 8px;"><strong>Name:</strong> <span id="name_detail"></span></p>
+                                <p style="margin-bottom: 0;"><strong>Phone:</strong> <span id="phone_detail"></span></p>
                             </div>
                         </div>
                         <div class="col-12 col-md-12 col-sm-12 address-container">
                             <div
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
                                 <h5
-                                    style="color: #2c3e50; font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
+                                    style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
                                     <i class="bi bi-geo-alt me-2"></i>Address
                                 </h5>
-                                <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;">
-                                    123 Main Street,
-                                    Suite 400,
-                                    New York, NY 10001,
-                                    United States
+                                <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
+                                    id="address_detail">
                                 </address>
                             </div>
                         </div>
@@ -83,9 +87,9 @@
                                 <tbody>
                                     <tr>
                                         <td>Product Shipment</td>
-                                        <td style="text-align: right;">20.00 kg</td>
-                                        <td style="text-align: right;">$28.07</td>
-                                        <td style="text-align: right;">$561.00</td>
+                                        <td style="text-align: right;" id="total_kg_table"></td>
+                                        <td style="text-align: right;" id="price_per_kg_detail"></td>
+                                        <td style="text-align: right;" id="total_amount_table"></td>
                                     </tr>
                                 </tbody>
                             </table>

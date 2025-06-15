@@ -69,8 +69,11 @@ class OrderController extends Controller
                 return $row->customers->name ?? '-';
             })
             ->addColumn('address', function ($row) {
-                return $row->customers->address ?? '-';
+                return strlen($row->customers->address) >= 20 ? substr($row->customers->address, 0, 20,) . '...' : $row->customers->address;
             })
+            // ->addColumn('country_flag', function ($row) {
+            //     return strlen($row->customers->address) >= 20 ? substr($row->customers->address, 0, 20,) . '...' : $row->customers->address;
+            // })
             ->editColumn('total_amount', function ($row) {
                 return $row->total_amount . " MMK";
             })
