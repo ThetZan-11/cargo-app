@@ -65,15 +65,18 @@ class OrderController extends Controller
             ->addColumn('plus-icon', function ($row) {
                 return null;
             })
+            ->addColumn('checkbox', function ($row) {
+                return '<input class="form-check-input printCheckbox" type="checkbox" value="' . $row->id . '" id="printCheckbox" />';
+            })
             ->addColumn('name', function ($row) {
                 return $row->customers->name ?? '-';
             })
             ->addColumn('address', function ($row) {
                 return strlen($row->customers->address) >= 20 ? substr($row->customers->address, 0, 20,) . '...' : $row->customers->address;
             })
-            // ->addColumn('country_flag', function ($row) {
-            //     return strlen($row->customers->address) >= 20 ? substr($row->customers->address, 0, 20,) . '...' : $row->customers->address;
-            // })
+            ->addColumn('country_flag', function ($row) {
+                return '<img src="' . $row->prices->countries->country_flag . '" alt="country" style="border:1px solid black; width:50px;" >';
+            })
             ->editColumn('total_amount', function ($row) {
                 return $row->total_amount . " MMK";
             })
@@ -97,7 +100,7 @@ class OrderController extends Controller
                 </button>';
                 return '<div class="action-buttons">' . $detail_icon . $edit_icon . $delete_icon . '</div>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'checkbox', 'country_flag'])
             ->make(true);
     }
 
