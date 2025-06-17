@@ -46,8 +46,8 @@ class OrderController extends Controller
                 'total_amount'      => $decimal_price_value,
                 'arp_no'            => $request->arp_no,
                 "order_date"        => $request->order_date,
-                "status"            => 0,
-                // "remark"            => $request->remark,
+                "status"            => $request->order_status,
+                "description"       => $request->order_desc,
             ];
             Order::create($data);
             DB::commit();
@@ -66,7 +66,7 @@ class OrderController extends Controller
                 return null;
             })
             ->addColumn('checkbox', function ($row) {
-                return '<input class="form-check-input printCheckbox" type="checkbox" value="' . $row->id . '" id="printCheckbox" />';
+                return '<input class="form-check-input printCheckbox" type="checkbox" value="' . $row->customers->id . '" id="printCheckbox" />';
             })
             ->addColumn('name', function ($row) {
                 return $row->customers->name ?? '-';
@@ -110,6 +110,23 @@ class OrderController extends Controller
             try {
                 $orders = Order::with('customers', 'prices')->findOrFail(base64_decode($id));
                 return response()->json(['status' => true, 'data' => $orders]);
+            } catch (\Throwable $e) {
+                return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+            }
+        }
+    }
+
+    public function printData(Request $request)
+    {
+        if (request()->ajax()) {
+            try {
+                $req =  $request->json()->all();
+                $printIdArr = $req['printId'];
+                $customers = [];
+                foreach ($printIdArr as $printId) {
+                    array_push($customers, Customer::find($printId));
+                }
+                return response()->json(['status' => true, 'data' => $customers]);
             } catch (\Throwable $e) {
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
             }

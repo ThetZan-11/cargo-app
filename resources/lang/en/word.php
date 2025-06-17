@@ -74,4 +74,6 @@ return [
     'arp_no_enter' => 'Enter ARP number',
     'date_enter' => 'Enter date',
     'order_detail' => "Order Detail",
+    'descrioption' => 'Description',
+    'enter_desc' => 'Enter Description'
 ];

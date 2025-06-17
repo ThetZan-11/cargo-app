@@ -20,8 +20,9 @@ return new class extends Migration
             $table->foreignId('price_id')->constrained('prices')->onDelete('cascade');
             $table->decimal('total_kg', 8, 2);
             $table->decimal('total_amount', 10, 2);
-            $table->integer('status');
             $table->string('arp_no')->nullable();
+            $table->integer('status');
+            $table->text('description')->nullable();
             $table->date('order_date')->nullable();
             $table->timestamps();
         });

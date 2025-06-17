@@ -70,7 +70,9 @@ return [
     'arp_no' => 'ARP No',
     'order_date' => 'ရက်စွဲ',
     'total_kg_enter' => 'စုစုပေါင်း Kg ထည့်ရန်',
-    'arp_no_enter' => 'ARP number ကို ဖြည့်ရန်',
-    'date_enter' => 'ရက်စွဲ ကို ဖြည့်ရန်',
+    'arp_no_enter' => 'ARP number ဖြည့်ရန်',
+    'date_enter' => 'ရက်စွဲ ဖြည့်ရန်',
     'order_detail' => "အော်ဒါ အသေးစိတ်",
+    'descrioption' => 'မှတ်ချက်',
+    'enter_desc' => 'မှတ်ချက် ဖြည့်ရန်'
 ];

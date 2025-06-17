@@ -34,8 +34,8 @@
                                 </p>
                                 <p style="margin-bottom: 5px;"><strong>Date:</strong> <span
                                         id="order_date_detail"></span> </p>
-                                <p style="margin-bottom: 5px;"><strong>ARP NO:</strong> <span
-                                id="arp_no_detail"></span> </p>
+                                <p style="margin-bottom: 5px;"><strong>ARP NO:</strong> <span id="arp_no_detail"></span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -104,12 +104,6 @@
                             456-7890</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="modal-footer">
-                <button id="printAddressLabels" class="btn btn-primary mt-3">
-                    <i class="bi bi-printer"></i> Print Address Labels (10 per page)
-                </button>
             </div>
         </div>
     </div>

@@ -85,17 +85,25 @@
                                             <input type="text" id="arp_no" name="arp_no" class="form-control"
                                                 placeholder="{{ __('word.arp_no_enter') }}" />
                                         </div>
-                                        {{-- <div class="form-group mt-3">
-                                            <label class="form-label" for="order_date">{{ __('word.staus') }}</label>
-                                            <select name="" id="">
-                                                <option value="">Pending</option>
+                                        <div class="form-group mt-3">
+                                            <label class="form-label"
+                                                for="order_date">{{ __('word.order_status') }}</label>
+                                            <select name="order_status" id="order_status" class="form-select">
+                                                <option value="0">Pending</option>
+                                                <option value="1">Completed</option>
                                             </select>
-                                        </div> --}}
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label class="form-label"
+                                                for="order_date">{{ __('word.descrioption') }}</label>
+                                            <textarea class="form-control" id="order_desc" placeholder="{{ __('word.enter_desc') }}" name="order_desc"
+                                                rows="3"></textarea>
+                                        </div>
                                         <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="order_date">{{ __('word.order_date') }}</label>
-                                            <input type="date" id="order_date" name="order_date" class="form-control"
-                                                placeholder="{{ __('word.date_enter') }}" />
+                                            <input type="date" id="order_date" name="order_date"
+                                                class="form-control" placeholder="{{ __('word.date_enter') }}" />
                                         </div>
                                 </div>
                             </div>

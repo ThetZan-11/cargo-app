@@ -24,12 +24,14 @@
                         <div class="table-responsive">
                             <div class="container-fluid mb-2">
                                 <form id="print-form">
-                                    <div class="row justify-content-start">
-                                        <div class="col-sm-6 col-md-5 col-lg-5">
-                                            <select name="" id="" class="form-control">
+                                    <div class="row justify-content-start align-items-center">
+                                        <div class="col-sm-6 col-md-5 col-lg-5 mb-1">
+                                            <select id="print-selectbox" class="form-select">
                                                 <option value="">Select print limit</option>
+                                                <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
+                                                <option value="4">4</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-6 col-md-2 col-lg-2">
@@ -78,7 +80,6 @@
                         url: "{{ route('order.getDataEdit', '') }}/" + detailId,
                         success: function(response) {
                             if (response.status) {
-                                console.log(response);
                                 response.data.status == 0 ? $('#status_detail').text(
                                     "Pending") : $('#status').text(
                                     "Completed")
@@ -223,19 +224,137 @@
                 }
             });
 
-            let printId = []
             //Print Process
+            let printId = []
             $(document).on('click', '.printCheckbox', function() {
                 let IdExists = printId.includes($(this).val())
-                console.log(IdExists);
-                if (!IdExists) {
-                    printId.push($(this).val())
+                let InputValue = $(this).val();
+                if ($(this)[0].checked) {
+                    if (!IdExists) {
+                        printId.push(InputValue)
+                    }
                 } else {
-                    return
+                    let deleteArr = printId.indexOf(InputValue);
+                    printId.splice(deleteArr, 1)
                 }
+                console.log(printId)
             })
 
-            $('#order-form').on('submit', (e) => {
+            $('#print-form').on('submit', (e) => {
+                e.preventDefault()
+                let printSelectVal = Number($('#print-selectbox').val())
+                if (printId.length == 0 || printSelectVal == "") {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Select one customer",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        fadeIn: 1000,
+                    });
+                    return
+                }
+                $('#loader').css('display', 'flex');
+                setTimeout(() => {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('order.print') }}",
+                        data: JSON.stringify({
+                            printId
+                        }),
+                        contentType: "application/json",
+                        processData: false,
+                        success: function(response) {
+                            $('#loader').css('display', 'none');
+                            if (response.status == true) {
+                                console.log(response.data)
+                                let originalAddress = ""
+                                response.data.forEach(e => {
+                                    originalAddress += `
+                                     <div class="col-12 col-md-12 col-sm-12 address-container">
+                                    <div
+                                style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
+                                <h3
+                                    style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
+                                    <i class="bi bi-geo-alt me-2"></i>${e.name}
+                                </h3>
+                                <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
+                                    id="address_detail">
+                                    ${e.address}
+                                </address>
+                            </div>
+                            </div>`
+                                });
+
+                                const printHtml = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Address Labels</title>
+                <style>
+                    body { 
+                        margin: 0; 
+                        padding: 0; 
+                        font-family: Arial, sans-serif;
+                        background: white;
+                    }
+                    .label-page {
+                        width: 8.5in;
+                        padding: 0.3in;
+                        box-sizing: border-box;
+                    }
+                    .label-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        grid-gap: 0.5in;
+                    }
+                    @media print {
+                        body { -webkit-print-color-adjust: exact; }
+                        .label-page { padding: 0; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="label-page">
+                    <div class="label-grid">
+                        ${Array(printSelectVal).fill(originalAddress).join('')}
+                    </div>
+                </div>
+                <script>
+                    window.onload = function() {
+                        setTimeout(function() {
+                            window.print();
+                            window.close();
+                        }, 300);
+                    };
+                <\/script>
+            </body>
+            </html>
+        `;
+
+                                // Open print window
+                                const printWindow = window.open('', '_blank');
+                                printWindow.document.open();
+                                printWindow.document.write(printHtml);
+                                printWindow.document.close();
+                            }
+
+                        },
+                        error: function(xhr, status, error, response) {
+                            $('#loader').css('display', 'none');
+                            var errors = xhr.responseJSON.message;
+                            console.error(errors);
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: errors,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                    });
+                }, 1000);
 
             })
 
@@ -410,65 +529,6 @@
                     }
                 });
             })
-
-            //Print Function 
-            $('#printAddressLabels').click(function() {
-                // Get the original address container
-                const originalAddress = $('.col-12.col-md-12.col-sm-12').eq(1).find('div').clone();
-
-                // Create print page HTML
-                const printHtml = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Address Labels</title>
-                <style>
-                    body { 
-                        margin: 0; 
-                        padding: 0; 
-                        font-family: Arial, sans-serif;
-                        background: white;
-                    }
-                    .label-page {
-                        width: 8.5in;
-                        padding: 0.3in;
-                        box-sizing: border-box;
-                    }
-                    .label-grid {
-                        display: grid;
-                        grid-template-columns: repeat(2, 1fr);
-                        grid-gap: 0.5in;
-                    }
-                    @media print {
-                        body { -webkit-print-color-adjust: exact; }
-                        .label-page { padding: 0; }
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="label-page">
-                    <div class="label-grid">
-                        ${Array(10).fill(originalAddress.prop('outerHTML')).join('')}
-                    </div>
-                </div>
-                <script>
-                    window.onload = function() {
-                        setTimeout(function() {
-                            window.print();
-                            window.close();
-                        }, 300);
-                    };
-                <\/script>
-            </body>
-            </html>
-        `;
-
-                // Open print window
-                const printWindow = window.open('', '_blank');
-                printWindow.document.open();
-                printWindow.document.write(printHtml);
-                printWindow.document.close();
-            });
         });
     </script>
 @endsection
