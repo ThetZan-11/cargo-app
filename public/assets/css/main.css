@@ -7,7 +7,7 @@
     --third-color: #d4a373;
     --green: #ccd5ae;
     --global-font: "Poppins", sans-serif;
-    --default-fs: 20px;
+    --default-fs: 15px;
     --transition-speed: 0.3s;
 }
 
@@ -138,7 +138,7 @@ nav {
 
 .menu-btn {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 20px;
     color: var(--text-color);
     padding: 5px;
 }
@@ -160,10 +160,10 @@ nav {
     box-shadow: 2px 2px 3px 3px #1e1e1e57;
 }
 
-.login-card h1 {
+/* .login-card h1 {
     font-size: 30px;
     font-weight: 700;
-}
+} */
 
 .login-input {
     padding: 5px 0px;
@@ -226,7 +226,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     border: 1px solid #e0e0e0 !important;
     outline: none;
     background-color: var(--background-color);
-    color: var(--text-color);
+    color: #000 !important;
 }
 
 #datatable_filter input:focus {
@@ -238,12 +238,19 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
 }
 
 #datatable_length select {
-    padding: 5px 10px !important;
+    padding: 5px 25px 5px 10px !important;
     border-radius: 8px !important;
     border: 1px solid #e0e0e0 !important;
     outline: none;
     background-color: var(--background-color);
-    color: var(--text-color);
+    color: #000 !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 8px center;
+    background-repeat: no-repeat;
+    background-size: 16px 12px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .card {
@@ -258,7 +265,6 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
 }
 
 .page-title {
-    font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
     display: flex;
@@ -280,8 +286,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     background: #f8f9fa;
     color: #333;
     font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: 15px;
     letter-spacing: 0.5px;
     padding: 1rem;
     border-bottom: 2px solid #dee2e6;
@@ -289,7 +294,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
 
 .table tbody td {
     padding: 1rem;
-    font-size: 0.9rem;
+    font-size: 15px;
     vertical-align: middle;
 }
 
@@ -329,7 +334,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
 }
 
 i {
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .btn-edit:hover,
@@ -367,12 +372,12 @@ i {
 }
 
 .dataTable tbody td {
-    font-size: 17px;
+    font-size: 15px;
     padding: 10px;
 }
 
 .dataTable thead th {
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .table tbody tr:hover {

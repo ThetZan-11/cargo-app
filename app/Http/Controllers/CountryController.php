@@ -22,7 +22,7 @@ class CountryController extends Controller
             })->editColumn('country_flag', function ($row) {
                 return '<img src="' . $row->country_flag . '" alt="' . $row->country_name . '" style="width: 30px; height: 20px;">';
             })
-            ->rawColumns(['country_flag'])
+            ->rawColumns(['plus-icon','country_flag'])
             ->make(true);
     }
 }

@@ -37,9 +37,6 @@
                 serverSide: true,
                 responsive: true,
                 dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rtip',
-                beforeSend: function() {
-                    $('#loader').css('display', 'flex');
-                },
                 ajax: {
                     url: "{{ route('country.data') }}",
                     type: "POST",
@@ -47,33 +44,29 @@
                         "_token": "{{ csrf_token() }}"
                     }
                 },
-                complete: function() {
-                    $('#loader').css('display', 'none');
-                },
                 columns: [{
                         data: 'plus-icon',
                         name: 'plus-icon',
-                        className: 'text-center',
                         orderable: false,
                         searchable: false,
-                        responsivePriority: 4
+                        responsivePriority: 1
                     }, {
                         data: 'country_name',
                         name: 'country_name',
                         className: 'text-center',
-                        responsivePriority: 1
+                        responsivePriority: 2
                     },
                     {
                         data: 'country_code',
                         name: 'country_code',
                         className: 'text-center',
-                        responsivePriority: 2
+                        responsivePriority: 3
                     },
                     {
                         data: 'country_flag',
                         name: 'country_flag',
                         className: 'text-center',
-                        responsivePriority: 3
+                        responsivePriority: 4
                     },
                 ],
                 language: {

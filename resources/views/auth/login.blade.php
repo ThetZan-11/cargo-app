@@ -7,7 +7,10 @@
             <div class="col-lg-8 col-md-10 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center mb-4">Login</h2>
+                        <div class="mb-3 container text-center d-flex align-items-center" style="width:200px; height:200px; background-color: #e0f334; border-radius:50%; box-shadow:5px 5px 10px #0000003e;">
+                            <img src="{{asset('assets/img/juu.png')}}" alt="" class="img-fluid">
+                        </div>
+                        <h2 class="text-center mb-4">Welcome To Work</h2>
 
                         @if ($errors->any())
                             <div class="alert alert-danger">

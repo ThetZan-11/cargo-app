@@ -9,6 +9,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\OrderCreateRequest;
+use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -37,13 +38,12 @@ class OrderController extends Controller
     {
         try {
             DB::beginTransaction();
-            $formatter = new NumberFormatter('de_DE', NumberFormatter::DECIMAL);
-            $decimal_price_value = $formatter->parse($request->selected_price_id);
+            $total_amount = (float) str_replace(',', '', $request->total_amount);
             $data = [
                 'customer_id'       => $request->customer_hidden_id,
                 'price_id'          => $request->selected_price_id,
                 'total_kg'          => $request->total_kg,
-                'total_amount'      => $decimal_price_value,
+                'total_amount'      => $total_amount,
                 'arp_no'            => $request->arp_no,
                 "order_date"        => $request->order_date,
                 "status"            => $request->order_status,
@@ -73,6 +73,9 @@ class OrderController extends Controller
             })
             ->addColumn('address', function ($row) {
                 return strlen($row->customers->address) >= 20 ? substr($row->customers->address, 0, 20,) . '...' : $row->customers->address;
+            })
+            ->editColumn('order_date', function ($row) {
+                return Carbon::parse($row->order_date)->format('d-M-Y');
             })
             ->addColumn('country_flag', function ($row) {
                 return '<img src="' . $row->prices->countries->country_flag . '" alt="country" style="border:1px solid black; width:50px;" >';
