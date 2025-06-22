@@ -14,6 +14,7 @@ $(document).ready(function () {
         serverSide: true,
         responsive: true,
         mark: true,
+        pageLength: 5,
         columnDefs: [
             {
                 targets: "no-sort",

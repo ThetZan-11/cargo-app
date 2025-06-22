@@ -15,11 +15,11 @@
         {{-- Order Detail Modal --}}
         @include('order.detail')
         {{-- Edit Order Modal --}}
-        {{-- @include('order.edit') --}}
+        @include('order.edit')
         {{-- Order List Table --}}
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card"> 
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="container-fluid mb-2">

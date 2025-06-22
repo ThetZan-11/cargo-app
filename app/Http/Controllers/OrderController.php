@@ -9,6 +9,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\OrderCreateRequest;
+use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -72,6 +73,9 @@ class OrderController extends Controller
             })
             ->addColumn('address', function ($row) {
                 return strlen($row->customers->address) >= 20 ? substr($row->customers->address, 0, 20,) . '...' : $row->customers->address;
+            })
+            ->editColumn('order_date', function ($row) {
+                return Carbon::parse($row->order_date)->format('d-M-Y');
             })
             ->addColumn('country_flag', function ($row) {
                 return '<img src="' . $row->prices->countries->country_flag . '" alt="country" style="border:1px solid black; width:50px;" >';
