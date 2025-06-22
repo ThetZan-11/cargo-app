@@ -86,7 +86,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Product Shipment</td>
+                                        <td id="order_desc_detail"></td>
                                         <td style="text-align: right;" id="total_kg_table"></td>
                                         <td style="text-align: right;" id="price_per_kg_detail"></td>
                                         <td style="text-align: right;" id="total_amount_table"></td>
@@ -94,14 +94,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd;">
-                        <p style="margin-bottom: 5px; color: #6c757d; font-size: 0.9rem;">For any questions, please
-                            contact our customer service</p>
-                        <p style="margin-bottom: 0; color: #6c757d; font-size: 0.9rem;">support@example.com | (123)
-                            456-7890</p>
                     </div>
                 </div>
             </div>

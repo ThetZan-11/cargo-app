@@ -37,17 +37,16 @@ class OrderController extends Controller
     {
         try {
             DB::beginTransaction();
-            $formatter = new NumberFormatter('de_DE', NumberFormatter::DECIMAL);
-            $decimal_price_value = $formatter->parse($request->selected_price_id);
+            $total_float_value = floatval(str_replace(',', '', $request->total_amount));
             $data = [
                 'customer_id'       => $request->customer_hidden_id,
                 'price_id'          => $request->selected_price_id,
                 'total_kg'          => $request->total_kg,
-                'total_amount'      => $decimal_price_value,
+                'total_amount'      => $total_float_value,
                 'arp_no'            => $request->arp_no,
-                "order_date"        => $request->order_date,
                 "status"            => $request->order_status,
                 "description"       => $request->order_desc,
+                "order_date"        => $request->order_date,
             ];
             Order::create($data);
             DB::commit();
@@ -95,10 +94,7 @@ class OrderController extends Controller
                 data-mdb-target="#editOrderrModal" data-mdb-toggle="modal">
                 <i class="fa-solid fa-pen-to-square"></i>
                 </button>';
-                $delete_icon = '<button type="button" class="btn btn-delete btn-sm delete-btn" data-id="' . $id . '" title="Delete">
-                <i class="fa-solid fa-trash"></i>
-                </button>';
-                return '<div class="action-buttons">' . $detail_icon . $edit_icon . $delete_icon . '</div>';
+                return '<div class="action-buttons">' . $detail_icon . $edit_icon . '</div>';
             })
             ->rawColumns(['action', 'checkbox', 'country_flag'])
             ->make(true);
