@@ -15,6 +15,7 @@ class Order extends Model
         'total_amount',
         'arp_no',
         "order_date",
+        "description",
         "status",
     ];
 

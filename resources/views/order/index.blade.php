@@ -55,6 +55,7 @@
                                         <th class="text-center">{{ __('word.arp_no') }}</th>
                                         <th class="text-center">{{ __('word.order_date') }}</th>
                                         <th class="text-center">{{ __('word.action') }}</th>
+                                        <th class="no-search"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -213,10 +214,16 @@
                         className: 'text-center',
                         responsivePriority: 11
                     },
+                    {
+                        data: 'id',
+                        name: 'id',
+                        searchable: false,
+                        visible: false,
+                    },
 
                 ],
                 order: [
-                    [8, 'desc']
+                    [11, 'desc']
                 ],
                 language: {
                     search: "",
@@ -441,7 +448,6 @@
             //Create Order Form Submit
             $('#order-form').on('submit', (e) => {
                 e.preventDefault();
-                let totalAmount = $('#total_amount').val()
                 var formData = new FormData($('#order-form')[0])
                 $('#loader').css('display', 'flex');
                 setTimeout(() => {
@@ -492,6 +498,7 @@
                     type: 'GET',
                     url: "{{ route('order.getDataEdit', '') }}/" + id,
                     success: function(response) {
+                        console.log(response.data)
                         if (response.status) {
                             response.data.status == 0 ? $('#status_detail').text(
                                 "Pending") : $('#status').text(
@@ -506,6 +513,7 @@
                             $("#phone_detail").text(response.data.customers.phone)
                             $("#address_detail").text(response.data.customers.address)
                             $("#price_per_kg_detail").text(response.data.prices.price_per_kg)
+                            $('#order_desc_detail').text(response.data.description)
                         } else {
                             Swal.fire({
                                 position: "center",

@@ -172,7 +172,7 @@
                 let id = $(this).data('id');
                 Swal.fire({
                     title: "{{ __('word.confirm_delete') }}",
-                    text: "{{ __('word.confirm_delete_text') }}",
+                    text: "{!! __('word.confirm_delete_text') !!}",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
