@@ -529,6 +529,50 @@
                     }
                 });
             })
+
+            //Edit Order
+            $(document).on('click', '.edit-btn', function() {
+                let id = $(this).data('id');
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('order.getDataEdit', '') }}/" + id,
+                    success: function(response) {
+                        let thisResponse = response.data
+                        console.log(thisResponse)
+                        if (response.status) {
+                            $('#customer_hidden_id_edit').val(thisResponse.customers.id)
+                            $('#customer_name_edit').val(thisResponse.customers.name)
+                            $('#total_kg_edit').val(thisResponse.total_kg)
+                            $('#total_amount_edit').val(thisResponse.total_amount)
+                            $('#arp_no_edit').val(thisResponse.arp_no)
+                            $('#order_date_edit').val(thisResponse.order_date)
+                            $('#customer_phone_edit').val(thisResponse.customers.phone)
+                            $('#customer_address_edit').val(thisResponse.customers.address)
+                            $('#order_status_edit').val(thisResponse.status)
+                            $('#order_desc_edit').val(thisResponse.description)
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "{{ __('word.failed_to_fetch') }}",
+                            showConfirmButton: false,
+                            timer: 1500,
+                            fadeIn: 1000,
+                        });
+                    }
+                });
+            })
         });
     </script>
 @endsection
