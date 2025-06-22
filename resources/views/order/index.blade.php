@@ -431,19 +431,34 @@
             //Price Calculate
             let totalKg = $('#total_kg')
             let priceEvl = $('.option');
+            totalAmount = $('#total_amount')
+            let totalKgEdit = $('#total_kg_edit')
+            let priceEvlEdit = $('.option-edit');
+            totalAmountEdit = $('#total_amount_edit')
+
             totalKg.on("input", () => {
-                if (priceEvl.hasClass('selected')) {
-                    let totalAmount = Math.round(totalKg.val() * $('.selected')[0].dataset.price)
+                calculatePrice(priceEvl, totalAmount, 'selected', totalKg);
+            })
+
+            totalKgEdit.on("input", () => {
+                calculatePrice(priceEvlEdit, totalAmountEdit, 'selected-edit', totalKgEdit);
+            })
+
+            function calculatePrice(price, totalAmountLabel, selectedClass, total_kg) {
+                if (price.hasClass(selectedClass)) {
+                    console.log($('.' + selectedClass)[0].dataset.price)
+                    let totalAmount = Math.round(total_kg.val() * $('.' + selectedClass)[0].dataset.price)
+                    console.log(totalAmount)
+
                     if (isNaN(totalAmount)) {
                         totalAmount = 0;
                     } else {
-                        $('#total_amount').val(totalAmount.toLocaleString())
+                        totalAmountLabel.val(totalAmount.toLocaleString())
                     }
                 } else {
                     return
                 }
-
-            })
+            }
 
             //Create Order Form Submit
             $('#order-form').on('submit', (e) => {

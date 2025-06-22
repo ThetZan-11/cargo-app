@@ -43,25 +43,26 @@
                                         </div>
                                         <div class="form-group mt-3">
                                             <label class="form-label" for="country">{{ __('word.price') }}</label>
-                                            <div class="custom-image-select">
-                                                <div class="select-header">
-                                                    <div class="selected-option">
-                                                        <span class="option-text">{{ __('word.price_select') }}</span>
+                                            <div class="custom-image-select-edit">
+                                                <div class="select-header-edit">
+                                                    <div class="selected-option-edit">
+                                                        <span class="option-text-edit">{{ __('word.price_select') }}</span>
                                                     </div>
-                                                    <i class="fa-solid fa-down-long" id="select-arrow"></i>
+                                                    <i class="fa-solid fa-down-long" id="select-arrow-edit"></i>
                                                 </div>
-                                                <div class="select-options">
+                                                <div class="select-options-edit">
+                                                    
                                                     @foreach ($prices as $price)
-                                                        <div class="option" data-price="{{ $price->price_per_kg }}"
+                                                        <div class="option-edit" data-price="{{ $price->price_per_kg }}"
                                                             data-value="{{ $price->id }}">
                                                             <img src="{{ $price->countries->country_flag }}"
-                                                                class="option-image">
-                                                            <span class="option-text">
+                                                                class="option-image-edit">
+                                                            <span class="option-text-edit">
                                                                 <span>{{ __('word.min_kg') }} -
                                                                     {{ $price->min_kg }} Kg</span>
                                                                 <span>{{ __('word.max_kg') }} -
                                                                     {{ $price->max_kg }} Kg</span>
-                                                                <span id="priceEvl">{{ __('word.price') }}
+                                                                <span id="priceEvl-edit">{{ __('word.price') }}
                                                                     -
                                                                     {{ $price->countries->country_code == 'SG' ? $price->price_per_kg : number_format($price->price_per_kg) }}
                                                                     {{ $price->countries->country_code == 'SG' ? " $" : ' MMK' }}</span>
@@ -122,7 +123,7 @@
     </div>
 </div>
 @section('styles')
-    <style>
+    {{-- <style>
         .custom-image-select {
             position: relative;
             width: 100%;
@@ -313,31 +314,33 @@
                 padding: 12px;
             }
         }
-    </style>
+    </style> --}}
 @endsection
 <script>
     $(document).ready(function() {
         // Initialize select box
-        $('.custom-image-select').each(function() {
+        $('.custom-image-select-edit').each(function() {
+            console.log($(this))
             const $select = $(this);
-            const $header = $select.find('.select-header');
-            const $options = $select.find('.option');
-            const $selectedIdInput = $select.find('#selected_id');
-            const $selectedTextInput = $select.find('#selected_text');
-            const $selectedOption = $select.find('.selected-option');
+            const $header = $select.find('.select-header-edit');
+            const $options = $select.find('.option-edit');
+            const $selectedIdInput = $select.find('#selected_id_edit');
+            const $selectedTextInput = $select.find('#selected_text_edit');
+            const $selectedOption = $select.find('.selected-option-edit');
             const initialOption = $options.first();
-            $selectedOption.html(initialOption.find('.option-image, .option-text').clone());
+            $selectedOption.html(initialOption.find('.option-image-edit, .option-text-edit').clone());
             $selectedIdInput.val(initialOption.data('value'));
 
             // Toggle dropdown
             $header.on('click', function(e) {
+                console.log('Header clicked');
                 e.stopPropagation();
                 $select.toggleClass('active');
             });
 
             // Option selection
             $options.on('click', function() {
-                if ($('#total_kg').val() === '') {
+                if ($('#total_kg_edit').val() === '') {
                     Swal.fire({
                         icon: 'error',
                         title: '{{ __('word.error') }}',
@@ -348,18 +351,18 @@
                 }
                 const $this = $(this);
                 const value = $this.data('value')
-                $('#selected_price_id').val(value)
-                let totalKg = parseInt($('#total_kg').val());
-                $selectedOption.html($this.find('.option-image, .option-text').clone());
+                $('#selected_price_id_edit').val(value)
+                let totalKg = parseInt($('#total_kg_edit').val());
+                $selectedOption.html($this.find('.option-image-edit, .option-text-edit').clone());
                 $selectedIdInput.val(value).trigger('change');
-                $options.removeClass('selected');
-                $this.addClass('selected');
+                $options.removeClass('selected-edit');
+                $this.addClass('selected-edit');
                 $select.removeClass('active');
                 let totalAmount = Math.round(totalKg * $this.data('price'));
                 if (isNaN(totalAmount) || totalAmount < 0) {
                     totalAmount = 0;
                 } else {
-                    $('#total_amount').val(totalAmount.toLocaleString());
+                    $('#total_amount_edit').val(totalAmount.toLocaleString());
                 }
             });
 
