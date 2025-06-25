@@ -232,7 +232,6 @@
                     type: 'GET',
                     url: "{{ route('price.getDataEdit', '') }}/" + id,
                     success: function(response) {
-                        console.log(response.data);
                         if (response.status) {
                             $('#editPriceModal').modal('show');
                             $('#edit_id').val(btoa(response.data.id));

@@ -45,13 +45,12 @@
                                 <thead>
                                     <tr>
                                         <th class="no-sort no-search"></th>
-                                        <th class="no-sort no-search"></th>
+                                        <th class="no-sort no-search"><input class="form-check-input" type="checkbox" name="select_all" id="select_all"></th>
                                         <th class="text-center">{{ __('word.customer_name') }}</th>
                                         <th class="text-center">{{ __('word.customer_address') }}</th>
                                         <th class="text-center">{{ __('word.country') }}</th>
                                         <th class="text-center">{{ __('word.total_kg') }}</th>
                                         <th class="text-center">{{ __('word.total_amount') }}</th>
-                                        <th class="text-center">{{ __('word.order_status') }}</th>
                                         <th class="text-center">{{ __('word.arp_no') }}</th>
                                         <th class="text-center">{{ __('word.order_date') }}</th>
                                         <th class="text-center">{{ __('word.action') }}</th>
@@ -132,6 +131,8 @@
                 localStorage.removeItem('detail_id');
             })
 
+           
+
             let table = $('#datatable').DataTable({
                 serverSide: true,
                 responsive: true,
@@ -143,7 +144,8 @@
                         "_token": "{{ csrf_token() }}"
                     }
                 },
-                columns: [{
+                columns: [
+                    {
                         data: 'plus-icon',
                         name: 'plus-icon',
                         className: 'text-center',
@@ -191,39 +193,36 @@
                         responsivePriority: 7
                     },
                     {
-                        data: 'status',
-                        name: 'status',
-                        className: 'text-center',
-                        responsivePriority: 8
-                    },
-                    {
                         data: 'arp_no',
                         name: 'arp_no',
                         className: 'text-center',
-                        responsivePriority: 9
+                        responsivePriority: 8
                     },
                     {
                         data: 'order_date',
                         name: 'order_date',
                         className: 'text-center',
-                        responsivePriority: 10
+                        responsivePriority: 9
                     },
                     {
                         data: 'action',
                         name: 'action',
                         className: 'text-center',
-                        responsivePriority: 11
+                        responsivePriority: 10
                     },
                     {
                         data: 'id',
                         name: 'id',
                         searchable: false,
                         visible: false,
+                        // orderable: false,
+                        searchable: false,
+                        className: 'text-center no-sort no-search'
                     },
 
                 ],
                 order: [
-                    [11, 'desc']
+                    [10, 'desc']
                 ],
                 language: {
                     search: "",
@@ -231,6 +230,7 @@
                 }
             });
 
+             
             //Print Process
             let printId = []
             $(document).on('click', '.printCheckbox', function() {
@@ -244,8 +244,37 @@
                     let deleteArr = printId.indexOf(InputValue);
                     printId.splice(deleteArr, 1)
                 }
-                console.log(printId)
+                const allChecked = Array.from($('.printCheckbox')).every(checkbox => checkbox.checked);
+                
+                if(allChecked) {
+                    $('#select_all').prop('checked', true);
+                } else if($('.printCheckbox:checked').length > 0) {
+                    $('#select_all').prop('indeterminate', true);
+                } else {
+                    $('#select_all').prop('checked', false);
+                    $('#select_all').prop('indeterminate', false);
+                }
             })
+
+            //For th checkbox
+            $('#select_all').on('click', function() {
+                let isChecked = $(this).is(':checked');
+                $('.printCheckbox').prop('checked', isChecked);
+                if (isChecked) {
+                    printId = $('.printCheckbox').map(function() {
+                        return $(this).val();
+                    }).get();
+                } else {
+                    printId = [];
+                }
+            });
+
+            //For checkbox when table paginate(draw) 
+            table.on('draw', function() {
+                $('#select_all').prop('checked', false);
+                $('#select_all').prop('indeterminate', false);
+                printId = [];
+            });
 
             $('#print-form').on('submit', (e) => {
                 e.preventDefault()
@@ -274,7 +303,6 @@
                         success: function(response) {
                             $('#loader').css('display', 'none');
                             if (response.status == true) {
-                                console.log(response.data)
                                 let originalAddress = ""
                                 response.data.forEach(e => {
                                     originalAddress += `
@@ -446,10 +474,7 @@
 
             function calculatePrice(price, totalAmountLabel, selectedClass, total_kg) {
                 if (price.hasClass(selectedClass)) {
-                    console.log($('.' + selectedClass)[0].dataset.price)
                     let totalAmount = Math.round(total_kg.val() * $('.' + selectedClass)[0].dataset.price)
-                    console.log(totalAmount)
-
                     if (isNaN(totalAmount)) {
                         totalAmount = 0;
                     } else {
@@ -513,7 +538,6 @@
                     type: 'GET',
                     url: "{{ route('order.getDataEdit', '') }}/" + id,
                     success: function(response) {
-                        console.log(response.data)
                         if (response.status) {
                             response.data.status == 0 ? $('#status_detail').text(
                                 "Pending") : $('#status').text(
@@ -561,7 +585,6 @@
                     url: "{{ route('order.getDataEdit', '') }}/" + id,
                     success: function(response) {
                         let thisResponse = response.data
-                        console.log(thisResponse)
                         if (response.status) {
                             $('#customer_hidden_id_edit').val(thisResponse.customers.id)
                             $('#customer_name_edit').val(thisResponse.customers.name)
@@ -573,6 +596,8 @@
                             $('#customer_address_edit').val(thisResponse.customers.address)
                             $('#order_status_edit').val(thisResponse.status)
                             $('#order_desc_edit').val(thisResponse.description)
+                            $('#selected_price_id_edit').val(thisResponse.prices.id)
+                            this
                         } else {
                             Swal.fire({
                                 position: "center",

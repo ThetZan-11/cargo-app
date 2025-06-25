@@ -60,31 +60,40 @@ class OrderController extends Controller
 
     public function getData()
     {
-        $orders = Order::with('customers', 'prices');
+        $orders = Order::with([
+                'receipts',
+                'prices' => function ($query) {
+                    $query->withTrashed();
+                }
+            ])->get();
+        // $order_group = $orders->groupBy('receipt_id');
         return DataTables::of($orders)
             ->addColumn('plus-icon', function ($row) {
                 return null;
             })
             ->addColumn('checkbox', function ($row) {
-                return '<input class="form-check-input printCheckbox" type="checkbox" value="' . $row->customers->id . '" id="printCheckbox" />';
+                return '<input class="form-check-input printCheckbox" type="checkbox" value="' . $row->receipts->customer_id . '" id="printCheckbox" />';
             })
             ->addColumn('name', function ($row) {
-                return $row->customers->name ?? '-';
+                return $row->receipts->customers->name ?? '-';
             })
             ->addColumn('address', function ($row) {
-                return strlen($row->customers->address) >= 20 ? substr($row->customers->address, 0, 20,) . '...' : $row->customers->address;
-            })
-            ->editColumn('order_date', function ($row) {
-                return Carbon::parse($row->order_date)->format('d-M-Y');
+                return strlen($row->receipts->customers->address) >= 20 ? substr($row->receipts->customers->address, 0, 20,) . '...' : $row->receipts->customers->address;
             })
             ->addColumn('country_flag', function ($row) {
                 return '<img src="' . $row->prices->countries->country_flag . '" alt="country" style="border:1px solid black; width:50px;" >';
             })
-            ->editColumn('total_amount', function ($row) {
-                return $row->total_amount . " MMK";
+            ->editColumn('total_kg', function ($row) {
+                return $row->total_kg . ' Kg';
             })
-            ->editColumn('status', function ($row) {
-                return $row->status == 0 ? "Pending" : "Complete";
+            ->addColumn('total_amount', function ($row) {
+                return $row->receipts->total_amount . ' MMK' ?? '-';
+            })
+            ->editColumn('order_date', function ($row) {
+                return Carbon::parse($row->receipts->order_date)->format('d-M-Y');
+            })
+            ->addColumn('arp_no', function ($row) {
+                return $row->receipts->arp_no ?? '-';
             })
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
@@ -108,7 +117,12 @@ class OrderController extends Controller
     {
         if (request()->ajax()) {
             try {
-                $orders = Order::with('customers', 'prices')->findOrFail(base64_decode($id));
+                $orders = Order::with([
+                    'customers',
+                    'prices' => function ($query) {
+                        $query->withTrashed();
+                    }
+                ])->findOrFail(base64_decode($id));
                 return response()->json(['status' => true, 'data' => $orders]);
             } catch (\Throwable $e) {
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);

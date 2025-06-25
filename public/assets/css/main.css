@@ -436,14 +436,15 @@ textarea.is-invalid {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(103, 103, 103, 0.905);
+    background: rgba(103, 103, 103, 0.3);
     z-index: 9999;
 }
 
 #loader dotlottie-player {
+    backdrop-filter: blur(5px);
     width: 70px;
     height: 70px;
-    background-color: #c4ca8dcd;
+    background-color: #eff0edec;
     border-radius: 30px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }

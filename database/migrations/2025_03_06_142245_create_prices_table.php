@@ -18,11 +18,11 @@ return new class extends Migration
                 ->references('id')
                 ->on('countries')
                 ->onDelete('cascade');
-
             $table->decimal('min_kg');
             $table->decimal('max_kg');
             $table->decimal('price_per_kg');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -105,14 +105,15 @@ class PriceController extends Controller
     {
         try {
             DB::beginTransaction();
-            $price = Price::findOrFail(base64_decode($id));
+            $oldprice = Price::findOrFail(base64_decode($id));
+            $oldprice->delete();
             $data = [
-                'country_id'      => $request->edit_country,
+                'country_id'     => $request->edit_country,
                 'min_kg'         => $request->edit_min_kg,
                 'max_kg'         => $request->edit_max_kg,
                 'price_per_kg'   => $request->edit_price,
             ];
-            $price->update($data);
+            Price::create($data);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Price updated successfully']);
         } catch (\Throwable $e) {

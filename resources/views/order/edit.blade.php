@@ -320,7 +320,6 @@
     $(document).ready(function() {
         // Initialize select box
         $('.custom-image-select-edit').each(function() {
-            console.log($(this))
             const $select = $(this);
             const $header = $select.find('.select-header-edit');
             const $options = $select.find('.option-edit');
@@ -333,7 +332,6 @@
 
             // Toggle dropdown
             $header.on('click', function(e) {
-                console.log('Header clicked');
                 e.stopPropagation();
                 $select.toggleClass('active');
             });

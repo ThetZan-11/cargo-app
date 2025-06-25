@@ -8,10 +8,10 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 mx-auto">
-                            <div class="card">
-                                <div class="card-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 mx-auto">
                                     <form id="order-form">
                                         @csrf
                                         <div data-mdb-input-init class="form-group position-relative">
@@ -85,13 +85,12 @@
                                             <input type="text" id="arp_no" name="arp_no" class="form-control"
                                                 placeholder="{{ __('word.arp_no_enter') }}" />
                                         </div>
-                                        <div class="form-group mt-3">
-                                            <label class="form-label"
-                                                for="order_date">{{ __('word.order_status') }}</label>
-                                            <select name="order_status" id="order_status" class="form-select">
-                                                <option value="0">Pending</option>
-                                                <option value="1">Completed</option>
-                                            </select>
+                                        
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 mx-auto">
+                                       <div class="form-check mt-3">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                            <label class="form-check-label" for="flexCheckDefault">Default checkbox</label>
                                         </div>
                                         <div class="form-group mt-3">
                                             <label class="form-label"

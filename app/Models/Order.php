@@ -9,20 +9,16 @@ class Order extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'customer_id',
         'price_id',
+        'receipt_id',
         'total_kg',
-        'total_amount',
-        'arp_no',
-        "order_date",
-        "description",
-        "status",
+        'line_total',
     ];
 
-    public function customers()
-    {
-        return $this->belongsTo(Customer::class, 'customer_id');
-    }
+   public function receipts()
+   {
+       return $this->belongsTo(Receipt::class, 'receipt_id');
+   }
 
     public function prices()
     {

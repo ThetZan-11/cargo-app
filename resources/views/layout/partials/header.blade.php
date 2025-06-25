@@ -28,7 +28,15 @@
 
 <body>
     <div id="loader">
-        <dotlottie-player src="https://lottie.host/85e34039-bcb1-480e-8062-f817887c058a/mUcDEXwuot.lottie"
+        {{-- <dotlottie-player src="https://lottie.host/85e34039-bcb1-480e-8062-f817887c058a/mUcDEXwuot.lottie"
             background="transparent" speed="1" style="width: 300px; height: 300px; margin: auto;" loop autoplay>
-        </dotlottie-player>
+        </dotlottie-player> --}}
+        <dotlottie-player
+  src="https://lottie.host/29ac9208-3f1a-4af8-9281-120c32b5186a/HPbycYNzpQ.lottie"
+  background="transparent"
+  speed="2"
+  style="width: 300px; height: 300px"
+  loop
+  autoplay
+></dotlottie-player>
     </div>
