@@ -24,7 +24,7 @@ class OrderCreateRequest extends FormRequest
         return [
             'customer_hidden_id' => 'required|exists:customers,id',
             'customer_name'      => 'required',
-            'total_kg'           => 'required|numeric',
+            'various_kg'           => 'required|numeric',
             'selected_price_id'  => 'required|exists:prices,id',
             'order_date'         => 'required|date',
         ];

@@ -21,16 +21,12 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <!-- Jquery -->
-    {{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> --}}
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
     @yield('styles')
 </head>
 
 <body>
     <div id="loader">
-        {{-- <dotlottie-player src="https://lottie.host/85e34039-bcb1-480e-8062-f817887c058a/mUcDEXwuot.lottie"
-            background="transparent" speed="1" style="width: 300px; height: 300px; margin: auto;" loop autoplay>
-        </dotlottie-player> --}}
         <dotlottie-player
   src="https://lottie.host/29ac9208-3f1a-4af8-9281-120c32b5186a/HPbycYNzpQ.lottie"
   background="transparent"

@@ -242,6 +242,7 @@
                     type: 'GET',
                     url: "{{ route('customer.getDataEdit', '') }}/" + id,
                     success: function(response) {
+                        console.log(response);
                         if (response.status) {
                             $('#editCustomerModal').modal('show');
                             $('#edit_id').val(btoa(response.data.id));

@@ -22,17 +22,5 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        // Create 19 more users
-        for ($i = 0; $i < 19; $i++) {
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'),
-                'role' => $faker->randomElement(['user', 'manager']),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
     }
 }

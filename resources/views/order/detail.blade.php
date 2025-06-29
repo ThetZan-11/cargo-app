@@ -2,7 +2,6 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                {{-- <h5 class="modal-title" id="exampleModalLabel">{{ __('word.order_detail') }}</h5> --}}
                 <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -22,10 +21,7 @@
                         <div class="col-12 col-sm-12">
                             <div
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
-                                <p style="margin-bottom: 5px;"><strong>Status:</strong> <span class="badge"
-                                        style="background-color: #fff3cd; color: #856404; font-weight: 500;"
-                                        id="status_detail"></span>
-                                </p>
+                
                                 <p style="margin-bottom: 5px;"><strong>Total Weight:</strong> <span
                                         id="total_kg_detail"></span>
                                 </p>
@@ -80,17 +76,12 @@
                                     <tr style="background-color: #f1f5f9;">
                                         <th style="font-weight: 600; width: 50%;">Description</th>
                                         <th style="font-weight: 600; text-align: right;">Weight</th>
-                                        <th style="font-weight: 600; text-align: right;">Price/kg</th>
+                                        {{-- <th style="font-weight: 600; text-align: right;">Price/kg</th> --}}
                                         <th style="font-weight: 600; text-align: right;">Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td id="order_desc_detail"></td>
-                                        <td style="text-align: right;" id="total_kg_table"></td>
-                                        <td style="text-align: right;" id="price_per_kg_detail"></td>
-                                        <td style="text-align: right;" id="total_amount_table"></td>
-                                    </tr>
+                                <tbody id="order_details_container">
+                                   
                                 </tbody>
                             </table>
                         </div>

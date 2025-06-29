@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'price_id',
+        'product_id',
         'receipt_id',
         'total_kg',
         'line_total',
@@ -20,8 +20,8 @@ class Order extends Model
        return $this->belongsTo(Receipt::class, 'receipt_id');
    }
 
-    public function prices()
+    public function products()
     {
-        return $this->belongsTo(Price::class, 'price_id');
+         return $this->belongsTo(Product::class, 'product_id');
     }
 }

@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-12 mx-auto">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                                     <form id="order-form">
                                         @csrf
                                         <div data-mdb-input-init class="form-group position-relative">
@@ -37,9 +37,10 @@
                                             </table>
                                         </div>
                                         <div class="form-group mt-3">
-                                            <label class="form-label" for="total_kg">{{ __('word.total_kg') }}</label>
-                                            <input type="text" id="total_kg" name="total_kg" class="form-control"
-                                                placeholder="{{ __('word.total_kg_enter') }}" />
+                                            <label class="form-label"
+                                                for="various_kg">{{ __('word.various_kg') }}</label>
+                                            <input type="text" id="various_kg" name="various_kg" class="form-control"
+                                                placeholder="{{ __('word.various_kg_enter') }}" />
                                         </div>
                                         <div class="form-group mt-3">
                                             <label class="form-label" for="country">{{ __('word.price') }}</label>
@@ -76,8 +77,8 @@
                                         </div>
                                         <div data-mdb-input-init class="form-group mt-3">
                                             <label class="form-label"
-                                                for="min_kg">{{ __('word.total_amount') }}</label>
-                                            <input type="text" id="total_amount" name="total_amount"
+                                                for="min_kg">{{ __('word.various_amount') }}</label>
+                                            <input type="text" id="various_amount" name="various_amount"
                                                 class="form-control" value="0" />
                                         </div>
                                         <div class="form-group mt-3">
@@ -85,25 +86,45 @@
                                             <input type="text" id="arp_no" name="arp_no" class="form-control"
                                                 placeholder="{{ __('word.arp_no_enter') }}" />
                                         </div>
-                                        
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 mx-auto">
-                                       <div class="form-check mt-3">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                            <label class="form-check-label" for="flexCheckDefault">Default checkbox</label>
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <label class="form-label"
-                                                for="order_date">{{ __('word.descrioption') }}</label>
-                                            <textarea class="form-control" id="order_desc" placeholder="{{ __('word.enter_desc') }}" name="order_desc"
-                                                rows="3"></textarea>
-                                        </div>
                                         <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="order_date">{{ __('word.order_date') }}</label>
-                                            <input type="date" id="order_date" name="order_date"
-                                                class="form-control" placeholder="{{ __('word.date_enter') }}" />
+                                            <input type="date" id="order_date" name="order_date" class="form-control"
+                                                placeholder="{{ __('word.date_enter') }}" />
                                         </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
+                                    <div class="form-group">
+                                        <label class="form-label"
+                                            for="order_date">{{ __('word.descrioption') }}</label>
+                                        <textarea class="form-control" id="order_desc" placeholder="{{ __('word.enter_desc') }}" name="order_desc"
+                                            rows="2"></textarea>
+                                    </div>
+                                    <div class="row ms-2">
+                                        @foreach ($products as $product)
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-check mt-5">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        name="{{ $product->name_en }}" value="{{ $product->id }}"
+                                                        id="{{ $product->name_en }}" />
+                                                    <label class="form-check-label"
+                                                        for="{{ $product->name_en }}">{{ App::getLocale() == 'en' ? $product->name_en : $product->name_mm }}</label>
+                                                </div>
+                                                <div id="{{ $product->name_en }}-container" style="display: none;">
+                                                    <div class="form-group mt-3">
+                                                        <input type="text" id="{{ $product->name_en }}_kg"
+                                                            name="{{ $product->name_en }}_kg" class="form-control"
+                                                            placeholder="{{ __('word.enter_kg') }}" />
+                                                    </div>
+                                                    <div class="form-group mt-3">
+                                                        <input type="text" id="{{ $product->name_en }}_total"
+                                                            name="{{ $product->name_en }}_total" class="form-control"
+                                                            placeholder="{{ __('word.enter_total') }}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +143,7 @@
 </div>
 @section('styles')
     <style>
-        
+
     </style>
 @endsection
 <script>
@@ -147,11 +168,11 @@
 
             // Option selection
             $options.on('click', function() {
-                if ($('#total_kg').val() === '') {
+                if ($('#various_kg').val() === '') {
                     Swal.fire({
                         icon: 'error',
                         title: '{{ __('word.error') }}',
-                        text: '{{ __('word.total_kg_fill_first') }}',
+                        text: '{{ __('word.various_kg_fill_first') }}',
                         confirmButtonText: '{{ __('word.ok') }}'
                     });
                     return;
@@ -159,7 +180,7 @@
                 const $this = $(this);
                 const value = $this.data('value')
                 $('#selected_price_id').val(value)
-                let totalKg = parseInt($('#total_kg').val());
+                let totalKg = parseInt($('#various_kg').val());
                 $selectedOption.html($this.find('.option-image, .option-text').clone());
                 $selectedIdInput.val(value).trigger('change');
                 $options.removeClass('selected');
@@ -169,7 +190,7 @@
                 if (isNaN(totalAmount) || totalAmount < 0) {
                     totalAmount = 0;
                 } else {
-                    $('#total_amount').val(totalAmount.toLocaleString());
+                    $('#various_amount').val(totalAmount);
                 }
             });
 

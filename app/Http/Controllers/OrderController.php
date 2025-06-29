@@ -9,6 +9,8 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\OrderCreateRequest;
+use App\Models\Product;
+use App\Models\Receipt;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -17,7 +19,8 @@ class OrderController extends Controller
     public function index()
     {
         $prices = Price::with('countries')->get();
-        return view('order.index', compact('prices'));
+        $products = Product::where('id', '!=', 1)->get();
+        return view('order.index', compact('prices', 'products'));
     }
 
     public function customerSearch(Request $request)
@@ -36,20 +39,88 @@ class OrderController extends Controller
 
     public function store(OrderCreateRequest $request)
     {
+
         try {
             DB::beginTransaction();
-            $total_float_value = floatval(str_replace(',', '', $request->total_amount));
-            $data = [
-                'customer_id'       => $request->customer_hidden_id,
-                'price_id'          => $request->selected_price_id,
-                'total_kg'          => $request->total_kg,
-                'total_amount'      => $total_float_value,
-                'arp_no'            => $request->arp_no,
-                "status"            => $request->order_status,
-                "description"       => $request->order_desc,
-                "order_date"        => $request->order_date,
+            $total_amount = $request->various_amount
+                + $request->meat_total +
+                $request->book_total +
+                $request->pharmacy_total +
+                $request->cloth_total +
+                $request->box_total;
+
+            $total_kg = $request->various_kg
+                + $request->meat_kg +
+                $request->book_kg +
+                $request->pharmacy_kg +
+                $request->cloth_kg +
+                $request->box_kg;
+
+            $reciptData = [
+                'customer_id'   => $request->customer_hidden_id,
+                'arp_no'        => $request->arp_no,
+                'order_date'    => Carbon::parse($request->order_date)->format('Y-m-d'),
+                'description'   => $request->order_desc,
+                'total_amount'  => $total_amount,
+                'price_id'      => $request->selected_price_id,
+                'total_kg'      => $total_kg,
             ];
-            Order::create($data);
+            $receipt = Receipt::create($reciptData);
+
+            if ($receipt) {
+                $orderData = [
+                    'product_id'       => 1,
+                    'receipt_id'       => $receipt->id,
+                    'total_kg'         => $request->various_kg,
+                    'line_total'       => $request->various_amount,
+                ];
+                Order::create($orderData);
+                if (isset($request->meat_kg) && isset($request->meat_total) && isset($request->meat)) {
+                    $meatData = [
+                        'product_id'       => $request->meat,
+                        'receipt_id'       => $receipt->id,
+                        'total_kg'         => $request->meat_kg,
+                        'line_total'       => $request->meat_total,
+                    ];
+                    Order::create($meatData);
+                }
+                if (isset($request->book_kg) && isset($request->book_total) && isset($request->book)) {
+                    $bookData = [
+                        'product_id'       => $request->book,
+                        'receipt_id'       => $receipt->id,
+                        'total_kg'         => $request->book_kg,
+                        'line_total'       => $request->book_total,
+                    ];
+                    Order::create($bookData);
+                }
+                if (isset($request->pharmacy_kg) && isset($request->pharmacy_total) && isset($request->pharmacy)) {
+                    $pharmacyData = [
+                        'product_id'       => $request->pharmacy,
+                        'receipt_id'       => $receipt->id,
+                        'total_kg'         => $request->pharmacy_kg,
+                        'line_total'       => $request->pharmacy_total,
+                    ];
+                    Order::create($pharmacyData);
+                }
+                if (isset($request->cloth_kg) && isset($request->cloth_total) && isset($request->cloth)) {
+                    $clothData = [
+                        'product_id'       => $request->cloth,
+                        'receipt_id'       => $receipt->id,
+                        'total_kg'         => $request->cloth_kg,
+                        'line_total'       => $request->cloth_total,
+                    ];
+                    Order::create($clothData);
+                }
+                if (isset($request->box) && isset($request->box_total) && isset($request->box)) {
+                    $boxData = [
+                        'product_id'       => $request->box,
+                        'receipt_id'       => $receipt->id,
+                        'total_kg'         => $request->box_kg,
+                        'line_total'       => $request->box_total,
+                    ];
+                    Order::create($boxData);
+                }
+            }
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Order created successfully']);
         } catch (\Throwable $e) {
@@ -60,56 +131,77 @@ class OrderController extends Controller
 
     public function getData()
     {
-        $orders = Order::with([
-                'receipts',
-                'prices' => function ($query) {
-                    $query->withTrashed();
-                }
-            ])->get();
-        // $order_group = $orders->groupBy('receipt_id');
+        $orders = Order::join('receipts', 'receipts.id', '=', 'orders.receipt_id')
+            ->join('customers', 'customers.id', '=', 'receipts.customer_id')
+            ->join('prices', 'prices.id', '=', 'receipts.price_id')
+            ->join('countries', 'countries.id', '=', 'prices.country_id')
+            ->select(
+                'receipts.id as receipt_id',
+                'customers.name',
+                'customers.address',
+                'receipts.id',
+                'receipts.customer_id',
+                'countries.country_flag',
+                DB::raw('SUM(orders.total_kg) as total_kg'),
+                DB::raw('SUM(orders.line_total) as total_amount'),
+                'receipts.arp_no',
+                'receipts.order_date'
+            )
+            ->groupBy(
+                'receipts.id',
+                'customers.name',
+                'customers.address',
+                'receipts.customer_id',
+                'countries.country_flag',
+                'receipts.arp_no',
+                'receipts.order_date'
+            )
+            ->get();
         return DataTables::of($orders)
             ->addColumn('plus-icon', function ($row) {
                 return null;
             })
             ->addColumn('checkbox', function ($row) {
-                return '<input class="form-check-input printCheckbox" type="checkbox" value="' . $row->receipts->customer_id . '" id="printCheckbox" />';
+                return '<input class="form-check-input printCheckbox" type="checkbox" value="' . $row->customer_id . '" />';
             })
             ->addColumn('name', function ($row) {
-                return $row->receipts->customers->name ?? '-';
+                return $row->name ?? '-';
             })
             ->addColumn('address', function ($row) {
-                return strlen($row->receipts->customers->address) >= 20 ? substr($row->receipts->customers->address, 0, 20,) . '...' : $row->receipts->customers->address;
+                return strlen($row->address) >= 20
+                    ? substr($row->address, 0, 20) . '...'
+                    : $row->address;
             })
             ->addColumn('country_flag', function ($row) {
-                return '<img src="' . $row->prices->countries->country_flag . '" alt="country" style="border:1px solid black; width:50px;" >';
+                return '<img src="' . $row->country_flag . '" alt="country" style="border:1px solid black; width:50px;">';
             })
             ->editColumn('total_kg', function ($row) {
-                return $row->total_kg . ' Kg';
+                return number_format($row->total_kg, 2) . ' Kg';
             })
             ->addColumn('total_amount', function ($row) {
-                return $row->receipts->total_amount . ' MMK' ?? '-';
+                return number_format($row->total_amount, 0) . ' MMK';
             })
             ->editColumn('order_date', function ($row) {
-                return Carbon::parse($row->receipts->order_date)->format('d-M-Y');
+                return \Carbon\Carbon::parse($row->order_date)->format('d-M-Y');
             })
             ->addColumn('arp_no', function ($row) {
-                return $row->receipts->arp_no ?? '-';
+                return $row->arp_no ?? '-';
             })
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
                 $detail_icon = '<button type="button" class="btn btn-detail btn-sm detail-btn" title="detail"
                 data-id="' . $id . '" data-mdb-ripple-init data-mdb-modal-init
                 data-mdb-target="#detailOrderModal" data-mdb-toggle="modal">
-                <i class="fa-solid fa-eye"></i>
-                </button>';
+                        <i class="fa-solid fa-eye"></i>
+                    </button>';
                 $edit_icon = '<button type="button" class="btn btn-edit btn-sm edit-btn" title="Edit"
                 data-id="' . $id . '" data-mdb-ripple-init data-mdb-modal-init
                 data-mdb-target="#editOrderrModal" data-mdb-toggle="modal">
-                <i class="fa-solid fa-pen-to-square"></i>
-                </button>';
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>';
                 return '<div class="action-buttons">' . $detail_icon . $edit_icon . '</div>';
             })
-            ->rawColumns(['action', 'checkbox', 'country_flag'])
+            ->rawColumns(['checkbox', 'country_flag', 'action'])
             ->make(true);
     }
 
@@ -117,13 +209,38 @@ class OrderController extends Controller
     {
         if (request()->ajax()) {
             try {
-                $orders = Order::with([
-                    'customers',
-                    'prices' => function ($query) {
-                        $query->withTrashed();
-                    }
-                ])->findOrFail(base64_decode($id));
-                return response()->json(['status' => true, 'data' => $orders]);
+                $orders = Order::join('receipts', 'receipts.id', '=', 'orders.receipt_id')
+                    ->join('customers', 'customers.id', '=', 'receipts.customer_id')
+                    ->join('prices', 'prices.id', '=', 'receipts.price_id')
+                    ->join('countries', 'countries.id', '=', 'prices.country_id')
+                    ->where('receipts.id', base64_decode($id))
+                    ->select(
+                        'receipts.id as receipt_id',
+                        'customers.name',
+                        'customers.address',
+                        'customers.phone',
+                        'receipts.customer_id',
+                        'countries.country_flag',
+                        DB::raw('SUM(orders.total_kg) as total_kg'),
+                        DB::raw('SUM(orders.line_total) as total_amount'),
+                        'receipts.arp_no',
+                        'receipts.order_date'
+                    )
+                    ->groupBy(
+                        'receipts.id',
+                        'customers.name',
+                        'customers.address',
+                        'customers.phone',
+                        'receipts.customer_id',
+                        'countries.country_flag',
+                        'receipts.arp_no',
+                        'receipts.order_date'
+                    )
+                    ->get();
+
+                $receipt = Order::with('products')->where('receipt_id', base64_decode($id))->get();
+
+                return response()->json(['status' => true, 'data' => $orders, 'receipt' => $receipt]);
             } catch (\Throwable $e) {
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
             }

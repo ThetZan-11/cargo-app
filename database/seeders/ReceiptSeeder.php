@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Receipt;
 use App\Models\Customer;
+use App\Models\Price;
 use Faker\Factory as Faker;
 
 class ReceiptSeeder extends Seeder
@@ -13,12 +14,15 @@ class ReceiptSeeder extends Seeder
     {
         $faker = Faker::create();
         $customers = Customer::all();
+        $prices = Price::all();
 
         // Create 20 receipts
         for ($i = 0; $i < 20; $i++) {
             $customer = $customers->random();
+            $price = $prices->random();
             Receipt::create([
                 'customer_id' => $customer->id,
+                'price_id' => $price->id,
                 'description' => $faker->sentence,
                 'arp_no' => $faker->unique()->numerify('ARP####'),
                 'order_date' => $faker->date(),

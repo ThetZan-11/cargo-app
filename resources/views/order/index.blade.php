@@ -19,7 +19,7 @@
         {{-- Order List Table --}}
         <div class="row">
             <div class="col-12">
-                <div class="card"> 
+                <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="container-fluid mb-2">
@@ -45,7 +45,8 @@
                                 <thead>
                                     <tr>
                                         <th class="no-sort no-search"></th>
-                                        <th class="no-sort no-search"><input class="form-check-input" type="checkbox" name="select_all" id="select_all"></th>
+                                        <th class="no-sort no-search"><input class="form-check-input" type="checkbox"
+                                                name="select_all" id="select_all"></th>
                                         <th class="text-center">{{ __('word.customer_name') }}</th>
                                         <th class="text-center">{{ __('word.customer_address') }}</th>
                                         <th class="text-center">{{ __('word.country') }}</th>
@@ -75,46 +76,7 @@
             function openmodal(modalId) {
                 if (modalId == '#detailOrderModal') {
                     let detailId = localStorage.getItem('detail_id')
-                    $.ajax({
-                        type: 'GET',
-                        url: "{{ route('order.getDataEdit', '') }}/" + detailId,
-                        success: function(response) {
-                            if (response.status) {
-                                response.data.status == 0 ? $('#status_detail').text(
-                                    "Pending") : $('#status').text(
-                                    "Completed")
-                                $("#total_kg_detail").text(response.data.total_kg + " kg")
-                                $("#total_amount_detail").text(response.data.total_amount)
-                                $("#total_kg_table").text(response.data.total_kg + " kg")
-                                $("#total_amount_table").text(response.data.total_amount)
-                                $("#order_date_detail").text(response.data.order_date)
-                                $("#arp_no_detail").text(response.data.arp_no)
-                                $("#name_detail").text(response.data.customers.name)
-                                $("#phone_detail").text(response.data.customers.phone)
-                                $("#address_detail").text(response.data.customers.address)
-                                $("#price_per_kg_detail").text(response.data.prices.price_per_kg)
-                            } else {
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "error",
-                                    title: response.message,
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    fadeIn: 1000,
-                                });
-                            }
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                position: "center",
-                                icon: "error",
-                                title: "{{ __('word.failed_to_fetch') }}",
-                                showConfirmButton: false,
-                                timer: 1500,
-                                fadeIn: 1000,
-                            });
-                        }
-                    });
+                    orderDataFetch(detailId);
                 }
                 $(modalId).modal('show')
             }
@@ -131,7 +93,7 @@
                 localStorage.removeItem('detail_id');
             })
 
-           
+
 
             let table = $('#datatable').DataTable({
                 serverSide: true,
@@ -144,8 +106,7 @@
                         "_token": "{{ csrf_token() }}"
                     }
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'plus-icon',
                         name: 'plus-icon',
                         className: 'text-center',
@@ -215,11 +176,9 @@
                         name: 'id',
                         searchable: false,
                         visible: false,
-                        // orderable: false,
                         searchable: false,
                         className: 'text-center no-sort no-search'
                     },
-
                 ],
                 order: [
                     [10, 'desc']
@@ -230,7 +189,7 @@
                 }
             });
 
-             
+
             //Print Process
             let printId = []
             $(document).on('click', '.printCheckbox', function() {
@@ -245,11 +204,12 @@
                     printId.splice(deleteArr, 1)
                 }
                 const allChecked = Array.from($('.printCheckbox')).every(checkbox => checkbox.checked);
-                
-                if(allChecked) {
+                if (allChecked) {
                     $('#select_all').prop('checked', true);
-                } else if($('.printCheckbox:checked').length > 0) {
+                    $('#select_all').prop('indeterminate', false);
+                } else if ($('.printCheckbox:checked').length > 0 && !allChecked) {
                     $('#select_all').prop('indeterminate', true);
+                    $('#select_all').prop('checked', false);
                 } else {
                     $('#select_all').prop('checked', false);
                     $('#select_all').prop('indeterminate', false);
@@ -457,9 +417,9 @@
             });
 
             //Price Calculate
-            let totalKg = $('#total_kg')
+            let totalKg = $('#various_kg')
             let priceEvl = $('.option');
-            totalAmount = $('#total_amount')
+            totalAmount = $('#various_amount')
             let totalKgEdit = $('#total_kg_edit')
             let priceEvlEdit = $('.option-edit');
             totalAmountEdit = $('#total_amount_edit')
@@ -478,7 +438,7 @@
                     if (isNaN(totalAmount)) {
                         totalAmount = 0;
                     } else {
-                        totalAmountLabel.val(totalAmount.toLocaleString())
+                        totalAmountLabel.val(totalAmount)
                     }
                 } else {
                     return
@@ -488,6 +448,16 @@
             //Create Order Form Submit
             $('#order-form').on('submit', (e) => {
                 e.preventDefault();
+                // let variousTotal = parseFloat($('#total_amount').val());
+                // let meatTotal = $('#meat_total').val() ? parseFloat($('#meat_total').val()) : 0;
+                // let bookTotal = $('#book_total').val() ? parseFloat($('#book_total').val()) : 0;
+                // let pharmacyTotal = $('#pharmacy_total').val() ? parseFloat($('#pharmacy_total').val()) : 0;
+                // let clothTotal = $('#cloth_total').val() ? parseFloat($('#cloth_total').val()) : 0;
+                // let boxTotal = $('#box_total').val() ? parseFloat($('#box_total').val()) : 0;
+                // let finalTotal = variousTotal + meatTotal + bookTotal + pharmacyTotal + clothTotal +
+                //     boxTotal;
+                // $('#final_toal').val(finalTotal)
+                // console.log(finalTotal)
                 var formData = new FormData($('#order-form')[0])
                 $('#loader').css('display', 'flex');
                 setTimeout(() => {
@@ -534,25 +504,38 @@
             $(document).on('click', '.detail-btn', function() {
                 let id = $(this).data('id');
                 localStorage.setItem('detail_id', id)
+                orderDataFetch(id);
+            })
+
+            function orderDataFetch(id) {
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('order.getDataEdit', '') }}/" + id,
                     success: function(response) {
+                        let receipts = response.receipt
                         if (response.status) {
-                            response.data.status == 0 ? $('#status_detail').text(
-                                "Pending") : $('#status').text(
-                                "Completed")
-                            $("#total_kg_detail").text(response.data.total_kg + " kg")
-                            $("#total_amount_detail").text(response.data.total_amount)
-                            $("#total_kg_table").text(response.data.total_kg + " kg")
-                            $("#total_amount_table").text(response.data.total_amount)
-                            $("#order_date_detail").text(response.data.order_date)
-                            $("#arp_no_detail").text(response.data.arp_no)
-                            $("#name_detail").text(response.data.customers.name)
-                            $("#phone_detail").text(response.data.customers.phone)
-                            $("#address_detail").text(response.data.customers.address)
-                            $("#price_per_kg_detail").text(response.data.prices.price_per_kg)
-                            $('#order_desc_detail').text(response.data.description)
+                            $('#order_details_container').empty();
+                            $('detailOrderModal').modal('show');
+                            $("#total_kg_detail").text(response.data[0].total_kg + " kg")
+                            $("#total_amount_detail").text(response.data[0].total_amount + " MMK")
+                            $('#order_date_detail').text(response.data[0].order_date)
+                            $("#arp_no_detail").text(response.data[0].arp_no)
+                            $("#name_detail").text(response.data[0].name)
+                            $("#address_detail").text(response.data[0].address)
+                            $("#phone_detail").text(response.data[0].phone)
+                            let descContainer = ''
+                            receipts.forEach(e => {
+                                console.log(e)
+                                descContainer +=
+                                    `
+                                   <tr>
+                                        <td>${e.products.name}</td>
+                                        <td style="text-align: right;" id="total_kg_table">${e.total_kg}</td>
+                                        <td style="text-align: right;" id="total_amount_table">${e.line_total}</td>
+                                    </tr>
+                                `
+                            });
+                            $('#order_details_container').append(descContainer);
                         } else {
                             Swal.fire({
                                 position: "center",
@@ -575,7 +558,7 @@
                         });
                     }
                 });
-            })
+            }
 
             //Edit Order
             $(document).on('click', '.edit-btn', function() {
@@ -621,6 +604,36 @@
                     }
                 });
             })
+
+            //category checkbox 
+            let meat = $('#meat');
+            let book = $('#book');
+            let pharmacy = $('#pharmacy');
+            let cloth = $('#cloth');
+            let box = $('#box');
+
+            function toggleContainer(checkbox, containerId) {
+                if (checkbox.is(':checked')) {
+                    $(containerId).show(300);
+                } else {
+                    $(containerId).hide(300);
+                }
+            }
+            meat.on('change', function() {
+                toggleContainer($(this), '#meat-container');
+            });
+            book.on('change', function() {
+                toggleContainer($(this), '#book-container');
+            });
+            pharmacy.on('change', function() {
+                toggleContainer($(this), '#pharmacy-container');
+            });
+            cloth.on('change', function() {
+                toggleContainer($(this), '#cloth-container');
+            });
+            box.on('change', function() {
+                toggleContainer($(this), '#box-container');
+            });
         });
     </script>
 @endsection
