@@ -609,8 +609,12 @@ textarea.is-invalid {
 }
 
 .modal-body {
-    height: 77vh;
+    height: 80vh;
     overflow-y: auto;
+}
+
+.modal-content {
+    max-height: 90vh;
 }
 
 /* Responsive adjustments for tablets */
