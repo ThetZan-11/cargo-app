@@ -39,7 +39,7 @@ class OrderController extends Controller
 
     public function store(OrderCreateRequest $request)
     {
-
+        // dd($request->all());
         try {
             DB::beginTransaction();
             $total_amount = $request->various_amount
@@ -64,6 +64,8 @@ class OrderController extends Controller
                 'total_amount'  => $total_amount,
                 'price_id'      => $request->selected_price_id,
                 'total_kg'      => $total_kg,
+                'sender_name'   => $request->sender_name,
+                'sender_address' => $request->sender_address,
             ];
             $receipt = Receipt::create($reciptData);
 
@@ -221,8 +223,11 @@ class OrderController extends Controller
                         'customers.phone',
                         'receipts.customer_id',
                         'countries.country_flag',
-                        DB::raw('SUM(orders.total_kg) as total_kg'),
-                        DB::raw('SUM(orders.line_total) as total_amount'),
+                        'countries.country_name',
+                        'countries.country_code',
+                        'prices.price_per_kg',
+                        'receipts.total_kg',
+                        'receipts.total_amount',
                         'receipts.arp_no',
                         'receipts.order_date'
                     )
@@ -233,13 +238,16 @@ class OrderController extends Controller
                         'customers.phone',
                         'receipts.customer_id',
                         'countries.country_flag',
+                        'countries.country_name',
+                        'countries.country_code',
                         'receipts.arp_no',
-                        'receipts.order_date'
+                        'receipts.order_date',
+                        'receipts.total_kg',
+                        'receipts.total_amount',
+                        'prices.price_per_kg',
                     )
                     ->get();
-
                 $receipt = Order::with('products')->where('receipt_id', base64_decode($id))->get();
-
                 return response()->json(['status' => true, 'data' => $orders, 'receipt' => $receipt]);
             } catch (\Throwable $e) {
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);

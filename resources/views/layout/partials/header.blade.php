@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <!-- Jquery -->
     <script src="{{ asset('assets/js/jquery-3.7.0.min.js') }}"></script>
+    <!-- Moment.js for datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    {{-- Date Picker CSS --}}
+    <link rel="stylesheet" href="{{ asset('assets/datepicker.css') }}">
     @yield('styles')
 </head>
 

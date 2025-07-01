@@ -448,16 +448,6 @@
             //Create Order Form Submit
             $('#order-form').on('submit', (e) => {
                 e.preventDefault();
-                // let variousTotal = parseFloat($('#total_amount').val());
-                // let meatTotal = $('#meat_total').val() ? parseFloat($('#meat_total').val()) : 0;
-                // let bookTotal = $('#book_total').val() ? parseFloat($('#book_total').val()) : 0;
-                // let pharmacyTotal = $('#pharmacy_total').val() ? parseFloat($('#pharmacy_total').val()) : 0;
-                // let clothTotal = $('#cloth_total').val() ? parseFloat($('#cloth_total').val()) : 0;
-                // let boxTotal = $('#box_total').val() ? parseFloat($('#box_total').val()) : 0;
-                // let finalTotal = variousTotal + meatTotal + bookTotal + pharmacyTotal + clothTotal +
-                //     boxTotal;
-                // $('#final_toal').val(finalTotal)
-                // console.log(finalTotal)
                 var formData = new FormData($('#order-form')[0])
                 $('#loader').css('display', 'flex');
                 setTimeout(() => {
@@ -514,28 +504,34 @@
                     success: function(response) {
                         let receipts = response.receipt
                         if (response.status) {
+                            let countryCurrency = response.data[0].country_code == "SG" ? " $" : " MMK";
                             $('#order_details_container').empty();
                             $('detailOrderModal').modal('show');
                             $("#total_kg_detail").text(response.data[0].total_kg + " kg")
-                            $("#total_amount_detail").text(response.data[0].total_amount + " MMK")
+                            $("#total_amount_detail").text(Number(response.data[0].total_amount).toLocaleString() + countryCurrency)
                             $('#order_date_detail').text(response.data[0].order_date)
                             $("#arp_no_detail").text(response.data[0].arp_no)
                             $("#name_detail").text(response.data[0].name)
                             $("#address_detail").text(response.data[0].address)
                             $("#phone_detail").text(response.data[0].phone)
+                            $("#price_per_kg").text(Number(response.data[0].price_per_kg).toLocaleString() + countryCurrency)
+                            let lang = {{ App::getLocale() == 'en' ? 'true' : 'false' }};
+                            console.log(lang)
                             let descContainer = ''
                             receipts.forEach(e => {
-                                console.log(e)
                                 descContainer +=
-                                    `
-                                   <tr>
-                                        <td>${e.products.name}</td>
-                                        <td style="text-align: right;" id="total_kg_table">${e.total_kg}</td>
+                                    `<tr>
+                                        <td>${ lang == true ? e.products.name_en : e.products.name_mm }</td>
+                                        <td style="text-align: right;" id="total_kg_table">${e.total_kg} Kg</td>
                                         <td style="text-align: right;" id="total_amount_table">${e.line_total}</td>
-                                    </tr>
-                                `
+                                    </tr>`
                             });
-                            $('#order_details_container').append(descContainer);
+                            $('#order_details_container').append(descContainer).append(`
+                                <tr>
+                                    <td colspan="2" style="text-align: left; font-weight: bold;">Total:</td>
+                                    <td style="text-align: right; font-weight: bold;">${Number(response.data[0].total_amount).toLocaleString() + countryCurrency} </td>
+                                </tr>
+                            `);
                         } else {
                             Swal.fire({
                                 position: "center",

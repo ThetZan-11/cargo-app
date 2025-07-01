@@ -31,6 +31,7 @@
                                 <p style="margin-bottom: 5px;"><strong>Date:</strong> <span
                                         id="order_date_detail"></span> </p>
                                 <p style="margin-bottom: 5px;"><strong>ARP NO:</strong> <span id="arp_no_detail"></span>
+                                    <p style="margin-bottom: 5px;"><strong>Price Per Kg</strong> <span id="price_per_kg"></span>
                                 </p>
                             </div>
                         </div>
@@ -76,12 +77,12 @@
                                     <tr style="background-color: #f1f5f9;">
                                         <th style="font-weight: 600; width: 50%;">Description</th>
                                         <th style="font-weight: 600; text-align: right;">Weight</th>
-                                        {{-- <th style="font-weight: 600; text-align: right;">Price/kg</th> --}}
                                         <th style="font-weight: 600; text-align: right;">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody id="order_details_container">
                                    
+                                    
                                 </tbody>
                             </table>
                         </div>

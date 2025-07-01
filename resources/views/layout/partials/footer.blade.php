@@ -16,6 +16,7 @@
     <!-- Custom JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="{{ asset('assets/datepicker.js') }}"></script>
     @yield('scripts')
     </body>
 

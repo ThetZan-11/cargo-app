@@ -17,11 +17,14 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('price_id');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->text('sender_name')->nullable();
+            $table->text('sender_address')->nnullable();
             $table->text('description')->nullable();
             $table->string('arp_no')->nullable();
             $table->date('order_date')->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->decimal('total_kg', 8, 2);
+
             $table->timestamps();
 
             $table->foreign('price_id')->references('id')->on('prices')->onDelete('cascade');

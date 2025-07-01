@@ -81,20 +81,32 @@
                                             <input type="text" id="various_amount" name="various_amount"
                                                 class="form-control" value="0" />
                                         </div>
-                                        <div class="form-group mt-3">
-                                            <label class="form-label" for="arp_no">ARP NO</label>
-                                            <input type="text" id="arp_no" name="arp_no" class="form-control"
-                                                placeholder="{{ __('word.arp_no_enter') }}" />
-                                        </div>
+                                        
                                         <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="order_date">{{ __('word.order_date') }}</label>
                                             <input type="date" id="order_date" name="order_date" class="form-control"
                                                 placeholder="{{ __('word.date_enter') }}" />
                                         </div>
+                                         <div class="form-group mt-3">
+                                        <label class="form-label"
+                                            for="sender_name">{{ __('word.sender_name') }}</label>
+                                        <input type="text" id="sender_name" name="sender_name" class="form-control"
+                                            placeholder="{{ __('word.sender_name') }}" />
+                                    </div>
+                                     <div class="form-group mt-3">
+                                        <label class="form-label"
+                                            for="sender_address">{{ __('word.sender_address') }}</label>
+                                        <textarea rows="2" id="sender_address" name="sender_address" class="form-control" placeholder="{{ __('word.enter_sender_address') }}"></textarea>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                                     <div class="form-group">
+                                            <label class="form-label" for="arp_no">ARP NO</label>
+                                            <input data-mdb-input-init type="text" id="arp_no" name="arp_no" class="form-control"
+                                                placeholder="{{ __('word.arp_no_enter') }}" />
+                                        </div>
+                                    <div class="form-group mt-3">
                                         <label class="form-label"
                                             for="order_date">{{ __('word.descrioption') }}</label>
                                         <textarea class="form-control" id="order_desc" placeholder="{{ __('word.enter_desc') }}" name="order_desc"
@@ -102,7 +114,7 @@
                                     </div>
                                     <div class="row ms-2">
                                         @foreach ($products as $product)
-                                            <div class="col-md-6 col-sm-6">
+                                            <div class="col-md-6 col-sm-6 col-lg-6">
                                                 <div class="form-check mt-5">
                                                     <input class="form-check-input" type="checkbox"
                                                         name="{{ $product->name_en }}" value="{{ $product->id }}"
@@ -125,6 +137,7 @@
                                             </div>
                                         @endforeach
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -141,11 +154,6 @@
         </div>
     </div>
 </div>
-@section('styles')
-    <style>
-
-    </style>
-@endsection
 <script>
     $(document).ready(function() {
         // Initialize select box

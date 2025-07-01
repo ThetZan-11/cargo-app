@@ -16,6 +16,8 @@ class Receipt extends Model
         'order_date',
         'total_amount',
         'total_kg',
+        'sender_name',
+        'sender_address',
     ];
 
     public function customers()
