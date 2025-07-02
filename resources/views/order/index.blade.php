@@ -227,6 +227,7 @@
                 } else {
                     printId = [];
                 }
+                console.log(printId)
             });
 
             //For checkbox when table paginate(draw) 
@@ -251,7 +252,6 @@
                     return
                 }
                 $('#loader').css('display', 'flex');
-                setTimeout(() => {
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('order.print') }}",
@@ -261,77 +261,90 @@
                         contentType: "application/json",
                         processData: false,
                         success: function(response) {
+                            console.log(response.data)
                             $('#loader').css('display', 'none');
                             if (response.status == true) {
                                 let originalAddress = ""
                                 response.data.forEach(e => {
-                                    originalAddress += `
-                                     <div class="col-12 col-md-12 col-sm-12 address-container">
-                                    <div
-                                style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
-                                <h3
-                                    style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
-                                    <i class="bi bi-geo-alt me-2"></i>${e.name}
-                                </h3>
-                                <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
-                                    id="address_detail">
-                                    ${e.address}
-                                </address>
-                            </div>
-                            </div>`
+                                    originalAddress +=`
+                                     <div class="address-container" style="margin-bottom: 8px;">
+                                        <div style="display: flex; gap: 12px; background: #f8fafc; border-radius: 8px; padding: 25px 10px; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d; align-items: flex-start;">
+                                          <div style="flex: 1; min-width: 0;">
+                                            <h3 style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin: 0 0 6px 0; display: flex; align-items: center;">
+                                              <i class="bi bi-geo-alt me-2"></i>${e.sender_name}
+                                            </h3>
+                                            <address style="font-style: normal; line-height: 1.4; margin: 0; word-break: break-word;">
+                                              ${e.sender_address}
+                                            </address>
+                                          </div>
+                                          <div style="flex: 1; min-width: 0;">
+                                            <h3 style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin: 0 0 6px 0; display: flex; align-items: center;">
+                                              <i class="bi bi-geo-alt me-2"></i>${e.customers.name}
+                                            </h3>
+                                            <address style="font-style: normal; line-height: 1.4; margin: 0; word-break: break-word;">
+                                              ${e.customers.address}
+                                            </address>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    `
                                 });
+                                console.log(originalAddress);
 
-                                const printHtml = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Address Labels</title>
-                <style>
-                    body { 
-                        margin: 0; 
-                        padding: 0; 
-                        font-family: Arial, sans-serif;
-                        background: white;
-                    }
-                    .label-page {
-                        width: 8.5in;
-                        padding: 0.3in;
-                        box-sizing: border-box;
-                    }
-                    .label-grid {
-                        display: grid;
-                        grid-template-columns: repeat(2, 1fr);
-                        grid-gap: 0.5in;
-                    }
-                    @media print {
-                        body { -webkit-print-color-adjust: exact; }
-                        .label-page { padding: 0; }
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="label-page">
-                    <div class="label-grid">
-                        ${Array(printSelectVal).fill(originalAddress).join('')}
-                    </div>
-                </div>
-                <script>
-                    window.onload = function() {
-                        setTimeout(function() {
-                            window.print();
-                            window.close();
-                        }, 300);
-                    };
-                <\/script>
-            </body>
-            </html>
-        `;
+        //                         const printHtml = `
+        //     <!DOCTYPE html>
+        //     <html>
+        //     <head>
+        //         <title>Address Labels</title>
+        //         <style>
+        //             body { 
+        //                 margin: 0; 
+        //                 padding: 0; 
+        //                 font-family: Arial, sans-serif;
+        //                 background: white;
+        //             }
+        //             .label-page {
+        //                 width: 8.5in;
+        //                 padding: 0.3in;
+        //                 box-sizing: border-box;
+        //             }
+        //             .label-grid {
+        //                 display: flex;
+        //                 flex-direction: column;
+        //                 gap: 20px;
+        //             }
+        //             .address-container {
+        //                 page-break-inside: avoid;
+        //             }
+        //             @media print {
+        //                 body { -webkit-print-color-adjust: exact; }
+        //                 .label-page { padding: 0; }
+        //             }
+        //         </style>
+        //     </head>
+        //     <body>
+        //         <div class="label-page">
+        //             <div class="label-grid">
+        //                 ${Array(printSelectVal).fill(originalAddress).join('')}
+        //             </div>
+        //         </div>
+        //         <script>
+        //             window.onload = function() {
+        //                 setTimeout(function() {
+        //                     window.print();
+        //                     window.close();
+        //                 }, 300);
+        //             };
+        //         <\/script>
+        //     </body>
+        //     </html>
+        // `;
 
-                                // Open print window
-                                const printWindow = window.open('', '_blank');
-                                printWindow.document.open();
-                                printWindow.document.write(printHtml);
-                                printWindow.document.close();
+        //                         // Open print window
+        //                         const printWindow = window.open('', '_blank');
+        //                         printWindow.document.open();
+        //                         printWindow.document.write(printHtml);
+        //                         printWindow.document.close();
                             }
 
                         },
@@ -349,7 +362,6 @@
                             });
                         }
                     });
-                }, 1000);
 
             })
 
@@ -448,9 +460,16 @@
             //Create Order Form Submit
             $('#order-form').on('submit', (e) => {
                 e.preventDefault();
+                meatKg = $('#meat_kg').val()
+                bookKg = $('#book_kg').val()
+                clothKg = $('#cloth_kg').val()
+                pharmacyKg = $('#pharmacy_kg').val()
+                $('#meat_kg_plus').is(':checked') ? $('#meat_kg_plus').val(meatKg) : $('#meat_kg_plus').val(0)
+                $('#book_kg_plus').is(':checked') ? $('#book_kg_plus').val(bookKg) : $('#book_kg_plus').val(0) 
+                $('#cloth_kg_plus').is(':checked') ? $('#cloth_kg_plus').val(clothKg) : $('#cloth_kg_plus').val(0) 
+                $('#pharmacy_kg_plus').is(':checked') ? $('#pharmacy_kg_plus').val(pharmacyKg) : $('#pharmacy_kg_plus').val(0)  
                 var formData = new FormData($('#order-form')[0])
                 $('#loader').css('display', 'flex');
-                setTimeout(() => {
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('order.store') }}",
@@ -487,7 +506,6 @@
                             });
                         }
                     });
-                }, 1000);
             })
 
             //Order Detail
@@ -522,7 +540,7 @@
                                 descContainer +=
                                     `<tr>
                                         <td>${ lang == true ? e.products.name_en : e.products.name_mm }</td>
-                                        <td style="text-align: right;" id="total_kg_table">${e.total_kg} Kg</td>
+                                        <td style="text-align: right;" id="total_kg_table">${e.total_kg} </td>
                                         <td style="text-align: right;" id="total_amount_table">${e.line_total}</td>
                                     </tr>`
                             });

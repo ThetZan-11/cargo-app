@@ -127,7 +127,6 @@
                 e.preventDefault();
                 var formData = new FormData(this);
                 $('#loader').css('display', 'flex');
-                setTimeout(() => {
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('customer.store') }}",
@@ -164,7 +163,6 @@
                             });
                         }
                     });
-                }, 1000);
             });
 
             //Delete Button Click
@@ -187,7 +185,6 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#loader').css('display', 'flex');
-                        setTimeout(() => {
                             $.ajax({
                                 type: 'POST',
                                 url: "{{ route('customer.delete', '') }}/" + id,
@@ -230,7 +227,6 @@
                                     });
                                 }
                             });
-                        }, 1000);
                     }
                 });
             });
@@ -281,7 +277,6 @@
                 edit_id = $('#edit_id').val()
                 var formData = new FormData(this);
                 $('#loader').css('display', 'flex');
-                setTimeout(() => {
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('customer.update', '') }}/" + edit_id,
@@ -317,7 +312,6 @@
                             });
                         }
                     });
-                }, 1000);
             });
         });
     </script>

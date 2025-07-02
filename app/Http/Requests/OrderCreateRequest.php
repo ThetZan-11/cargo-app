@@ -34,13 +34,13 @@ class OrderCreateRequest extends FormRequest
             'various_amount'        => 'required|numeric',
             'meat_kg'               => 'nullable|numeric',
             'meat_total'            => 'nullable|numeric',
-            'box_kg'               => 'nullable|numeric',
+            'box_kg'                 => 'nullable|numeric',
             'box_total'             => 'nullable|numeric',
             'cloth_kg'              => 'nullable|numeric',
             'cloth_total'           => 'nullable|numeric',
             'pharmacy_kg'           => 'nullable|numeric',
             'pharmacy_total'         => 'nullable|numeric',
-            'book_kg'              => 'nullable|numeric',
+            'book_kg'               => 'nullable|numeric',
             'book_total'            => 'nullable|numeric',
         ];
     }

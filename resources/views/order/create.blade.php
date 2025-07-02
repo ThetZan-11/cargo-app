@@ -123,10 +123,13 @@
                                                         for="{{ $product->name_en }}">{{ App::getLocale() == 'en' ? $product->name_en : $product->name_mm }}</label>
                                                 </div>
                                                 <div id="{{ $product->name_en }}-container" style="display: none;">
-                                                    <div class="form-group mt-3">
+                                                    <div class="form-group mt-3 d-flex gap-2">
                                                         <input type="text" id="{{ $product->name_en }}_kg"
                                                             name="{{ $product->name_en }}_kg" class="form-control"
                                                             placeholder="{{ __('word.enter_kg') }}" />
+                                                        @if ($product->name_en != 'box')
+                                                        <input type="checkbox" name="{{ $product->name_en }}_kg_plus" id="{{ $product->name_en }}_kg_plus">
+                                                        @endif
                                                     </div>
                                                     <div class="form-group mt-3">
                                                         <input type="text" id="{{ $product->name_en }}_total"

@@ -39,7 +39,6 @@ class OrderController extends Controller
 
     public function store(OrderCreateRequest $request)
     {
-        // dd($request->all());
         try {
             DB::beginTransaction();
             $total_amount = $request->various_amount
@@ -50,11 +49,10 @@ class OrderController extends Controller
                 $request->box_total;
 
             $total_kg = $request->various_kg
-                + $request->meat_kg +
-                $request->book_kg +
-                $request->pharmacy_kg +
-                $request->cloth_kg +
-                $request->box_kg;
+                + $request->meat_kg_plus +
+                $request->book_kg_plus +
+                $request->pharmacy_kg_plus +
+                $request->cloth_kg_plus;
 
             $reciptData = [
                 'customer_id'   => $request->customer_hidden_id,
@@ -144,8 +142,9 @@ class OrderController extends Controller
                 'receipts.id',
                 'receipts.customer_id',
                 'countries.country_flag',
-                DB::raw('SUM(orders.total_kg) as total_kg'),
-                DB::raw('SUM(orders.line_total) as total_amount'),
+                'countries.country_code',
+                'receipts.total_kg',
+                'receipts.total_amount',
                 'receipts.arp_no',
                 'receipts.order_date'
             )
@@ -156,7 +155,10 @@ class OrderController extends Controller
                 'receipts.customer_id',
                 'countries.country_flag',
                 'receipts.arp_no',
-                'receipts.order_date'
+                'receipts.order_date',
+                'countries.country_code',
+                'receipts.total_kg',
+                'receipts.total_amount',
             )
             ->get();
         return DataTables::of($orders)
@@ -181,7 +183,8 @@ class OrderController extends Controller
                 return number_format($row->total_kg, 2) . ' Kg';
             })
             ->addColumn('total_amount', function ($row) {
-                return number_format($row->total_amount, 0) . ' MMK';
+                $currencyCode = $row->country_code == "SG" ? ' $' : ' MMK';
+                return number_format($row->total_amount, 0) . $currencyCode;
             })
             ->editColumn('order_date', function ($row) {
                 return \Carbon\Carbon::parse($row->order_date)->format('d-M-Y');
@@ -263,7 +266,9 @@ class OrderController extends Controller
                 $printIdArr = $req['printId'];
                 $customers = [];
                 foreach ($printIdArr as $printId) {
-                    array_push($customers, Customer::find($printId));
+                    array_push($customers, Receipt::with('customers')
+                        ->where('customer_id', $printId)
+                        ->get());
                 }
                 return response()->json(['status' => true, 'data' => $customers]);
             } catch (\Throwable $e) {
