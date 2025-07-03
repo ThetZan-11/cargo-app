@@ -268,7 +268,7 @@ class OrderController extends Controller
                 foreach ($printIdArr as $printId) {
                     array_push($customers, Receipt::with('customers')
                         ->where('customer_id', $printId)
-                        ->get());
+                        ->first());
                 }
                 return response()->json(['status' => true, 'data' => $customers]);
             } catch (\Throwable $e) {
