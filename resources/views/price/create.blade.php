@@ -26,17 +26,17 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div data-mdb-input-init class="form-group mt-3">
+                                        <div  class="form-group mt-3">
                                             <label class="form-label" for="min_kg">{{ __('word.min_kg') }}</label>
                                             <input type="text" id="min_kg" name="min_kg" class="form-control"
                                                 placeholder="{{ __('word.min_kg_enter') }}" />
                                         </div>
-                                        <div data-mdb-input-init class="form-group mt-3">
+                                        <div  class="form-group mt-3">
                                             <label class="form-label" for="max_kg">{{ __('word.max_kg') }}</label>
                                             <input type="text" id="max_kg" name="max_kg" class="form-control"
                                                 placeholder="{{ __('word.max_kg_enter') }}" />
                                         </div>
-                                        <div data-mdb-input-init class="form-group mt-3">
+                                        <div  class="form-group mt-3">
                                             <label class="form-label" for="price">{{ __('word.price') }}</label>
                                             <input type="text" id="price" name="price" class="form-control"
                                                 placeholder="{{ __('word.price_enter') }}" />

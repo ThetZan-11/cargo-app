@@ -13,15 +13,16 @@ class Order extends Model
         'receipt_id',
         'total_kg',
         'line_total',
+        'status',
     ];
 
-   public function receipts()
-   {
-       return $this->belongsTo(Receipt::class, 'receipt_id');
-   }
+    public function receipts()
+    {
+        return $this->belongsTo(Receipt::class, 'receipt_id');
+    }
 
     public function products()
     {
-         return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

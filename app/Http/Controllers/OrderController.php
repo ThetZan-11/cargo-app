@@ -41,6 +41,11 @@ class OrderController extends Controller
     {
         try {
             DB::beginTransaction();
+            $meat_status =  $request->meat_kg_plus != '' ? 1 : 0;
+            $book_status =  $request->book_kg_plus != '' ? 1 : 0;
+            $pharmacy_status =  $request->pharmacy_kg_plus != '' ? 1 : 0;
+            $cloth_status =  $request->cloth_kg_plus != '' ? 1 : 0;
+
             $total_amount = $request->various_amount
                 + $request->meat_total +
                 $request->book_total +
@@ -73,6 +78,7 @@ class OrderController extends Controller
                     'receipt_id'       => $receipt->id,
                     'total_kg'         => $request->various_kg,
                     'line_total'       => $request->various_amount,
+                    'status'           => 1
                 ];
                 Order::create($orderData);
                 if (isset($request->meat_kg) && isset($request->meat_total) && isset($request->meat)) {
@@ -81,6 +87,7 @@ class OrderController extends Controller
                         'receipt_id'       => $receipt->id,
                         'total_kg'         => $request->meat_kg,
                         'line_total'       => $request->meat_total,
+                        'status'           => $meat_status
                     ];
                     Order::create($meatData);
                 }
@@ -90,6 +97,7 @@ class OrderController extends Controller
                         'receipt_id'       => $receipt->id,
                         'total_kg'         => $request->book_kg,
                         'line_total'       => $request->book_total,
+                        'status'           => $book_status
                     ];
                     Order::create($bookData);
                 }
@@ -99,6 +107,7 @@ class OrderController extends Controller
                         'receipt_id'       => $receipt->id,
                         'total_kg'         => $request->pharmacy_kg,
                         'line_total'       => $request->pharmacy_total,
+                        'status'           => $pharmacy_status
                     ];
                     Order::create($pharmacyData);
                 }
@@ -108,6 +117,7 @@ class OrderController extends Controller
                         'receipt_id'       => $receipt->id,
                         'total_kg'         => $request->cloth_kg,
                         'line_total'       => $request->cloth_total,
+                        'status'           => $cloth_status
                     ];
                     Order::create($clothData);
                 }
@@ -117,6 +127,7 @@ class OrderController extends Controller
                         'receipt_id'       => $receipt->id,
                         'total_kg'         => $request->box_kg,
                         'line_total'       => $request->box_total,
+                        'status'           => 0
                     ];
                     Order::create($boxData);
                 }
@@ -214,44 +225,8 @@ class OrderController extends Controller
     {
         if (request()->ajax()) {
             try {
-                $orders = Order::join('receipts', 'receipts.id', '=', 'orders.receipt_id')
-                    ->join('customers', 'customers.id', '=', 'receipts.customer_id')
-                    ->join('prices', 'prices.id', '=', 'receipts.price_id')
-                    ->join('countries', 'countries.id', '=', 'prices.country_id')
-                    ->where('receipts.id', base64_decode($id))
-                    ->select(
-                        'receipts.id as receipt_id',
-                        'customers.name',
-                        'customers.address',
-                        'customers.phone',
-                        'receipts.customer_id',
-                        'countries.country_flag',
-                        'countries.country_name',
-                        'countries.country_code',
-                        'prices.price_per_kg',
-                        'receipts.total_kg',
-                        'receipts.total_amount',
-                        'receipts.arp_no',
-                        'receipts.order_date'
-                    )
-                    ->groupBy(
-                        'receipts.id',
-                        'customers.name',
-                        'customers.address',
-                        'customers.phone',
-                        'receipts.customer_id',
-                        'countries.country_flag',
-                        'countries.country_name',
-                        'countries.country_code',
-                        'receipts.arp_no',
-                        'receipts.order_date',
-                        'receipts.total_kg',
-                        'receipts.total_amount',
-                        'prices.price_per_kg',
-                    )
-                    ->get();
-                $receipt = Order::with('products')->where('receipt_id', base64_decode($id))->get();
-                return response()->json(['status' => true, 'data' => $orders, 'receipt' => $receipt]);
+                $receipt = Receipt::with('orders', 'customers', 'prices', 'orders.products')->where('id', base64_decode($id))->first();
+                return response()->json(['status' => true, 'receipt' => $receipt]);
             } catch (\Throwable $e) {
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
             }

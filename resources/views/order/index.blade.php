@@ -15,7 +15,7 @@
         {{-- Order Detail Modal --}}
         @include('order.detail')
         {{-- Edit Order Modal --}}
-        @include('order.edit')
+        {{-- @include('order.edit') --}}
         {{-- Order List Table --}}
         <div class="row">
             <div class="col-12">
@@ -84,6 +84,9 @@
             $('#createOrderModal').on("show.bs.modal", () => {
                 localStorage.setItem('open_modal', '#createOrderModal');
             })
+            $('#editOrderrModal').on("show.bs.modal", () => {
+                localStorage.setItem('open_modal', '#editOrderrModal');
+            })
             $('#detailOrderModal').on("show.bs.modal", () => {
                 localStorage.setItem('open_modal', '#detailOrderModal');
             })
@@ -91,6 +94,8 @@
             $('#createOrderModal, #detailOrderModal').on("hide.bs.modal", () => {
                 localStorage.removeItem('open_modal');
                 localStorage.removeItem('detail_id');
+                clearInput('#order-form');
+                // clearInput('#order-form-edit');
             })
 
 
@@ -514,39 +519,55 @@
                 orderDataFetch(id);
             })
 
+            //clear form input
+            function clearInput(form){
+                $(form)[0].reset();
+                $('#meat-container').hide();
+                $('#book-container').hide();
+                $('#pharmacy-container').hide();
+                $('#cloth-container').hide();
+                $('#box-container').hide();
+                $(form).find('.invalid-feedback, .help-block, .text-danger').remove();
+                $(form).find('.is-invalid, .has-error').removeClass('is-invalid has-error');
+            }
+
             function orderDataFetch(id) {
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('order.getDataEdit', '') }}/" + id,
                     success: function(response) {
+                        console.log(response);
                         let receipts = response.receipt
                         if (response.status) {
-                            let countryCurrency = response.data[0].country_code == "SG" ? " $" : " MMK";
+                            let countryCurrency = receipts.prices.country_code == "SG" ? " $" : " MMK";
                             $('#order_details_container').empty();
                             $('detailOrderModal').modal('show');
-                            $("#total_kg_detail").text(response.data[0].total_kg + " kg")
-                            $("#total_amount_detail").text(Number(response.data[0].total_amount).toLocaleString() + countryCurrency)
-                            $('#order_date_detail').text(response.data[0].order_date)
-                            $("#arp_no_detail").text(response.data[0].arp_no)
-                            $("#name_detail").text(response.data[0].name)
-                            $("#address_detail").text(response.data[0].address)
-                            $("#phone_detail").text(response.data[0].phone)
-                            $("#price_per_kg").text(Number(response.data[0].price_per_kg).toLocaleString() + countryCurrency)
+                            $("#total_kg_detail").text(receipts.total_kg + " kg")
+                            $("#total_amount_detail").text(Number(receipts.total_amount).toLocaleString() + countryCurrency)
+                            $('#order_date_detail').text(receipts.order_date)
+                            $("#arp_no_detail").text(receipts.arp_no)
+                            $("#name_detail").text(receipts.customers.name)
+                            $("#address_detail").text(receipts.customers.address)
+                            $("#phone_detail").text(receipts.customers.phone)
+                            console.log($('#sender_address'),$('#sender_name'))
+                            $('#sender_name_detail').text(receipts.sender_name)
+                            $('#sender_address_detail').text(receipts.sender_address);
+                            $("#price_per_kg").text(Number(receipts.prices.price_per_kg).toLocaleString() + countryCurrency)
                             let lang = {{ App::getLocale() == 'en' ? 'true' : 'false' }};
-                            console.log(lang)
                             let descContainer = ''
-                            receipts.forEach(e => {
+                            receipts.orders.forEach(e => {
                                 descContainer +=
                                     `<tr>
                                         <td>${ lang == true ? e.products.name_en : e.products.name_mm }</td>
-                                        <td style="text-align: right;" id="total_kg_table">${e.total_kg} </td>
-                                        <td style="text-align: right;" id="total_amount_table">${e.line_total}</td>
+                                        <td style="text-align: right;" id="total_kg_table">${e.total_kg} ${e.status == 1 ? 'kg':''}</td>
+                                        <td style="text-align: right;" id="totaxl_amount_table">${e.line_total}</td>
                                     </tr>`
                             });
                             $('#order_details_container').append(descContainer).append(`
                                 <tr>
-                                    <td colspan="2" style="text-align: left; font-weight: bold;">Total:</td>
-                                    <td style="text-align: right; font-weight: bold;">${Number(response.data[0].total_amount).toLocaleString() + countryCurrency} </td>
+                                    <td colspan="1" style="text-align: left; font-weight: bold;">Total:</td>
+                                    <td style="text-align: right; font-weight: bold;">${receipts.total_kg} Kg</td>
+                                    <td style="text-align: right; font-weight: bold;">${Number(receipts.total_amount).toLocaleString() + countryCurrency} </td>
                                 </tr>
                             `);
                         } else {
@@ -580,20 +601,9 @@
                     type: 'GET',
                     url: "{{ route('order.getDataEdit', '') }}/" + id,
                     success: function(response) {
-                        let thisResponse = response.data
+                        let thisResponse = response.receipt
                         if (response.status) {
-                            $('#customer_hidden_id_edit').val(thisResponse.customers.id)
-                            $('#customer_name_edit').val(thisResponse.customers.name)
-                            $('#total_kg_edit').val(thisResponse.total_kg)
-                            $('#total_amount_edit').val(thisResponse.total_amount)
-                            $('#arp_no_edit').val(thisResponse.arp_no)
-                            $('#order_date_edit').val(thisResponse.order_date)
-                            $('#customer_phone_edit').val(thisResponse.customers.phone)
-                            $('#customer_address_edit').val(thisResponse.customers.address)
-                            $('#order_status_edit').val(thisResponse.status)
-                            $('#order_desc_edit').val(thisResponse.description)
-                            $('#selected_price_id_edit').val(thisResponse.prices.id)
-                            this
+                           console.log(thisResponse)
                         } else {
                             Swal.fire({
                                 position: "center",

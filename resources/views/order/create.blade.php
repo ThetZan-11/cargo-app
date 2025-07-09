@@ -14,7 +14,7 @@
                                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                                     <form id="order-form">
                                         @csrf
-                                        <div data-mdb-input-init class="form-group position-relative">
+                                        <div  class="form-group position-relative">
                                             <label class="form-label"
                                                 for="customer_name">{{ __('word.customer_name') }}</label>
                                             <input type="hidden" name="customer_hidden_id" id="customer_hidden_id">
@@ -75,7 +75,7 @@
                                                     value="">
                                             </div>
                                         </div>
-                                        <div data-mdb-input-init class="form-group mt-3">
+                                        <div  class="form-group mt-3">
                                             <label class="form-label"
                                                 for="min_kg">{{ __('word.various_amount') }}</label>
                                             <input type="text" id="various_amount" name="various_amount"
@@ -88,22 +88,22 @@
                                             <input type="date" id="order_date" name="order_date" class="form-control"
                                                 placeholder="{{ __('word.date_enter') }}" />
                                         </div>
-                                         <div class="form-group mt-3">
-                                        <label class="form-label"
-                                            for="sender_name">{{ __('word.sender_name') }}</label>
-                                        <input type="text" id="sender_name" name="sender_name" class="form-control"
-                                            placeholder="{{ __('word.sender_name') }}" />
-                                    </div>
-                                     <div class="form-group mt-3">
-                                        <label class="form-label"
-                                            for="sender_address">{{ __('word.sender_address') }}</label>
-                                        <textarea rows="2" id="sender_address" name="sender_address" class="form-control" placeholder="{{ __('word.enter_sender_address') }}"></textarea>
-                                    </div>
+                                        <div class="form-group mt-3">
+                                            <label class="form-label"
+                                                for="sender_name">{{ __('word.sender_name') }}</label>
+                                            <input type="text" id="sender_name" name="sender_name" class="form-control"
+                                                placeholder="{{ __('word.sender_name') }}" />
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label class="form-label"
+                                                for="sender_address">{{ __('word.sender_address') }}</label>
+                                            <textarea rows="2" id="sender_address" name="sender_address" class="form-control" placeholder="{{ __('word.enter_sender_address') }}"></textarea>
+                                        </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                                     <div class="form-group">
                                             <label class="form-label" for="arp_no">ARP NO</label>
-                                            <input data-mdb-input-init type="text" id="arp_no" name="arp_no" class="form-control"
+                                            <input type="text" id="arp_no" name="arp_no" class="form-control"
                                                 placeholder="{{ __('word.arp_no_enter') }}" />
                                         </div>
                                     <div class="form-group mt-3">
@@ -140,7 +140,6 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -176,6 +175,8 @@
                 e.stopPropagation();
                 $select.toggleClass('active');
             });
+
+            
 
             // Option selection
             $options.on('click', function() {

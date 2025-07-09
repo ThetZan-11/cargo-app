@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->decimal('total_kg', 8, 2);
             $table->decimal('line_total', 10, 2);
+            $table->tinyInteger('status');
             $table->timestamps();
 
             $table->foreign('receipt_id')->references('id')->on('receipts')->onDelete('cascade');

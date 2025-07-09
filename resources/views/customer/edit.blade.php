@@ -16,31 +16,31 @@
                                     <form id="customer-form-edit">
                                         <input type="hidden" id="edit_id" name="edit_id" />
                                         @csrf
-                                        <div data-mdb-input-init class="form-group">
+                                        <div  class="form-group">
                                             <label class="form-label"
                                                 for="name">{{ __('word.customer_name') }}</label>
                                             <input type="text" id="edit_name" name="edit_name"
                                                 class="form-control" />
                                         </div>
-                                        <div data-mdb-input-init class="form-group">
+                                        <div  class="form-group">
                                             <label class="form-label"
                                                 for="email">{{ __('word.customer_email') }}</label>
                                             <input type="email" id="edit_email" name="edit_email"
                                                 class="form-control" />
                                         </div>
-                                        <div data-mdb-input-init class="form-group">
+                                        <div  class="form-group">
                                             <label class="form-label"
                                                 for="phone">{{ __('word.customer_phone') }}</label>
                                             <input type="text" id="edit_phone" name="edit_phone"
                                                 class="form-control" />
                                         </div>
-                                        <div data-mdb-input-init class="form-group">
+                                        <div  class="form-group">
                                             <label class="form-label"
                                                 for="phone2">{{ __('word.customer_phone2') }}</label>
                                             <input type="text" id="edit_phone2" name="edit_phone2"
                                                 class="form-control" />
                                         </div>
-                                        <div data-mdb-input-init class="form-group">
+                                        <div  class="form-group">
                                             <label class="form-label"
                                                 for="address">{{ __('word.customer_address') }}</label>
                                             <textarea class="form-control" id="edit_address" name="edit_address" rows="4"></textarea>

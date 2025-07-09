@@ -48,9 +48,10 @@
                                 </h5>
                                 <p style="margin-bottom: 8px;"><strong>Name:</strong> <span id="name_detail"></span></p>
                                 <p style="margin-bottom: 0;"><strong>Phone:</strong> <span id="phone_detail"></span></p>
+                                 <p style="margin-bottom: 0;"><strong>Sender Name:</strong> <span id="sender_name_detail"></span></p>
                             </div>
                         </div>
-                        <div class="col-12 col-md-12 col-sm-12 address-container">
+                        <div class="col-md-6 col-sm-12 address-container">
                             <div
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
                                 <h5
@@ -59,6 +60,18 @@
                                 </h5>
                                 <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
                                     id="address_detail">
+                                </address>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 address-container">
+                            <div
+                                style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
+                                <h5
+                                    style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
+                                    <i class="bi bi-geo-alt me-2"></i>Sender Address
+                                </h5>
+                                <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
+                                    id="sender_address_detail">
                                 </address>
                             </div>
                         </div>
