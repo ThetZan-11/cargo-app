@@ -17,6 +17,7 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <script src="{{ asset('assets/datepicker.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     @yield('scripts')
     </body>
 

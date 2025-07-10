@@ -85,7 +85,7 @@
                                         <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="order_date">{{ __('word.order_date') }}</label>
-                                            <input type="date" id="order_date" name="order_date" class="form-control"
+                                            <input type="text" id="order_date" name="order_date" class="form-control"
                                                 placeholder="{{ __('word.date_enter') }}" />
                                         </div>
                                         <div class="form-group mt-3">
@@ -108,7 +108,7 @@
                                         </div>
                                     <div class="form-group mt-3">
                                         <label class="form-label"
-                                            for="order_date">{{ __('word.descrioption') }}</label>
+                                            for="order_desc">{{ __('word.descrioption') }}</label>
                                         <textarea class="form-control" id="order_desc" placeholder="{{ __('word.enter_desc') }}" name="order_desc"
                                             rows="2"></textarea>
                                     </div>
@@ -210,5 +210,13 @@
                 $select.removeClass('active');
             });
         });
+        flatpickr("#order_date", {
+    dateFormat: 'Y-m-d',
+    altInput: true,
+    altFormat: "Y-m-d",
+    defaultDate: "today",
+    monthSelectorType: "dropdown",
+    yearSelectorType: "dropdown",
+  });
     });
 </script>
