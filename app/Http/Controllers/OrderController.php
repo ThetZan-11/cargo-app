@@ -225,7 +225,7 @@ class OrderController extends Controller
     {
         if (request()->ajax()) {
             try {
-                $receipt = Receipt::with('orders', 'customers', 'prices', 'orders.products')->where('id', base64_decode($id))->first();
+                $receipt = Receipt::with('orders', 'customers', 'prices', 'orders.products', 'prices.countries')->where('id', base64_decode($id))->first();
                 return response()->json(['status' => true, 'receipt' => $receipt]);
             } catch (\Throwable $e) {
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);

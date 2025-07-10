@@ -266,7 +266,6 @@
                         contentType: "application/json",
                         processData: false,
                         success: function(response) {
-                            console.log(response.data)
                             $('#loader').css('display', 'none');
                             if (response.status == true) {
                                 let originalAddress = ""
@@ -294,7 +293,6 @@
                                       </div>
                                     `
                                 });
-                                console.log(originalAddress);
 
                                 const printHtml = `
             <!DOCTYPE html>
@@ -319,10 +317,6 @@
                     }
                     .address-container {
                         page-break-inside: avoid;
-                    }
-                    @media print {
-                        body { -webkit-print-color-adjust: exact; }
-                        .label-page { padding: 0; }
                     }
                 </style>
             </head>
@@ -514,9 +508,11 @@
 
             //Order Detail
             $(document).on('click', '.detail-btn', function() {
+                $('#loader').css('display', 'flex');
                 let id = $(this).data('id');
                 localStorage.setItem('detail_id', id)
                 orderDataFetch(id);
+                $('#loader').css('display', 'none');
             })
 
             //clear form input
@@ -553,23 +549,40 @@
                             $('#sender_name_detail').text(receipts.sender_name)
                             $('#sender_address_detail').text(receipts.sender_address);
                             $("#price_per_kg").text(Number(receipts.prices.price_per_kg).toLocaleString() + countryCurrency)
+                            $("#total_amount_receipt").text(Number(receipts.total_amount).toLocaleString() + countryCurrency)
+                            $("#total_kg_receipt").text(receipts.total_kg + " kg")
+                            $("#name_receipt").text(receipts.customers.name)
+                            $("#country_receipt").text(receipts.prices.countries.country_name)
+                            $('#order_date_receipt').text(receipts.order_date)
                             let lang = {{ App::getLocale() == 'en' ? 'true' : 'false' }};
                             let descContainer = ''
+                            let i = 0;
                             receipts.orders.forEach(e => {
                                 descContainer +=
                                     `<tr>
-                                        <td>${ lang == true ? e.products.name_en : e.products.name_mm }</td>
+                                        <td>${++i}</td>
+                                        <td>${e.products.name_en == "box" ? e.products.name_en : e.products.name_mm  }</td>
                                         <td style="text-align: right;" id="total_kg_table">${e.total_kg} ${e.status == 1 ? 'kg':''}</td>
-                                        <td style="text-align: right;" id="totaxl_amount_table">${e.line_total}</td>
+                                        <td style="text-align: right;" id="each_price">${i == 1 ?  Number(receipts.prices.price_per_kg).toLocaleString() : Number(e.line_total).toLocaleString()}</td>
+                                        <td style="text-align: right;" id="totaxl_amount_table">${Number(e.line_total).toLocaleString()}</td>
                                     </tr>`
                             });
                             $('#order_details_container').append(descContainer).append(`
-                                <tr>
-                                    <td colspan="1" style="text-align: left; font-weight: bold;">Total:</td>
-                                    <td style="text-align: right; font-weight: bold;">${receipts.total_kg} Kg</td>
-                                    <td style="text-align: right; font-weight: bold;">${Number(receipts.total_amount).toLocaleString() + countryCurrency} </td>
-                                </tr>
-                            `);
+                            <tr>
+                                        <td>${++i}</td>
+                                        <td></td>
+                                        <td style="text-align: right;" id="total_kg_table"></td>
+                                        <td style="text-align: right;" id="each_price"></td>
+                                        <td style="text-align: right;" id="totaxl_amount_table"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>${++i}</td>
+                                        <td></td>
+                                        <td style="text-align: right;" id="total_kg_table"></td>
+                                        <td style="text-align: right;" id="each_price"></td>
+                                        <td style="text-align: right;" id="totaxl_amount_table"></td>
+                                    </tr>
+                                    `)
                         } else {
                             Swal.fire({
                                 position: "center",
@@ -658,6 +671,57 @@
                 toggleContainer($(this), '#box-container');
             });
         });
+
+function printReceipt() {
+    const receiptContent = document.getElementById('receipt-section').outerHTML;
+    const printWindow = window.open('', '', 'width=1000,height=800');
+
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Receipt</title>
+        </head>
+        <link href="{{ asset('assets/MDB5/css/mdb.min.css') }}" rel="stylesheet" />
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
+        <style>
+            @page {
+                    size: A5 portrait;
+                }
+            body *{
+            font-size: 13px !important;
+            }
+            h1{
+            font-size: 25px !important;
+            }
+            table{
+            width: 100% !important;
+            }
+            th{
+            font-weight: 700 !important;
+            }
+            td, th{
+            padding: 2px 5px !important;
+            height: 30px !important; 
+            }
+            img{
+            max-height: 100px !important;
+            }
+            .greeting,.sign, #address-container{
+                font-size: 10px !important;
+                font-weight: 700;
+            }
+            
+        </style>
+        <body onload="window.print(); setTimeout(() => window.close(), 200);">
+            ${receiptContent}
+        </body>
+        </html>
+    `);
+
+    printWindow.document.close();
+}
+
     </script>
 @endsection
 

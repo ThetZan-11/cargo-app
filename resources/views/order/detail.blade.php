@@ -76,30 +76,58 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Order Details -->
-                    <div
-                        style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                        <h5
-                            style="color: #2c3e50; font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
-                            <i class="bi bi-list-check me-2"></i>Order Details
-                        </h5>
-                        <div class="table-responsive">
-                            <table class="table" style="margin-bottom: 0;">
-                                <thead>
-                                    <tr style="background-color: #f1f5f9;">
-                                        <th style="font-weight: 600; width: 50%;">Description</th>
-                                        <th style="font-weight: 600; text-align: right;">Weight</th>
-                                        <th style="font-weight: 600; text-align: right;">Amount</th>
+                    <!-- RECEIPT DESIGN START -->
+                    
+                    <div class="receipt-paper" id="receipt-section" style="max-width: 1000px; margin: 20px auto; background: #f8f66b; border: 1px solid #ebeb91; border-radius: 10px; box-shadow: 0 2px 8px #0001; padding: 20px; font-family: 'Segoe UI', Arial, sans-serif; overflow-x: auto;">
+                        <div class="receipt-header d-flex justify-content-between align-items-center">
+                            <h1 style="font-size: 40px; font-weight:900; font-family: Libertinus Math,system-ui;">Juu Air Cargo Services</h1>
+                            <div>
+                            <img src="{{asset('assets/img/juu.png')}}" alt="logo" class="img-fluid" style="max-height:150px;">
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <div><strong>အမည် :</strong> <span id="name_receipt"></span></div>
+                            <div><strong>နိုင်ငံ:</strong> <span id="country_receipt"></span></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <div><strong>ရက်စွဲ :</strong> <span id="order_date_receipt"></span></div>
+                             <div><strong>ဖုန်: ................................</strong> <span id="phone_receipt"></span></div>
+                        </div>
+                        <div style="overflow-x: auto; width: 100%;" id="table-receipt">
+                            <table class="table table-bordered receipt-table" style="background: #fff; border-color: #e2e2b0; width:100%; white-space: nowrap;">
+                                <thead style="background: #e4e480;">
+                                    <tr class="text-center">
+                                        <th style="width: 20px;">စဉ်</th>
+                                        <th>အမျိုးအမည်</th>
+                                        <th>အရေအတွက်</th>
+                                        <th>ဈေးနှုန်း</th>
+                                        <th>သင့်ငွေ</th>
                                     </tr>
                                 </thead>
                                 <tbody id="order_details_container">
-                                   
-                                    
+                                    <!-- Order items will be injected here by JS -->
+                                     
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2" class="text-end"><strong>စုစုပေါင်း</strong></td>
+                                        <td class="text-end"><strong><span id="total_kg_receipt"></span></strong></td>
+                                        <td><strong><span></span></strong></td>
+                                        <td class="text-end"><strong><span id="total_amount_receipt"></span></strong></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
+                        <div class="mx-auto" id="footer-receipt" style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px;">
+                            <div class="greeting">မှာယူအားပေးမှုအတွက် ကျေးဇူးတင်ပါသည်။</div>
+                            <div class="sign" style="font-size: 0.95rem; color: #888;">လက်မှတ် ____________________</div>
+                        </div>
+                        <div id="address-container" class="text-center mt-3 p-3" style="background-color: #ffffff; border-radius:10px;">
+                            အမှတ်(၃/ခ) ဘောဂမြင့်မိုရ် (၂)လမ်းသွယ်၊ မြောက်ဥက္ကလာပမြို့နယ်၊ ရန်ကုန်မြို့။
+                        </div>
                     </div>
+                    <!-- RECEIPT DESIGN END -->
+                    <button id="print-receipt-btn" class="btn btn-primary mt-3" type="button" onclick="printReceipt()"><i class="fa fa-print"></i> Print Receipt</button>
                 </div>
             </div>
              <div class="modal-footer">
@@ -109,3 +137,6 @@
         </div>
     </div>
 </div>
+
+
+

@@ -110,6 +110,27 @@
         background: #0d6efd;
         color: white;
     }
+
+    @media (max-width: 900px) and (min-width: 576px) {
+        .navbar-brand img {
+            width: 50px !important;
+            height: 50px !important;
+        }
+        .navbar-brand {
+            margin-right: 8px !important;
+        }
+        .navbar-nav {
+            gap: 0.5rem !important;
+        }
+        .nav-item.bg-light {
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+        }
+        .nav-link.icon {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+        }
+    }
 </style>
 
 <script>
