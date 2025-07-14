@@ -535,12 +535,14 @@
                         console.log(response);
                         let receipts = response.receipt
                         if (response.status) {
-                            let countryCurrency = receipts.prices.country_code == "SG" ? " $" : " MMK";
+                            let countryCurrency = receipts.prices.countries.country_code == "SG" ? " $" : " MMK";
+                            console.log(Number(receipts.total_amount).toLocaleString() + countryCurrency)
                             $('#order_details_container').empty();
                             $('detailOrderModal').modal('show');
                             $("#total_kg_detail").text(receipts.total_kg + " kg")
                             $("#total_amount_detail").text(Number(receipts.total_amount).toLocaleString() + countryCurrency)
                             $('#order_date_detail').text(receipts.order_date)
+                            $('#description_detail').text(receipts.description)
                             $("#arp_no_detail").text(receipts.arp_no)
                             $("#name_detail").text(receipts.customers.name)
                             $("#address_detail").text(receipts.customers.address)

@@ -25,14 +25,16 @@
                                 <p style="margin-bottom: 5px;"><strong>Total Weight:</strong> <span
                                         id="total_kg_detail"></span>
                                 </p>
+                                <p style="margin-bottom: 5px;"><strong>Price Per Kg</strong> <span id="price_per_kg"></span>
+                                </p>
                                 <p style="margin-bottom: 0;"><strong>Total Amount:</strong>
                                     <span id="total_amount_detail"></span>
                                 </p>
+                                 
                                 <p style="margin-bottom: 5px;"><strong>Date:</strong> <span
                                         id="order_date_detail"></span> </p>
                                 <p style="margin-bottom: 5px;"><strong>ARP NO:</strong> <span id="arp_no_detail"></span>
-                                    <p style="margin-bottom: 5px;"><strong>Price Per Kg</strong> <span id="price_per_kg"></span>
-                                </p>
+                                   
                             </div>
                         </div>
                     </div>
@@ -72,6 +74,18 @@
                                 </h5>
                                 <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
                                     id="sender_address_detail">
+                                </address>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 desc-container">
+                            <div
+                                style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
+                                <h5
+                                    style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
+                                    <i class="bi bi-geo-alt me-2"></i>Description
+                                </h5>
+                                <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
+                                    id="description_detail">
                                 </address>
                             </div>
                         </div>

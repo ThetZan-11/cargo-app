@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/getData', [DashboardController::class, 'getData'])->name('dashboard.getData');
     // Fix: Redirect /home to /dashboard
     Route::get('/home', function () {
         return redirect('/dashboard');
