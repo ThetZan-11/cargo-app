@@ -114,7 +114,7 @@
     <div class="row mb-4">
         <div class="col-lg-8 mx-auto">
             <div class="glass-chart-card">
-                <h3 class="mb-3">Total Order Chart</h3>
+                <h3 class="mb-3 text-light">Total Order Chart</h3>
                 <div class="row">
                     <div class="col-md-4 mx-auto mb-4">
                         <div class="glass-select">
@@ -129,7 +129,7 @@
                     <div class="col-md-4 mx-auto mb-4">
                         <div class="glass-select">
                             <select id="year-select" class="form-select" style="background: rgba(255,255,255,0.15); border: none; color: #debf0e; font-weight: 600; box-shadow: 0 2px 6px rgba(31,38,135,0.2); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 10px;">
-                                <option value="">This Year</option>
+                                <option value="">Select Year</option>
                                 <option value="2025">2025</option>
                                 <option value="2026">2026</option>
                             </select>

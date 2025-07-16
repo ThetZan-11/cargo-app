@@ -251,4 +251,112 @@ class OrderController extends Controller
             }
         }
     }
+
+    public function update(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $receiptId = $request->order_id_edit;
+            $receipt = Receipt::findOrFail($receiptId);
+
+            $meat_status =  $request->meat_kg_plus_edit != '' ? 1 : 0;
+            $book_status =  $request->book_kg_plus_edit != '' ? 1 : 0;
+            $pharmacy_status =  $request->pharmacy_kg_plus_edit != '' ? 1 : 0;
+            $cloth_status =  $request->cloth_kg_plus_edit != '' ? 1 : 0;
+
+            $total_amount = $request->various_amount_edit
+                + $request->meat_total_edit
+                + $request->book_total_edit
+                + $request->pharmacy_total_edit
+                + $request->cloth_total_edit
+                + $request->box_total_edit;
+
+            $total_kg = $request->various_kg_edit
+                + $request->meat_kg_plus_edit
+                + $request->book_kg_plus_edit
+                + $request->pharmacy_kg_plus_edit
+                + $request->cloth_kg_plus_edit;
+
+            $receipt->update([
+                'customer_id'   => $request->customer_hidden_id_edit,
+                'arp_no'        => $request->arp_no_edit,
+                'order_date'    => Carbon::parse($request->order_date_edit)->format('Y-m-d'),
+                'description'   => $request->order_desc_edit,
+                'total_amount'  => $total_amount,
+                'price_id'      => $request->selected_price_id_edit,
+                'total_kg'      => $total_kg,
+                'sender_name'   => $request->sender_name_edit,
+                'sender_address' => $request->sender_address_edit,
+            ]);
+
+            // Remove old orders
+            Order::where('receipt_id', $receipt->id)->delete();
+
+            // Recreate orders as in store
+            $orderData = [
+                'product_id'       => 1,
+                'receipt_id'       => $receipt->id,
+                'total_kg'         => $request->various_kg_edit,
+                'line_total'       => $request->various_amount_edit,
+                'status'           => 1
+            ];
+            Order::create($orderData);
+            if (isset($request->meat_kg_edit) && isset($request->meat_total_edit) && isset($request->meat_edit)) {
+                $meatData = [
+                    'product_id'       => $request->meat_edit,
+                    'receipt_id'       => $receipt->id,
+                    'total_kg'         => $request->meat_kg_edit,
+                    'line_total'       => $request->meat_total_edit,
+                    'status'           => $meat_status
+                ];
+                Order::create($meatData);
+            }
+            if (isset($request->book_kg_edit) && isset($request->book_total_edit) && isset($request->book_edit)) {
+                $bookData = [
+                    'product_id'       => $request->book_edit,
+                    'receipt_id'       => $receipt->id,
+                    'total_kg'         => $request->book_kg_edit,
+                    'line_total'       => $request->book_total_edit,
+                    'status'           => $book_status
+                ];
+                Order::create($bookData);
+            }
+            if (isset($request->pharmacy_kg_edit) && isset($request->pharmacy_total_edit) && isset($request->pharmacy_edit)) {
+                $pharmacyData = [
+                    'product_id'       => $request->pharmacy_edit,
+                    'receipt_id'       => $receipt->id,
+                    'total_kg'         => $request->pharmacy_kg_edit,
+                    'line_total'       => $request->pharmacy_total_edit,
+                    'status'           => $pharmacy_status
+                ];
+                Order::create($pharmacyData);
+            }
+            if (isset($request->cloth_kg_edit) && isset($request->cloth_total_edit) && isset($request->cloth_edit)) {
+                $clothData = [
+                    'product_id'       => $request->cloth_edit,
+                    'receipt_id'       => $receipt->id,
+                    'total_kg'         => $request->cloth_kg_edit,
+                    'line_total'       => $request->cloth_total_edit,
+                    'status'           => $cloth_status
+                ];
+                Order::create($clothData);
+            }
+            if (isset($request->box_edit) && isset($request->box_total_edit) && isset($request->box_edit)) {
+                $boxData = [
+                    'product_id'       => $request->box_edit,
+                    'receipt_id'       => $receipt->id,
+                    'total_kg'         => $request->box_kg_edit,
+                    'line_total'       => $request->box_total_edit,
+                    'status'           => 0
+                ];
+                Order::create($boxData);
+            }
+
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'Order updated successfully']);
+        } catch (\Throwable $e) {
+            DB::rollback();
+            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+        }
+    }
 }
