@@ -652,7 +652,7 @@
                                     // Checkbox
                                     $('#' + order.products.name_en + '_edit').prop(
                                         'checked', true);
-                                    $('#' + order.products.name_en + '-container')
+                                    $('#' + order.products.name_en + '-container-edit')
                                         .show();
                                     $('#' + order.products.name_en + '_kg_edit').val(
                                         order.total_kg);
