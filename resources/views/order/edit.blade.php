@@ -126,7 +126,7 @@
                                                         value="{{ $product->id }}"
                                                         id="{{ $product->name_en }}_edit" />
                                                     <label class="form-check-label"
-                                                        for="{{ $product->name_en }}">{{ App::getLocale() == 'en' ? $product->name_en : $product->name_mm }}</label>
+                                                        for="{{ $product->name_en }}_edit">{{ App::getLocale() == 'en' ? $product->name_en : $product->name_mm }}</label>
                                                 </div>
                                                 <div id="{{ $product->name_en }}-container-edit"
                                                     style="display: none;">

@@ -78,6 +78,84 @@
                     let detailId = localStorage.getItem('detail_id')
                     orderDataFetch(detailId);
                 }
+                if (modalId == '#editOrderrModal') {
+                    let editId = localStorage.getItem('order_edit_id')
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ route('order.getDataEdit', '') }}/" + editId,
+                        success: function(response) {
+                            let thisResponse = response.receipt
+                            if (response.status) {
+                                console.log(thisResponse)
+                                $('#customer_name_edit').val(thisResponse.customers.name);
+                                $('#customer_hidden_id_edit').val(thisResponse.customers.id);
+                                $('#various_kg_edit').val(thisResponse.total_kg);
+                                $('#various_amount_edit').val(thisResponse.total_amount);
+                                $('#order_date_edit').val(thisResponse.order_date);
+                                $('#sender_name_edit').val(thisResponse.sender_name);
+                                $('#sender_address_edit').val(thisResponse.sender_address);
+                                $('#arp_no_edit').val(thisResponse.arp_no);
+                                $('#order_desc_edit').val(thisResponse.description);
+                                $('#order_id_edit').val(thisResponse.id);
+
+                                let priceId = thisResponse.price_id || (thisResponse.prices &&
+                                    thisResponse.prices.id);
+                                $('#selected_price_id_edit').val(priceId);
+                                let $select = $('#custom-image-select-edit');
+                                let $options = $select.find('.option-edit');
+                                let $selectedOption = $select.find('.selected-option-edit');
+                                let found = $options.filter(function() {
+                                    return $(this).data('value') == priceId;
+                                });
+                                if (found.length) {
+                                    $options.removeClass('selected-edit');
+                                    found.addClass('selected-edit');
+                                    $selectedOption.html(found.find(
+                                        '.option-image-edit, .option-text-edit').clone());
+                                }
+                                if (thisResponse.orders && Array.isArray(thisResponse.orders)) {
+                                    console.log(thisResponse.orders)
+                                    thisResponse.orders.forEach(function(order) {
+
+                                        // Checkbox
+                                        $('#' + order.products.name_en + '_edit').prop(
+                                            'checked', true);
+                                        $('#' + order.products.name_en + '-container-edit')
+                                            .show();
+                                        $('#' + order.products.name_en + '_kg_edit').val(
+                                            order.total_kg);
+                                        $('#' + order.products.name_en + '_total_edit').val(
+                                            order.line_total);
+                                        if (order.products.name_en !== 'box' || order
+                                            .status == 1) {
+                                            $('#' + order.products.name_en +
+                                                '_kg_plus_edit').prop('checked', true);
+                                        }
+                                    });
+                                }
+                            } else {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "error",
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    fadeIn: 1000,
+                                });
+                            }
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: "{{ __('word.failed_to_fetch') }}",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                fadeIn: 1000,
+                            });
+                        }
+                    });
+                }
                 $(modalId).modal('show')
             }
 
@@ -614,6 +692,7 @@
             //Edit Order
             $(document).on('click', '.edit-btn', function() {
                 let id = $(this).data('id');
+                localStorage.setItem('order_edit_id', id)
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('order.getDataEdit', '') }}/" + id,
@@ -648,7 +727,9 @@
                                     '.option-image-edit, .option-text-edit').clone());
                             }
                             if (thisResponse.orders && Array.isArray(thisResponse.orders)) {
+                                console.log(thisResponse.orders)
                                 thisResponse.orders.forEach(function(order) {
+
                                     // Checkbox
                                     $('#' + order.products.name_en + '_edit').prop(
                                         'checked', true);
@@ -658,10 +739,10 @@
                                         order.total_kg);
                                     $('#' + order.products.name_en + '_total_edit').val(
                                         order.line_total);
-                                    if (order.products.name_en !== 'box') {
+                                    if (order.products.name_en !== 'box' || order
+                                        .status == 1) {
                                         $('#' + order.products.name_en +
-                                            '_kg_plus_edit').prop('checked', order
-                                            .kg_plus == 1);
+                                            '_kg_plus_edit').prop('checked', true);
                                     }
                                 });
                             }
