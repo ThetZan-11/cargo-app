@@ -178,9 +178,6 @@
                 e.stopPropagation();
                 $select.toggleClass('active');
             });
-
-
-
             // Option selection
             $options.on('click', function() {
                 if ($('#various_kg').val() === '') {

@@ -349,16 +349,16 @@
                                      <div class="address-container" style="margin-bottom: 8px;">
                                         <div style="display: flex; background: #f8fafc; border-radius: 8px; padding: 25px 15px; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d; align-items: flex-start;">
                                           <div style="flex: 1; max-width: 40%;">
-                                            <h3 style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin: 0 0 6px 0; display: flex; align-items: center;">
-                                              <i class="bi bi-geo-alt me-2"></i>${e.sender_name}
+                                            <h3 style="color: #2c3e50; font-size: 25px; font-weight: 900; margin: 0 0 6px 0; display: flex; align-items: center;">
+                                              ${e.sender_name}
                                             </h3>
                                             <address style="font-style: normal; line-height: 1.4; margin: 0; padding:0px 10px;">
                                               ${e.sender_address}
                                             </address>
                                           </div>
                                           <div style="flex: 1; min-width: 0;">
-                                            <h3 style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin: 0 0 6px 0; display: flex; align-items: center;">
-                                              <i class="bi bi-geo-alt me-2"></i>${e.customers.name}
+                                            <h3 style="color: #2c3e50; font-size: 25px; font-weight: 900; margin: 0 0 6px 0; display: flex; align-items: center;">
+                                              ${e.customers.name}
                                             </h3>
                                             <address style="font-style: normal; line-height: 1.4; margin: 0; padding:0px 10px;">
                                               ${e.customers.address}
@@ -709,8 +709,8 @@
                             console.log(thisResponse)
                             $('#customer_name_edit').val(thisResponse.customers.name);
                             $('#customer_hidden_id_edit').val(thisResponse.customers.id);
-                            $('#various_kg_edit').val(thisResponse.total_kg);
-                            $('#various_amount_edit').val(thisResponse.total_amount);
+                            // $('#various_kg_edit').val(thisResponse.total_kg);
+                            // $('#various_amount_edit').val(thisResponse.orders[0].total_amount);
                             $('#order_date_edit').val(thisResponse.order_date);
                             $('#sender_name_edit').val(thisResponse.sender_name);
                             $('#sender_address_edit').val(thisResponse.sender_address);
@@ -736,7 +736,12 @@
                             if (thisResponse.orders && Array.isArray(thisResponse.orders)) {
                                 console.log(thisResponse.orders)
                                 thisResponse.orders.forEach(function(order) {
-
+                                    if (order.products.id == 1) {
+                                        $('#various_kg_edit').val(order
+                                            .total_kg);
+                                        $('#various_amount_edit').val(order
+                                            .line_total);
+                                    }
                                     // Checkbox
                                     $('#' + order.products.name_en + '_edit').prop(
                                         'checked', true);
@@ -783,6 +788,7 @@
                 let bookKgEdit = $('#book_kg_edit').val();
                 let clothKgEdit = $('#cloth_kg_edit').val();
                 let pharmacyKgEdit = $('#pharmacy_kg_edit').val();
+                let cosmeticKgEdit = $('#cosmetic_kg_edit').val();
 
                 $('#meat_kg_plus_edit').is(':checked') ? $('#meat_kg_plus_edit').val(meatKgEdit) : $(
                     '#meat_kg_plus_edit').val(0);
@@ -793,7 +799,7 @@
                 $('#pharmacy_kg_plus_edit').is(':checked') ? $('#pharmacy_kg_plus_edit').val(
                     pharmacyKgEdit) : $('#pharmacy_kg_plus_edit').val(0);
                 $('#cosmetic_kg_plus_edit').is(':checked') ? $('#cosmetic_kg_plus_edit').val(
-                    pharmacyKgEdit) : $('#cosmetic_kg_plus_edit').val(0);
+                    cosmeticKgEdit) : $('#cosmetic_kg_plus_edit').val(0);
 
                 var formData = new FormData($('#order-form-edit')[0]);
                 $('#loader').css('display', 'flex');
