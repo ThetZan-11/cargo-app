@@ -45,19 +45,22 @@ class OrderController extends Controller
             $book_status =  $request->book_kg_plus != '' ? 1 : 0;
             $pharmacy_status =  $request->pharmacy_kg_plus != '' ? 1 : 0;
             $cloth_status =  $request->cloth_kg_plus != '' ? 1 : 0;
+            $cosmetic_status =  $request->cosmetic_kg_plus != '' ? 1 : 0;
 
             $total_amount = $request->various_amount
                 + $request->meat_total +
                 $request->book_total +
                 $request->pharmacy_total +
                 $request->cloth_total +
-                $request->box_total;
+                $request->box_total +
+                $request->cosmetic_total;
 
             $total_kg = $request->various_kg
                 + $request->meat_kg_plus +
                 $request->book_kg_plus +
                 $request->pharmacy_kg_plus +
-                $request->cloth_kg_plus;
+                $request->cloth_kg_plus +
+                $request->cosmetic_kg_plus;
 
             $reciptData = [
                 'customer_id'   => $request->customer_hidden_id,
@@ -120,6 +123,16 @@ class OrderController extends Controller
                         'status'           => $cloth_status
                     ];
                     Order::create($clothData);
+                }
+                if (isset($request->cosmetic_kg) && isset($request->cosmetic_total) && isset($request->cosmetic)) {
+                    $cosmeticData = [
+                        'product_id'       => $request->cosmetic,
+                        'receipt_id'       => $receipt->id,
+                        'total_kg'         => $request->cosmetic_kg,
+                        'line_total'       => $request->cosmetic_total,
+                        'status'           => $cosmetic_status
+                    ];
+                    Order::create($cosmeticData);
                 }
                 if (isset($request->box) && isset($request->box_total) && isset($request->box)) {
                     $boxData = [
@@ -263,19 +276,22 @@ class OrderController extends Controller
             $book_status =  $request->book_kg_plus_edit != '' ? 1 : 0;
             $pharmacy_status =  $request->pharmacy_kg_plus_edit != '' ? 1 : 0;
             $cloth_status =  $request->cloth_kg_plus_edit != '' ? 1 : 0;
+            $cosmetic_status =  $request->cosmetic_kg_plus_edit != '' ? 1 : 0;
 
             $total_amount = $request->various_amount_edit
                 + $request->meat_total_edit
                 + $request->book_total_edit
                 + $request->pharmacy_total_edit
                 + $request->cloth_total_edit
-                + $request->box_total_edit;
+                + $request->box_total_edit
+                + $request->cosmetic_total_edit;
 
             $total_kg = $request->various_kg_edit
                 + $request->meat_kg_plus_edit
                 + $request->book_kg_plus_edit
                 + $request->pharmacy_kg_plus_edit
-                + $request->cloth_kg_plus_edit;
+                + $request->cloth_kg_plus_edit
+                + $request->cosmetic_kg_plus_edit;
 
             $receipt->update([
                 'customer_id'   => $request->customer_hidden_id_edit,
@@ -340,6 +356,16 @@ class OrderController extends Controller
                     'status'           => $cloth_status
                 ];
                 Order::create($clothData);
+            }
+            if (isset($request->cosmetic_kg_edit) && isset($request->cosmetic_total_edit) && isset($request->cosmetic_edit)) {
+                $cosmeticData = [
+                    'product_id'       => $request->cosmetic_edit,
+                    'receipt_id'       => $receipt->id,
+                    'total_kg'         => $request->cosmetic_kg_edit,
+                    'line_total'       => $request->cosmetic_total_edit,
+                    'status'           => $cosmetic_status
+                ];
+                Order::create($cosmeticData);
             }
             if (isset($request->box_edit) && isset($request->box_total_edit) && isset($request->box_edit)) {
                 $boxData = [

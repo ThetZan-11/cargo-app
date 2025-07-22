@@ -832,6 +832,7 @@
             let pharmacy = $('#pharmacy');
             let cloth = $('#cloth');
             let box = $('#box');
+            let cosmetic = $('#cosmetic');
 
             function toggleContainer(checkbox, containerId) {
                 if (checkbox.is(':checked')) {
@@ -855,6 +856,9 @@
             box.on('change', function() {
                 toggleContainer($(this), '#box-container');
             });
+            cosmetic.on('change', function() {
+                toggleContainer($(this), '#cosmetic-container');
+            });
 
             $('#meat_edit').on('change', function() {
                 toggleContainer($(this), '#meat-container-edit');
@@ -870,6 +874,9 @@
             });
             $('#box_edit').on('change', function() {
                 toggleContainer($(this), '#box-container-edit');
+            });
+            $('#cosmetic_edit').on('change', function() {
+                toggleContainer($(this), '#cosmetic-container-edit');
             });
         });
 

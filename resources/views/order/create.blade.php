@@ -14,7 +14,7 @@
                                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                                     <form id="order-form">
                                         @csrf
-                                        <div  class="form-group position-relative">
+                                        <div class="form-group position-relative">
                                             <label class="form-label"
                                                 for="customer_name">{{ __('word.customer_name') }}</label>
                                             <input type="hidden" name="customer_hidden_id" id="customer_hidden_id">
@@ -23,9 +23,9 @@
                                         </div>
                                         <div style="overflow-y: scroll; height: 300px; width: auto; display: none; border-radius:10px; box-shadow: 3px 3px 3px #b9b8b876;"
                                             id="customer-table">
-                                            <table class="table table-bordered mt-1" style=" width: 100%;">
+                                            <table class="table-bordered mt-1 table" style=" width: 100%;">
                                                 <thead>
-                                                    <tr class="text-center table-th">
+                                                    <tr class="table-th text-center">
                                                         <th>{{ __('word.customer_name') }}</th>
                                                         <th>{{ __('word.customer_phone') }}</th>
                                                         <th>{{ __('word.customer_address') }}</th>
@@ -75,13 +75,13 @@
                                                     value="">
                                             </div>
                                         </div>
-                                        <div  class="form-group mt-3">
+                                        <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="min_kg">{{ __('word.various_amount') }}</label>
                                             <input type="text" id="various_amount" name="various_amount"
                                                 class="form-control" value="0" />
                                         </div>
-                                        
+
                                         <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="order_date">{{ __('word.order_date') }}</label>
@@ -91,21 +91,22 @@
                                         <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="sender_name">{{ __('word.sender_name') }}</label>
-                                            <input type="text" id="sender_name" name="sender_name" class="form-control"
-                                                placeholder="{{ __('word.sender_name') }}" />
+                                            <input type="text" id="sender_name" name="sender_name"
+                                                class="form-control" placeholder="{{ __('word.sender_name') }}" />
                                         </div>
                                         <div class="form-group mt-3">
                                             <label class="form-label"
                                                 for="sender_address">{{ __('word.sender_address') }}</label>
-                                            <textarea rows="2" id="sender_address" name="sender_address" class="form-control" placeholder="{{ __('word.enter_sender_address') }}"></textarea>
+                                            <textarea rows="2" id="sender_address" name="sender_address" class="form-control"
+                                                placeholder="{{ __('word.enter_sender_address') }}"></textarea>
                                         </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                                     <div class="form-group">
-                                            <label class="form-label" for="arp_no">ARP NO</label>
-                                            <input type="text" id="arp_no" name="arp_no" class="form-control"
-                                                placeholder="{{ __('word.arp_no_enter') }}" />
-                                        </div>
+                                        <label class="form-label" for="arp_no">ARP NO</label>
+                                        <input type="text" id="arp_no" name="arp_no" class="form-control"
+                                            placeholder="{{ __('word.arp_no_enter') }}" />
+                                    </div>
                                     <div class="form-group mt-3">
                                         <label class="form-label"
                                             for="order_desc">{{ __('word.descrioption') }}</label>
@@ -123,12 +124,14 @@
                                                         for="{{ $product->name_en }}">{{ App::getLocale() == 'en' ? $product->name_en : $product->name_mm }}</label>
                                                 </div>
                                                 <div id="{{ $product->name_en }}-container" style="display: none;">
-                                                    <div class="form-group mt-3 d-flex gap-2">
+                                                    <div class="form-group d-flex mt-3 gap-2">
                                                         <input type="text" id="{{ $product->name_en }}_kg"
                                                             name="{{ $product->name_en }}_kg" class="form-control"
                                                             placeholder="{{ __('word.enter_kg') }}" />
                                                         @if ($product->name_en != 'box')
-                                                        <input type="checkbox" name="{{ $product->name_en }}_kg_plus" id="{{ $product->name_en }}_kg_plus">
+                                                            <input type="checkbox"
+                                                                name="{{ $product->name_en }}_kg_plus"
+                                                                id="{{ $product->name_en }}_kg_plus">
                                                         @endif
                                                     </div>
                                                     <div class="form-group mt-3">
@@ -176,7 +179,7 @@
                 $select.toggleClass('active');
             });
 
-            
+
 
             // Option selection
             $options.on('click', function() {
@@ -211,12 +214,12 @@
             });
         });
         flatpickr("#order_date", {
-    dateFormat: 'Y-m-d',
-    altInput: true,
-    altFormat: "Y-m-d",
-    defaultDate: "today",
-    monthSelectorType: "dropdown",
-    yearSelectorType: "dropdown",
-  });
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: "Y-m-d",
+            defaultDate: "today",
+            monthSelectorType: "dropdown",
+            yearSelectorType: "dropdown",
+        });
     });
 </script>

@@ -15,6 +15,7 @@ class ProductSeeder extends Seeder
             ['name_en' => 'book',     'name_mm' => 'စာအုပ်'],
             ['name_en' => 'pharmacy', 'name_mm' => 'ဆေး'],
             ['name_en' => 'cloth',    'name_mm' => 'အဝတ်အစား'],
+            ['name_en' => 'cosmetic', 'name_mm' => 'အလှကုန်'],
             ['name_en' => 'box',      'name_mm' => 'သေတ္တာ'],
         ];
 
