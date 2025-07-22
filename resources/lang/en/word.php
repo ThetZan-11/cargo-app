@@ -13,6 +13,7 @@ return [
     'update' => 'Update',
     'dashboard' => 'Dashboard',
     'ok' => 'OK',
+    'logout' => 'Logout',
 
     //messages
     'confirm_delete' => 'Are you sure?',
@@ -23,6 +24,9 @@ return [
     'delete_success' => 'Deleted successfully',
     "no_data_found" => "No data found",
     'total_kg_fill_first' => 'Fill Total Kg first.',
+    'edit_success' => 'Edited successfully',
+    'failed_to_fetch' => 'Failed to fetch data',
+    'enter_total' => 'Enter Total Amount',
 
     //Customer related words
     'customer' => 'Customer',
@@ -92,7 +96,18 @@ return [
     'book_total' => 'Book Total',
     'enter_sender_name' => 'Enter Sender Name',
     'enter_sender_address' => 'Enter Sender Address',
-    'enter_kg' => 'Enter Various Kg',
-    'enter_amount' => 'Enter Various Amount',
-    'various_kg_enter' => 'Enter Various Kg',
+    'enter_kg' => 'Enter Kg',
+    'enter_amount' => 'Enter Amount',
+    'various_kg_enter' => 'Enter Kg',
+    'failed_to_delete' => 'Failed to delete',
+    'cannot_delete_customer_with_orders' => 'Cannot delete customer with existing orders.',
+    'print_receipt' => 'Print Receipt',
+    'order_receipt' => 'Order Receipt',
+    'total_weight' => 'Total Weight',
+    'price_per_kg' => 'Price Per Kg',
+    'date' => 'Date',
+    'customer_information' => 'Customer Information',
+    'name' => 'Name',
+    'phone' => 'Phone',
+    'address' => 'Address',
 ];

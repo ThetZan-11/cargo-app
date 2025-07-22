@@ -352,7 +352,7 @@
                                      <div class="address-container" style="margin-bottom: 8px;">
                                         <div style="display: flex; background: #f8fafc; border-radius: 8px; padding: 25px 15px; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d; align-items: flex-start;">
                                           <div style="flex: 1; max-width: 40%;">
-                                            <h3 style="color: #2c3e50; font-size: 25px; font-weight: 900; margin: 0 0 6px 0; display: flex; align-items: center;">
+                                            <h3 style="color: #2c3e50; font-size: 20px; font-weight: 600; margin: 0 0 6px 0; display: flex; align-items: center;">
                                               ${e.sender_name}
                                             </h3>
                                             <address style="font-style: normal; line-height: 1.4; margin: 0; padding:0px 10px;">
@@ -360,7 +360,7 @@
                                             </address>
                                           </div>
                                           <div style="flex: 1; min-width: 0;">
-                                            <h3 style="color: #2c3e50; font-size: 25px; font-weight: 900; margin: 0 0 6px 0; display: flex; align-items: center;">
+                                            <h3 style="color: #2c3e50; font-size: 20px; font-weight: 600; margin: 0 0 6px 0; display: flex; align-items: center;">
                                               ${e.customers.name}
                                             </h3>
                                             <address style="font-style: normal; line-height: 1.4; margin: 0; padding:0px 10px;">
@@ -935,7 +935,10 @@
                 font-size: 10px !important;
                 font-weight: 700;
             }
-            
+            .address-card{
+                font-size: 10px !important;
+                font-weight: 500 !important;
+            }
         </style>
         <body onload="window.print(); setTimeout(() => window.close(), 200);">
             ${receiptContent}

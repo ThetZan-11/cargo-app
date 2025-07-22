@@ -146,10 +146,10 @@ class OrderController extends Controller
                 }
             }
             DB::commit();
-            return response()->json(['status' => true, 'message' => 'Order created successfully']);
+            return response()->json(['status' => true, 'message' => __('word.create_success')]);
         } catch (\Throwable $e) {
             DB::rollback();
-            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+            return response()->json(['status' => false, 'error' => __('word.error') . ': ' . $e->getMessage()], 500);
         }
     }
 
@@ -379,10 +379,10 @@ class OrderController extends Controller
             }
 
             DB::commit();
-            return response()->json(['status' => true, 'message' => 'Order updated successfully']);
+            return response()->json(['status' => true, 'message' => __('word.update_success')]);
         } catch (\Throwable $e) {
             DB::rollback();
-            return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
+            return response()->json(['status' => false, 'error' => __('word.error') . ': ' . $e->getMessage()], 500);
         }
     }
 }

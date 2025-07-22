@@ -261,7 +261,7 @@
                         Swal.fire({
                             position: "center",
                             icon: "error",
-                            title: "{{ __('customer.failed_to_fetch') }}",
+                            title: "{{ __('word.failed_to_fetch') }}",
                             showConfirmButton: false,
                             timer: 1500,
                             fadeIn: 1000,

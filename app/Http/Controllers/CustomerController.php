@@ -53,7 +53,7 @@ class CustomerController extends Controller
             ];
             Customer::create($data);
             DB::commit();
-            return response()->json(['status' => true, 'message' => 'Customer created successfully']);
+            return response()->json(['status' => true, 'message' => __('word.create_success')]);
         } catch (\Throwable $e) {
             DB::rollback();
             return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
@@ -67,11 +67,11 @@ class CustomerController extends Controller
                 DB::beginTransaction();
                 $customer = Customer::findOrFail(base64_decode($id));
                 if ($customer->receipts()->count() > 0) {
-                    return response()->json(['status' => false, 'error' => 'Cannot delete customer with existing orders.']);
+                    return response()->json(['status' => false, 'error' => __('word.cannot_delete_customer_with_orders')]);
                 }
                 $customer->delete();
                 DB::commit();
-                return response()->json(['status' => true, 'message' => 'Customer deleted successfully']);
+                return response()->json(['status' => true, 'message' => __('word.delete_success')]);
             } catch (\Throwable $e) {
                 DB::rollback();
                 return response()->json(['status' => false, 'error' => $e->getMessage()], 500);
@@ -101,7 +101,7 @@ class CustomerController extends Controller
             ];
             $customer->update($data);
             DB::commit();
-            return response()->json(['status' => true, 'message' => 'Customer updated successfully']);
+            return response()->json(['status' => true, 'message' => __('word.update_success')]);
         } catch (\Throwable $e) {
             DB::rollback();
             return response()->json(['status' => false, 'error' => $e->getMessage()], 500);

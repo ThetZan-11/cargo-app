@@ -109,7 +109,7 @@
                                     </div>
                                     <div class="form-group mt-3">
                                         <label class="form-label"
-                                            for="order_desc">{{ __('word.descrioption') }}</label>
+                                            for="order_desc">{{ __('word.description') }}</label>
                                         <textarea class="form-control" id="order_desc" placeholder="{{ __('word.enter_desc') }}" name="order_desc"
                                             rows="2"></textarea>
                                     </div>

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('order_date')->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->decimal('total_kg', 8, 2);
+            $table->softDeletes();
 
             $table->timestamps();
 

@@ -20,7 +20,7 @@
                 <form action="{{ route('auth.logout') }}" method="POST" class="d-inline">
                     @csrf
                     <button type="submit" class="btn btn-link nav-link text-dark" data-mdb-ripple-init>
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="fas fa-sign-out-alt"></i> {{ __('word.logout') }}
                     </button>
                 </form>
             </li>

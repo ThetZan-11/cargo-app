@@ -10,7 +10,7 @@
                     style="max-width: 800px; background: white; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding: 30px; margin: 20px auto;">
                     <!-- Header -->
                     <div class="mb-2 text-center">
-                        <h4 style="font-weight: 700; color: #2c3e50; margin-bottom: 5px;">ORDER RECEIPT</h4>
+                        <h4 style="font-weight: 700; color: #2c3e50; margin-bottom: 5px;">{{ __('word.order_receipt') }}</h4>
                         <div
                             style="height: 3px; background: linear-gradient(to right, #60db34, #cee13b); width: 200px; margin: 10px auto;">
                         </div>
@@ -22,19 +22,19 @@
                             <div
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
 
-                                <p style="margin-bottom: 5px;"><strong>Total Weight:</strong> <span
+                                <p style="margin-bottom: 5px;"><strong>{{ __('word.total_weight') }}:</strong> <span
                                         id="total_kg_detail"></span>
                                 </p>
-                                <p style="margin-bottom: 5px;"><strong>Price Per Kg</strong> <span
+                                <p style="margin-bottom: 5px;"><strong>{{ __('word.price_per_kg') }}</strong> <span
                                         id="price_per_kg"></span>
                                 </p>
-                                <p style="margin-bottom: 0;"><strong>Total Amount:</strong>
+                                <p style="margin-bottom: 0;"><strong>{{ __('word.total_amount') }}:</strong>
                                     <span id="total_amount_detail"></span>
                                 </p>
 
-                                <p style="margin-bottom: 5px;"><strong>Date:</strong> <span
+                                <p style="margin-bottom: 5px;"><strong>{{ __('word.date') }}:</strong> <span
                                         id="order_date_detail"></span> </p>
-                                <p style="margin-bottom: 5px;"><strong>ARP NO:</strong> <span id="arp_no_detail"></span>
+                                <p style="margin-bottom: 5px;"><strong>{{ __('word.arp_no') }}:</strong> <span id="arp_no_detail"></span>
 
                             </div>
                         </div>
@@ -47,11 +47,11 @@
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
                                 <h5
                                     style="color: #2c3e50; font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
-                                    <i class="bi bi-person-circle me-2"></i>Customer Information
+                                    <i class="bi bi-person-circle me-2"></i>{{ __('word.customer_information') }}
                                 </h5>
-                                <p style="margin-bottom: 8px;"><strong>Name:</strong> <span id="name_detail"></span></p>
-                                <p style="margin-bottom: 0;"><strong>Phone:</strong> <span id="phone_detail"></span></p>
-                                <p style="margin-bottom: 0;"><strong>Sender Name:</strong> <span
+                                <p style="margin-bottom: 8px;"><strong>{{ __('word.name') }}:</strong> <span id="name_detail"></span></p>
+                                <p style="margin-bottom: 0;"><strong>{{ __('word.phone') }}:</strong> <span id="phone_detail"></span></p>
+                                <p style="margin-bottom: 0;"><strong>{{ __('word.sender_name') }}:</strong> <span
                                         id="sender_name_detail"></span></p>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
                                 <h5
                                     style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
-                                    <i class="bi bi-geo-alt me-2"></i>Address
+                                    <i class="bi bi-geo-alt me-2"></i>{{ __('word.address') }}
                                 </h5>
                                 <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
                                     id="address_detail">
@@ -72,7 +72,7 @@
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
                                 <h5
                                     style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
-                                    <i class="bi bi-geo-alt me-2"></i>Sender Address
+                                    <i class="bi bi-geo-alt me-2"></i>{{ __('word.sender_address') }}
                                 </h5>
                                 <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
                                     id="sender_address_detail">
@@ -84,7 +84,7 @@
                                 style="background: #f8fafc; border-radius: 8px; padding: 15px; height: 100%; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d;">
                                 <h5
                                     style="color: #2c3e50; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
-                                    <i class="bi bi-geo-alt me-2"></i>Description
+                                    <i class="bi bi-geo-alt me-2"></i>{{ __('word.description') }}
                                 </h5>
                                 <address style="font-style: normal; line-height: 1.6; margin-bottom: 0;"
                                     id="description_detail">
@@ -104,6 +104,11 @@
                                 <img src="{{ asset('assets/img/juu.png') }}" alt="logo" class="img-fluid"
                                     style="max-height:150px;">
                             </div>
+
+                        </div>
+                        <div class="address-card mb-2 p-3 text-center"
+                            style="font-weight: 700; font-size: 15px; background: #fff; border-radius: 10px; color: #3b5c7f;">
+                            အမှတ်(၃/ခ) ဘောဂမြင့်မိုရ် (၂)လမ်းသွယ်၊ မြောက်ဥက္ကလာပမြို့နယ်၊ ရန်ကုန်မြို့။
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                             <div><strong>အမည် :</strong> <span id="name_receipt"></span></div>
@@ -143,18 +148,22 @@
                         </div>
                         <div class="mx-auto" id="footer-receipt"
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px;">
-                            <div class="greeting">မှာယူအားပေးမှုအတွက် ကျေးဇူးတင်ပါသည်။</div>
+                            <div class="greeting">
+                                မှာယူအားပေးမှုအတွက် ကျေးဇူးတင်ပါသည်။
+                                <i class="fa-regular fa-face-laugh-wink"></i>
+                            </div>
                             <div class="sign" style="font-size: 0.95rem; color: #888;">လက်မှတ် ____________________
                             </div>
                         </div>
                         <div id="address-container" class="mt-3 p-3 text-center"
-                            style="background-color: #ffffff; border-radius:10px;">
-                            အမှတ်(၃/ခ) ဘောဂမြင့်မိုရ် (၂)လမ်းသွယ်၊ မြောက်ဥက္ကလာပမြို့နယ်၊ ရန်ကုန်မြို့။
+                            style="background-color: #ffffff; border-radius:10px; color: #e85555; font-weight: 600; font-size: 1rem;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> တားမြစ်ပစ္စည်းများ ခိုးဝှက်တွေ့ရှိပါက
+                            တာဝန်မယူပါ။ <i class="fa-solid fa-triangle-exclamation"></i>
                         </div>
                     </div>
                     <!-- RECEIPT DESIGN END -->
                     <button id="print-receipt-btn" class="btn btn-primary mt-3" type="button"
-                        onclick="printReceipt()"><i class="fa fa-print"></i> Print Receipt</button>
+                        onclick="printReceipt()"><i class="fa fa-print"></i> {{ __('word.print_receipt') }}</button>
                 </div>
             </div>
             <div class="modal-footer">
