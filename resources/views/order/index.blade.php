@@ -89,8 +89,6 @@
                                 console.log(thisResponse)
                                 $('#customer_name_edit').val(thisResponse.customers.name);
                                 $('#customer_hidden_id_edit').val(thisResponse.customers.id);
-                                $('#various_kg_edit').val(thisResponse.total_kg);
-                                $('#various_amount_edit').val(thisResponse.total_amount);
                                 $('#order_date_edit').val(thisResponse.order_date);
                                 $('#sender_name_edit').val(thisResponse.sender_name);
                                 $('#sender_address_edit').val(thisResponse.sender_address);
@@ -116,7 +114,12 @@
                                 if (thisResponse.orders && Array.isArray(thisResponse.orders)) {
                                     console.log(thisResponse.orders)
                                     thisResponse.orders.forEach(function(order) {
-
+                                        if (order.product_id == 1) {
+                                            $('#various_kg_edit').val(order
+                                                .total_kg);
+                                            $('#various_amount_edit').val(order
+                                                .line_total);
+                                        }
                                         // Checkbox
                                         $('#' + order.products.name_en + '_edit').prop(
                                             'checked', true);
@@ -126,7 +129,7 @@
                                             order.total_kg);
                                         $('#' + order.products.name_en + '_total_edit').val(
                                             order.line_total);
-                                        if (order.products.name_en !== 'box' || order
+                                        if (order.products.name_en !== 'box' && order
                                             .status == 1) {
                                             $('#' + order.products.name_en +
                                                 '_kg_plus_edit').prop('checked', true);
@@ -709,8 +712,6 @@
                             console.log(thisResponse)
                             $('#customer_name_edit').val(thisResponse.customers.name);
                             $('#customer_hidden_id_edit').val(thisResponse.customers.id);
-                            // $('#various_kg_edit').val(thisResponse.total_kg);
-                            // $('#various_amount_edit').val(thisResponse.orders[0].total_amount);
                             $('#order_date_edit').val(thisResponse.order_date);
                             $('#sender_name_edit').val(thisResponse.sender_name);
                             $('#sender_address_edit').val(thisResponse.sender_address);
@@ -736,7 +737,7 @@
                             if (thisResponse.orders && Array.isArray(thisResponse.orders)) {
                                 console.log(thisResponse.orders)
                                 thisResponse.orders.forEach(function(order) {
-                                    if (order.products.id == 1) {
+                                    if (order.product_id == 1) {
                                         $('#various_kg_edit').val(order
                                             .total_kg);
                                         $('#various_amount_edit').val(order
@@ -751,7 +752,7 @@
                                         order.total_kg);
                                     $('#' + order.products.name_en + '_total_edit').val(
                                         order.line_total);
-                                    if (order.products.name_en !== 'box' || order
+                                    if (order.products.name_en !== 'box' && order
                                         .status == 1) {
                                         $('#' + order.products.name_en +
                                             '_kg_plus_edit').prop('checked', true);
