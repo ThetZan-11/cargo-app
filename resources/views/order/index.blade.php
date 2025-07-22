@@ -537,6 +537,7 @@
                 bookKg = $('#book_kg').val()
                 clothKg = $('#cloth_kg').val()
                 pharmacyKg = $('#pharmacy_kg').val()
+                cosmeticKg = $('#cosmetic_kg').val()
                 $('#meat_kg_plus').is(':checked') ? $('#meat_kg_plus').val(meatKg) : $('#meat_kg_plus').val(
                     0)
                 $('#book_kg_plus').is(':checked') ? $('#book_kg_plus').val(bookKg) : $('#book_kg_plus').val(
@@ -545,6 +546,9 @@
                     .val(0)
                 $('#pharmacy_kg_plus').is(':checked') ? $('#pharmacy_kg_plus').val(pharmacyKg) : $(
                     '#pharmacy_kg_plus').val(0)
+                $('#cosmetic_kg_plus').is(':checked') ? $('#cosmetic_kg_plus').val(cosmeticKg) : $(
+                        '#cosmetic_kg_plus')
+                    .val(0)
                 var formData = new FormData($('#order-form')[0])
                 $('#loader').css('display', 'flex');
                 $.ajax({
@@ -607,6 +611,7 @@
             }
 
             function orderDataFetch(id) {
+                $('#loader').css('display', 'flex');
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('order.getDataEdit', '') }}/" + id,
@@ -675,8 +680,10 @@
                                 fadeIn: 1000,
                             });
                         }
+                        $('#loader').css('display', 'none');
                     },
                     error: function(xhr) {
+                        $('#loader').css('display', 'none');
                         Swal.fire({
                             position: "center",
                             icon: "error",
@@ -785,6 +792,8 @@
                     '#cloth_kg_plus_edit').val(0);
                 $('#pharmacy_kg_plus_edit').is(':checked') ? $('#pharmacy_kg_plus_edit').val(
                     pharmacyKgEdit) : $('#pharmacy_kg_plus_edit').val(0);
+                $('#cosmetic_kg_plus_edit').is(':checked') ? $('#cosmetic_kg_plus_edit').val(
+                    pharmacyKgEdit) : $('#cosmetic_kg_plus_edit').val(0);
 
                 var formData = new FormData($('#order-form-edit')[0]);
                 $('#loader').css('display', 'flex');

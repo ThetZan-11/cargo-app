@@ -20,7 +20,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover w-100" id="datatable">
+                            <table class="table-hover w-100 table" id="datatable">
                                 <thead>
                                     <tr>
                                         <th class="no-sort no-search"></th>
@@ -127,42 +127,42 @@
                 e.preventDefault();
                 var formData = new FormData(this);
                 $('#loader').css('display', 'flex');
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('customer.store') }}",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function(response) {
-                            if (response.status == true) {
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "success",
-                                    title: '{{ __('word.create_success') }}',
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    fadeIn: 1000,
-                                });
-                            }
-                            $('#loader').css('display', 'none');
-                            $('#createCustomerModal').modal('hide');
-                            $('#customer-form')[0].reset();
-                            table.ajax.reload();
-                        },
-                        error: function(xhr, status, error, response) {
-                            $('#loader').css('display', 'none');
-                            var errors = xhr.responseJSON.message;
-                            console.error(errors);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('customer.store') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status == true) {
                             Swal.fire({
                                 position: "center",
-                                icon: "error",
-                                title: errors,
+                                icon: "success",
+                                title: '{{ __('word.create_success') }}',
                                 showConfirmButton: false,
                                 timer: 1500,
                                 fadeIn: 1000,
                             });
                         }
-                    });
+                        $('#loader').css('display', 'none');
+                        $('#createCustomerModal').modal('hide');
+                        $('#customer-form')[0].reset();
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error, response) {
+                        $('#loader').css('display', 'none');
+                        var errors = xhr.responseJSON.message;
+                        console.error(errors);
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: errors,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            fadeIn: 1000,
+                        });
+                    }
+                });
             });
 
             //Delete Button Click
@@ -185,37 +185,25 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#loader').css('display', 'flex');
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ route('customer.delete', '') }}/" + id,
-                                data: {
-                                    "_token": "{{ csrf_token() }}"
-                                },
-                                success: function(response) {
-                                    if (response.status) {
-                                        $('#loader').css('display', 'none');
-                                        Swal.fire({
-                                            position: "center",
-                                            icon: "success",
-                                            title: "{{ __('word.success') }}",
-                                            showConfirmButton: false,
-                                            timer: 1500,
-                                            fadeIn: 1000,
-                                        });
-                                        table.ajax.reload();
-                                    } else {
-                                        $('#loader').css('display', 'none');
-                                        Swal.fire({
-                                            position: "center",
-                                            icon: "error",
-                                            title: "{{ __('word.failed_to_delete') }}",
-                                            showConfirmButton: false,
-                                            timer: 1500,
-                                            fadeIn: 1000,
-                                        });
-                                    }
-                                },
-                                error: function(xhr) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('customer.delete', '') }}/" + id,
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                if (response.status) {
+                                    $('#loader').css('display', 'none');
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: "{{ __('word.success') }}",
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                        fadeIn: 1000,
+                                    });
+                                    table.ajax.reload();
+                                } else {
                                     $('#loader').css('display', 'none');
                                     Swal.fire({
                                         position: "center",
@@ -226,7 +214,19 @@
                                         fadeIn: 1000,
                                     });
                                 }
-                            });
+                            },
+                            error: function(xhr) {
+                                $('#loader').css('display', 'none');
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "error",
+                                    title: "{{ __('word.failed_to_delete') }}",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    fadeIn: 1000,
+                                });
+                            }
+                        });
                     }
                 });
             });
@@ -238,7 +238,6 @@
                     type: 'GET',
                     url: "{{ route('customer.getDataEdit', '') }}/" + id,
                     success: function(response) {
-                        console.log(response);
                         if (response.status) {
                             $('#editCustomerModal').modal('show');
                             $('#edit_id').val(btoa(response.data.id));
@@ -277,41 +276,41 @@
                 edit_id = $('#edit_id').val()
                 var formData = new FormData(this);
                 $('#loader').css('display', 'flex');
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('customer.update', '') }}/" + edit_id,
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function(response) {
-                            if (response.status == true) {
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "success",
-                                    title: '{{ __('word.update_success') }}',
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    fadeIn: 1000,
-                                });
-                            }
-                            $('#loader').css('display', 'none');
-                            $('#editCustomerModal').modal('hide');
-                            $('#customer-form-edit')[0].reset();
-                            table.ajax.reload();
-                        },
-                        error: function(xhr, status, error, response) {
-                            $('#loader').css('display', 'none');
-                            var errors = xhr.responseJSON.message;
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('customer.update', '') }}/" + edit_id,
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status == true) {
                             Swal.fire({
                                 position: "center",
-                                icon: "error",
-                                title: errors,
+                                icon: "success",
+                                title: '{{ __('word.update_success') }}',
                                 showConfirmButton: false,
                                 timer: 1500,
                                 fadeIn: 1000,
                             });
                         }
-                    });
+                        $('#loader').css('display', 'none');
+                        $('#editCustomerModal').modal('hide');
+                        $('#customer-form-edit')[0].reset();
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error, response) {
+                        $('#loader').css('display', 'none');
+                        var errors = xhr.responseJSON.message;
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: errors,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            fadeIn: 1000,
+                        });
+                    }
+                });
             });
         });
     </script>

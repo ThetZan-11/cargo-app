@@ -66,7 +66,7 @@ class CustomerController extends Controller
             try {
                 DB::beginTransaction();
                 $customer = Customer::findOrFail(base64_decode($id));
-                if ($customer->orders()->count() > 0) {
+                if ($customer->receipts()->count() > 0) {
                     return response()->json(['status' => false, 'error' => 'Cannot delete customer with existing orders.']);
                 }
                 $customer->delete();
