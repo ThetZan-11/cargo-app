@@ -67,6 +67,10 @@
                                                                     {{ $price->countries->country_code == 'SG' ? $price->price_per_kg : number_format($price->price_per_kg) }}
                                                                     {{ $price->countries->country_code == 'SG' ? " $" : ' MMK' }}</span>
                                                                 ({{ $price->countries->country_name }})
+                                                                <span
+                                                                    class="badge rounded-pill text-light {{ $price->price_type == 'public' ? 'bg-primary' : 'bg-danger' }} ms-2">
+                                                                    {{ $price->price_type == 'public' ? __('word.public') : __('word.agent') }}
+                                                                </span>
                                                             </span>
                                                         </div>
                                                     @endforeach
