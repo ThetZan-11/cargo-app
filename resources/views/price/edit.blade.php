@@ -28,20 +28,30 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div  class="form-group">
+                                        <div class="form-group">
                                             <label class="form-label" for="edit_min_kg">{{ __('word.min_kg') }}</label>
                                             <input type="text" id="edit_min_kg" name="edit_min_kg"
                                                 class="form-control" />
                                         </div>
-                                        <div  class="form-group">
+                                        <div class="form-group">
                                             <label class="form-label" for="edit_max_kg">{{ __('word.max_kg') }}</label>
                                             <input type="text" id="edit_max_kg" name="edit_max_kg"
                                                 class="form-control" />
                                         </div>
-                                        <div  class="form-group">
+                                        <div class="form-group">
                                             <label class="form-label" for="edit_price">{{ __('word.price') }}</label>
                                             <input type="text" id="edit_price" name="edit_price"
                                                 class="form-control" />
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label class="form-label"
+                                                for="edit_price_type">{{ __('word.price_type') }}</label>
+                                            <select class="form-select" id="edit_price_type" name="edit_price_type"
+                                                aria-label="Default select example">
+                                                <option selected>{{ __('word.select_price_type') }}</option>
+                                                <option value="public">{{ __('word.public') }}</option>
+                                                <option value="agent">{{ __('word.agent') }}</option>
+                                            </select>
                                         </div>
                                 </div>
                             </div>

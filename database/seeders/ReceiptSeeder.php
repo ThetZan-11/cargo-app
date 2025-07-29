@@ -27,9 +27,12 @@ class ReceiptSeeder extends Seeder
                 'arp_no' => $faker->unique()->numerify('ARP####'),
                 'order_date' => $faker->date(),
                 'total_amount' => $faker->randomFloat(2, 100, 10000),
+                'sender_name' => $faker->name,
+                'sender_address' => $faker->address,
+                'total_kg' => $faker->randomFloat(2, 1, 100),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
         }
     }
-} 
+}

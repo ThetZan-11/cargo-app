@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover w-100" id="datatable">
+                            <table class="table-hover w-100 table" id="datatable">
                                 <thead>
                                     <tr>
                                         <th class="no-sort no-search"></th>
@@ -27,6 +27,7 @@
                                         <th class="text-center">{{ __('word.min_kg') }}</th>
                                         <th class="text-center">{{ __('word.max_kg') }}</th>
                                         <th class="text-center">{{ __('word.price') }}</th>
+                                        <th class="text-center">{{ __('word.price_type') }}</th>
                                         <th class="text-center">{{ __('word.action') }}</th>
                                     </tr>
                                 </thead>
@@ -95,6 +96,12 @@
                         responsivePriority: 4
                     },
                     {
+                        data: 'price_type',
+                        name: 'price_type',
+                        className: 'text-center',
+                        responsivePriority: 5
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         className: 'text-center',
@@ -117,42 +124,42 @@
                 e.preventDefault();
                 var formData = new FormData(this);
                 $('#loader').css('display', 'flex');
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('price.store') }}",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function(response) {
-                            if (response.status == true) {
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "success",
-                                    title: '{{ __('word.create_success') }}',
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    fadeIn: 1000,
-                                });
-                            }
-                            $('#loader').css('display', 'none');
-                            $('#createPriceModal').modal('hide');
-                            $('#price-form')[0].reset();
-                            table.ajax.reload();
-                        },
-                        error: function(xhr, status, error, response) {
-                            $('#loader').css('display', 'none');
-                            var errors = xhr.responseJSON.message;
-                            console.error(errors);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('price.store') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status == true) {
                             Swal.fire({
                                 position: "center",
-                                icon: "error",
-                                title: errors,
+                                icon: "success",
+                                title: '{{ __('word.create_success') }}',
                                 showConfirmButton: false,
                                 timer: 1500,
                                 fadeIn: 1000,
                             });
                         }
-                    });
+                        $('#loader').css('display', 'none');
+                        $('#createPriceModal').modal('hide');
+                        $('#price-form')[0].reset();
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error, response) {
+                        $('#loader').css('display', 'none');
+                        var errors = xhr.responseJSON.message;
+                        console.error(errors);
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: errors,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            fadeIn: 1000,
+                        });
+                    }
+                });
             });
 
             //Delete Button Click
@@ -175,37 +182,25 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#loader').css('display', 'flex');
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ route('price.delete', '') }}/" + id,
-                                data: {
-                                    "_token": "{{ csrf_token() }}"
-                                },
-                                success: function(response) {
-                                    if (response.status) {
-                                        $('#loader').css('display', 'none');
-                                        Swal.fire({
-                                            position: "center",
-                                            icon: "success",
-                                            title: "{{ __('word.success') }}",
-                                            showConfirmButton: false,
-                                            timer: 1500,
-                                            fadeIn: 1000,
-                                        });
-                                        table.ajax.reload();
-                                    } else {
-                                        $('#loader').css('display', 'none');
-                                        Swal.fire({
-                                            position: "center",
-                                            icon: "error",
-                                            title: "{{ __('word.failed_to_delete') }}",
-                                            showConfirmButton: false,
-                                            timer: 1500,
-                                            fadeIn: 1000,
-                                        });
-                                    }
-                                },
-                                error: function(xhr) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('price.delete', '') }}/" + id,
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                if (response.status) {
+                                    $('#loader').css('display', 'none');
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: "{{ __('word.success') }}",
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                        fadeIn: 1000,
+                                    });
+                                    table.ajax.reload();
+                                } else {
                                     $('#loader').css('display', 'none');
                                     Swal.fire({
                                         position: "center",
@@ -216,7 +211,19 @@
                                         fadeIn: 1000,
                                     });
                                 }
-                            });
+                            },
+                            error: function(xhr) {
+                                $('#loader').css('display', 'none');
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "error",
+                                    title: "{{ __('word.failed_to_delete') }}",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    fadeIn: 1000,
+                                });
+                            }
+                        });
                     }
                 });
             });
@@ -235,6 +242,7 @@
                             $('#edit_min_kg').val(response.data.min_kg);
                             $('#edit_max_kg').val(response.data.max_kg);
                             $('#edit_price').val(response.data.price_per_kg);
+                            $('#edit_price_type').val(response.data.price_type);
                         } else {
                             Swal.fire({
                                 position: "center",
@@ -265,41 +273,41 @@
                 edit_id = $('#edit_id').val()
                 var formData = new FormData(this);
                 $('#loader').css('display', 'flex');
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('price.update', '') }}/" + edit_id,
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function(response) {
-                            if (response.status == true) {
-                                Swal.fire({
-                                    position: "center",
-                                    icon: "success",
-                                    title: '{{ __('word.update_success') }}',
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    fadeIn: 1000,
-                                });
-                            }
-                            $('#loader').css('display', 'none');
-                            $('#editPriceModal').modal('hide');
-                            $('#price-form-edit')[0].reset();
-                            table.ajax.reload();
-                        },
-                        error: function(xhr, status, error, response) {
-                            $('#loader').css('display', 'none');
-                            var errors = xhr.responseJSON.message;
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('price.update', '') }}/" + edit_id,
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status == true) {
                             Swal.fire({
                                 position: "center",
-                                icon: "error",
-                                title: errors,
+                                icon: "success",
+                                title: '{{ __('word.update_success') }}',
                                 showConfirmButton: false,
                                 timer: 1500,
                                 fadeIn: 1000,
                             });
                         }
-                    });
+                        $('#loader').css('display', 'none');
+                        $('#editPriceModal').modal('hide');
+                        $('#price-form-edit')[0].reset();
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error, response) {
+                        $('#loader').css('display', 'none');
+                        var errors = xhr.responseJSON.message;
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: errors,
+                            showConfirmButton: false,
+                            timer: 1500,
+                            fadeIn: 1000,
+                        });
+                    }
+                });
             });
         });
     </script>

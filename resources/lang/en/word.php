@@ -61,6 +61,10 @@ return [
     'min_kg_enter' => 'Enter Min Kg',
     'max_kg_enter' => 'Enter Max Kg',
     'price_select' => 'Select Price',
+    'price_type' => 'Price Type',
+    'select_price_type' => 'Select Price Type',
+    'public' => 'Public',
+    'agent' => 'Agent',
 
     //Order related words
     'order' => 'Order',

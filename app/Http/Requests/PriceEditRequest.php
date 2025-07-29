@@ -26,6 +26,7 @@ class PriceEditRequest extends FormRequest
             'edit_min_kg' => 'required|numeric|min:0',
             'edit_max_kg' => 'required|numeric|min:0',
             'edit_price' => 'required|numeric|min:0',
+            'edit_price_type' => 'required|in:public,agent',
         ];
     }
 
@@ -43,6 +44,7 @@ class PriceEditRequest extends FormRequest
             'edit_max_kg.min'       => __('validation.min', ['attribute' => __('word.max_kg'), 'min' => 0]),
             'edit_max_kg.gt'        => __('validation.gt', ['attribute' => __('word.max_kg'), 'other' => __('word.min_kg')]),
             'edit_country.exists'   => __('validation.exists', ['attribute' => __('word.selected_country')]),
+            'edit_price_type.required' => __('validation.required', ['attribute' => __('word.price_type')]),
         ];
     }
 }

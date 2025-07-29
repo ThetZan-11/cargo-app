@@ -15,6 +15,7 @@ class Price extends Model
         'min_kg',
         'max_kg',
         'price_per_kg',
+        'price_type',
     ];
     public function orders()
     {

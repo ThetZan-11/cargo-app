@@ -10,7 +10,8 @@
                     style="max-width: 800px; background: white; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding: 30px; margin: 20px auto;">
                     <!-- Header -->
                     <div class="mb-2 text-center">
-                        <h4 style="font-weight: 700; color: #2c3e50; margin-bottom: 5px;">{{ __('word.order_receipt') }}</h4>
+                        <h4 style="font-weight: 700; color: #2c3e50; margin-bottom: 5px;">{{ __('word.order_receipt') }}
+                        </h4>
                         <div
                             style="height: 3px; background: linear-gradient(to right, #60db34, #cee13b); width: 200px; margin: 10px auto;">
                         </div>
@@ -34,7 +35,8 @@
 
                                 <p style="margin-bottom: 5px;"><strong>{{ __('word.date') }}:</strong> <span
                                         id="order_date_detail"></span> </p>
-                                <p style="margin-bottom: 5px;"><strong>{{ __('word.arp_no') }}:</strong> <span id="arp_no_detail"></span>
+                                <p style="margin-bottom: 5px;"><strong>{{ __('word.arp_no') }}:</strong> <span
+                                        id="arp_no_detail"></span>
 
                             </div>
                         </div>
@@ -49,8 +51,10 @@
                                     style="color: #2c3e50; font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center;">
                                     <i class="bi bi-person-circle me-2"></i>{{ __('word.customer_information') }}
                                 </h5>
-                                <p style="margin-bottom: 8px;"><strong>{{ __('word.name') }}:</strong> <span id="name_detail"></span></p>
-                                <p style="margin-bottom: 0;"><strong>{{ __('word.phone') }}:</strong> <span id="phone_detail"></span></p>
+                                <p style="margin-bottom: 8px;"><strong>{{ __('word.name') }}:</strong> <span
+                                        id="name_detail"></span></p>
+                                <p style="margin-bottom: 0;"><strong>{{ __('word.phone') }}:</strong> <span
+                                        id="phone_detail"></span></p>
                                 <p style="margin-bottom: 0;"><strong>{{ __('word.sender_name') }}:</strong> <span
                                         id="sender_name_detail"></span></p>
                             </div>
@@ -116,8 +120,7 @@
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                             <div><strong>ရက်စွဲ :</strong> <span id="order_date_receipt"></span></div>
-                            <div><strong>ဖုန်: ................................</strong> <span
-                                    id="phone_receipt"></span></div>
+                            <div><strong>ဖုန်း :</strong> <span id="phone_receipt"></span></div>
                         </div>
                         <div style="overflow-x: auto; width: 100%;" id="table-receipt">
                             <table class="table-bordered receipt-table table"

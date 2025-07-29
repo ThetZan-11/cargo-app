@@ -31,12 +31,14 @@ class PriceController extends Controller
                 return $row->max_kg . ' Kg';
             })
             ->editColumn('price_per_kg', function ($row) {
-                // var_dump($row->countries->country_code);
                 $row->countries->country_code == 'SG' ? $unit = " $" : $unit = " MMK";
                 return number_format($row->price_per_kg, 2) . $unit;
             })
             ->addColumn('country_flag', function ($row) {
                 return $row->countries->country_flag;
+            })
+            ->editColumn('price_type', function ($row) {
+                return $row->price_type == 'public' ? 'Public' : 'Agent';
             })
             ->addColumn('action', function ($row) {
                 $id = base64_encode($row->id);
@@ -63,6 +65,7 @@ class PriceController extends Controller
                 'min_kg'         => $request->min_kg,
                 'max_kg'         => $request->max_kg,
                 'price_per_kg'   => $request->price,
+                'price_type'     => $request->price_type,
             ];
             Price::create($data);
             DB::commit();
@@ -112,6 +115,7 @@ class PriceController extends Controller
                 'min_kg'         => $request->edit_min_kg,
                 'max_kg'         => $request->edit_max_kg,
                 'price_per_kg'   => $request->edit_price,
+                'price_type'     => $request->edit_price_type,
             ];
             Price::create($data);
             DB::commit();

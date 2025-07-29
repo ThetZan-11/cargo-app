@@ -29,9 +29,10 @@ class OrderSeeder extends Seeder
                 'product_id' => $product->id,
                 'total_kg' => $total_kg,
                 'line_total' => $line_total,
+                'status' => $faker->randomElement([0, 1]),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
         }
     }
-} 
+}

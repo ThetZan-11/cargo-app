@@ -14,7 +14,7 @@ class CountrySeeder extends Seeder
             ['country_name' => 'Singapore', 'country_code' => 'SG'],
             ['country_name' => 'Malaysia', 'country_code' => 'MY'],
             ['country_name' => 'Japan', 'country_code' => 'JP'],
-            ['country_name' => 'South Korea', 'country_code' => 'KR'],
+            ['country_name' => 'Korea', 'country_code' => 'KR'],
         ];
 
         foreach ($countries as $country) {

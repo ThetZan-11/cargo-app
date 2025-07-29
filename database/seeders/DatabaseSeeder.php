@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             ProductSeeder::class,
             UserSeeder::class,
+            CustomerSeeder::class,
+            PriceSeeder::class,
+            ReceiptSeeder::class,
+            OrderSeeder::class,
         ]);
     }
 }

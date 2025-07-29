@@ -56,6 +56,10 @@ return [
     'min_kg_enter' => 'အနည်းဆုံး Kg ထည့်ပါ',
     'max_kg_enter' => 'အများဆုံး Kg ထည့်ပါ',
     'price_select' => 'ဈေးနှုန်းရွေးချယ်ရန်',
+    'price_type' => 'ဈေးနှုန်းအမျိုးအစား',
+    'select_price_type' => 'ဈေးနှုန်းအမျိုးအစားရွေးချယ်ရန်',
+    'public' => 'အများပြည်သူ',
+    'agent' => 'အေးဂျင့်',
 
     //Order related words
     'order' => 'အော်ဒါ',

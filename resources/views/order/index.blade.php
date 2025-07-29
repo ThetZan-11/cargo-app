@@ -348,28 +348,31 @@
                         if (response.status == true) {
                             let originalAddress = ""
                             response.data.forEach(e => {
-                                originalAddress += `
-                                     <div class="address-container" style="margin-bottom: 8px;">
+                                for (let i = 0; i < printSelectVal; i++) {
+                                    originalAddress += `
+                                    <div class="address-container">
                                         <div style="display: flex; background: #f8fafc; border-radius: 8px; padding: 25px 15px; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d; align-items: flex-start;">
-                                          <div style="flex: 1; max-width: 40%;">
-                                            <h3 style="color: #2c3e50; font-size: 20px; font-weight: 600; margin: 0 0 6px 0; display: flex; align-items: center;">
-                                              ${e.sender_name}
-                                            </h3>
-                                            <address style="font-style: normal; line-height: 1.4; margin: 0; padding:0px 10px;">
-                                              ${e.sender_address}
-                                            </address>
-                                          </div>
-                                          <div style="flex: 1; min-width: 0;">
-                                            <h3 style="color: #2c3e50; font-size: 20px; font-weight: 600; margin: 0 0 6px 0; display: flex; align-items: center;">
-                                              ${e.customers.name}
-                                            </h3>
-                                            <address style="font-style: normal; line-height: 1.4; margin: 0; padding:0px 10px;">
-                                              ${e.customers.address}
-                                            </address>
-                                          </div>
+                                            <div style="flex: 1; max-width: 50%; padding-right: 10px; border-right: 1px solid #ccc;">
+                                                <h3 style="color: #2c3e50; font-size: 20px; font-weight: 600; margin: 0 0 6px 0;">
+                                                    ${e.sender_name}
+                                                </h3>
+                                                <address style="font-style: normal; line-height: 1.4; margin: 0;">
+                                                    ${e.sender_address}
+                                                </address>
+                                            </div>
+                                            <div style="flex: 1; padding-left: 10px;">
+                                                <h3 style="color: #2c3e50; font-size: 20px; font-weight: 600; margin: 0 0 6px 0;">
+                                                    ${e.customers.name}
+                                                </h3>
+                                                <address style="font-style: normal; line-height: 1.4; margin: 0;">
+                                                    ${e.customers.address}
+                                                </address>
+                                            </div>
                                         </div>
-                                      </div>
-                                    `
+                                    </div>
+                                    <div style="border-bottom: 2px dotted black; margin: 15px 0;"></div>
+                                        `;
+                                }
                             });
 
                             const printHtml = `
@@ -391,7 +394,6 @@
                     .label-grid {
                         display: flex;
                         flex-direction: column;
-                        gap: 20px;
                     }
                     .address-container {
                         page-break-inside: avoid;
@@ -644,6 +646,7 @@
                             $("#name_receipt").text(receipts.customers.name)
                             $("#country_receipt").text(receipts.prices.countries.country_name)
                             $('#order_date_receipt').text(receipts.order_date)
+                            $('#phone_receipt').text(receipts.customers.phone)
                             let lang = {{ App::getLocale() == 'en' ? 'true' : 'false' }};
                             let descContainer = ''
                             let i = 0;
@@ -735,7 +738,6 @@
                                     '.option-image-edit, .option-text-edit').clone());
                             }
                             if (thisResponse.orders && Array.isArray(thisResponse.orders)) {
-                                console.log(thisResponse.orders)
                                 thisResponse.orders.forEach(function(order) {
                                     if (order.product_id == 1) {
                                         $('#various_kg_edit').val(order

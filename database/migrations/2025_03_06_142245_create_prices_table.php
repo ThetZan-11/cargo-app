@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('min_kg');
             $table->decimal('max_kg');
             $table->decimal('price_per_kg');
+            $table->enum('price_type', ['public', 'agent'])->default('public');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -26,6 +26,7 @@ class PriceCreateRequest extends FormRequest
             'min_kg'    => 'required|numeric|min:0',
             'max_kg'    => 'required|numeric|min:0|gt:min_kg',
             'price'     => 'required|numeric|min:0',
+            'price_type' => 'required|in:public,agent',
         ];
     }
 
@@ -45,6 +46,7 @@ class PriceCreateRequest extends FormRequest
             'country.exists'      => __('validation.exists', ['attribute' => __('word.country')]),
             'min_kg.max'          => __('validation.max', ['attribute' => __('word.min_kg'), 'max' => 1000000]),
             'max_kg.max'          => __('validation.max', ['attribute' => __('word.max_kg'), 'max' => 1000000]),
+            'price_type.required' => __('validation.required', ['attribute' => __('word.price_type')]),
         ];
     }
 }
