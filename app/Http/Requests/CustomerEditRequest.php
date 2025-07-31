@@ -25,7 +25,7 @@ class CustomerEditRequest extends FormRequest
             'edit_name'      => 'required|string|max:100',
             'edit_email'     => 'nullable|email|max:200',
             'edit_phone'     => 'required|string|max:11',
-            'edit_phone2'    => 'string|max:11',
+            'edit_phone2'    => 'nullable|max:15',
             'edit_address'   => 'required|string|max:200',
         ];
     }

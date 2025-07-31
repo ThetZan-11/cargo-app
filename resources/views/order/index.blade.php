@@ -351,7 +351,7 @@
                                 for (let i = 0; i < printSelectVal; i++) {
                                     originalAddress += `
                                     <div class="address-container">
-                                        <div style="display: flex; background: #f8fafc; border-radius: 8px; padding: 25px 15px; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d; align-items: flex-start;">
+                                        <div style="display: flex; background: #f8fafc; border-radius: 8px; padding: 5px 15px; border-left: 4px solid #b4c640; box-shadow: 2px 2px 5px #0000000d; align-items: flex-start;">
                                             <div style="flex: 1; max-width: 50%; padding-right: 10px; border-right: 1px solid #ccc;">
                                                 <h3 style="color: #2c3e50; font-size: 20px; font-weight: 600; margin: 0 0 6px 0;">
                                                     ${e.sender_name}
@@ -376,47 +376,47 @@
                             });
 
                             const printHtml = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Address Labels</title>
-                <style>
-                    body { 
-                        margin: 0; 
-                        padding: 0; 
-                        font-family: Arial, sans-serif;
-                        background: white;
-                    }
-                    .label-page {
-                        width: 8.5in;
-                        box-sizing: border-box;
-                    }
-                    .label-grid {
-                        display: flex;
-                        flex-direction: column;
-                    }
-                    .address-container {
-                        page-break-inside: avoid;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="label-page">
-                    <div class="label-grid">
-                        ${Array(printSelectVal).fill(originalAddress).join('')}
-                    </div>
-                </div>
-                <script>
-                    window.onload = function() {
-                        setTimeout(function() {
-                            window.print();
-                            window.close();
-                        }, 300);
-                    };
-                <\/script>
-            </body>
-            </html>
-        `;
+                                <!DOCTYPE html>
+                                <html>
+                                <head>
+                                    <title>Address Labels</title>
+                                    <style>
+                                        body { 
+                                            margin: 0; 
+                                            padding: 0; 
+                                            font-family: Arial, sans-serif;
+                                            background: white;
+                                        }
+                                        .label-page {
+                                            width: 8.5in;
+                                            box-sizing: border-box;
+                                        }
+                                        .label-grid {
+                                            display: flex;
+                                            flex-direction: column;
+                                        }
+                                        .address-container {
+                                            page-break-inside: avoid;
+                                        }
+                                    </style>
+                                </head>
+                                <body>
+                                    <div class="label-page">
+                                        <div class="label-grid">
+                                            ${originalAddress}
+                                        </div>
+                                    </div>
+                                    <script>
+                                        window.onload = function() {
+                                            setTimeout(function() {
+                                                window.print();
+                                                window.close();
+                                            }, 300);
+                                        };
+                                    <\/script>
+                                </body>
+                                </html>
+                            `;
 
                             // Open print window
                             const printWindow = window.open('', '_blank');
