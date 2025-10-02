@@ -86,7 +86,6 @@
                         success: function(response) {
                             let thisResponse = response.receipt
                             if (response.status) {
-                                console.log(thisResponse)
                                 $('#customer_name_edit').val(thisResponse.customers.name);
                                 $('#customer_hidden_id_edit').val(thisResponse.customers.id);
                                 $('#order_date_edit').val(thisResponse.order_date);
@@ -112,7 +111,6 @@
                                         '.option-image-edit, .option-text-edit').clone());
                                 }
                                 if (thisResponse.orders && Array.isArray(thisResponse.orders)) {
-                                    console.log(thisResponse.orders)
                                     thisResponse.orders.forEach(function(order) {
                                         if (order.product_id == 1) {
                                             $('#various_kg_edit').val(order
@@ -712,7 +710,6 @@
                     success: function(response) {
                         let thisResponse = response.receipt
                         if (response.status) {
-                            console.log(thisResponse)
                             $('#customer_name_edit').val(thisResponse.customers.name);
                             $('#customer_hidden_id_edit').val(thisResponse.customers.id);
                             $('#order_date_edit').val(thisResponse.order_date);

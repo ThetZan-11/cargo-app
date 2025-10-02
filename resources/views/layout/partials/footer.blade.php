@@ -17,6 +17,14 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <script src="{{ asset('assets/flatpickr.js') }}"></script>
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('{{ asset('service-worker.js') }}')
+                .catch(function (error) { console.error('SW registration failed:', error); });
+        });
+    }
+    </script>
     @yield('scripts')
     </body>
 
